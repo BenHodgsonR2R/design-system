@@ -77,9 +77,7 @@ export function Page({
                 <span class="text-accent">{project}</span>
               )}
               <span class="text-muted"> $</span>
-              <span class="ml-1 inline-block w-[0.6em] animate-blink bg-ink motion-reduce:animate-none">
-                &nbsp;
-              </span>
+              <span class="ml-1 inline-block h-[1em] w-0.5 animate-caret bg-muted align-middle opacity-0 motion-reduce:hidden" />
             </span>
           </a>
           <a
@@ -93,21 +91,24 @@ export function Page({
         </nav>
       </div>
 
-      <header class="px-3 pt-6">
-        <div class="mx-auto max-w-6xl rounded-2xl border border-line-strong bg-surface px-6 py-10 shadow-window sm:px-10 sm:py-14">
+      {/* Page-level, so it sits on the canvas rather than in a window like the panels. */}
+      <header class="px-3 pt-8 pb-2">
+        <div class="mx-auto max-w-6xl border-l-4 border-accent pl-4 sm:pl-5">
           {eyebrow !== undefined && (
-            <p class="font-mono text-sm font-semibold text-accent">{eyebrow}</p>
+            <p class="font-mono text-xs font-semibold tracking-wide text-accent uppercase">
+              {eyebrow}
+            </p>
           )}
-          <h1 class="mt-3 max-w-3xl font-mono text-3xl leading-tight font-bold tracking-tight sm:text-5xl">
+          <h1 class="mt-1 font-mono text-2xl leading-tight font-bold tracking-tight sm:text-3xl">
             {title}
           </h1>
           {description !== undefined && (
-            <div class="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
+            <div class="mt-2 max-w-2xl leading-relaxed text-muted">
               {description}
             </div>
           )}
           {actions !== undefined && (
-            <div class="mt-7 flex flex-wrap gap-3">{actions}</div>
+            <div class="mt-4 flex flex-wrap gap-3">{actions}</div>
           )}
         </div>
       </header>
