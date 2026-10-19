@@ -93,6 +93,14 @@
   }
 }
 
+/* Tailwind's base styles give buttons the default cursor. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
 /* Blueprint paper: a fine grid with a heavier line every fifth square. */
 @utility bg-grid {
   --grid-minor: color-mix(in oklch, var(--accent) 7%, transparent);
