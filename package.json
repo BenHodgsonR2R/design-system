@@ -1,6 +1,6 @@
 {
   "name": "@bhodgson/design-system",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Ben Hodgson's design system: Tailwind CSS theme tokens, Preact components and a page layout.",
   "keywords": [
     "design-system",
