@@ -59,18 +59,19 @@ export function Page({
         </nav>
       </div>
 
-      {/* Slides down once the full bar has scrolled away, and back up when it returns. */}
+      {/* Slides down once the full bar has scrolled away, and back up when it returns.
+          It starts 12px above the screen, so the spring's overshoot shows more bar, not a gap. */}
       <div
         inert={!scrolled}
         aria-hidden={!scrolled}
         class={cn(
-          "fixed inset-x-0 top-0 z-20 transition-[translate,opacity] duration-500 ease-spring motion-reduce:transition-none",
+          "fixed inset-x-0 -top-3 z-20 transition-[translate,opacity] duration-500 ease-spring motion-reduce:transition-none",
           scrolled ? "translate-y-0" : "-translate-y-full opacity-0",
         )}
       >
         <nav
           aria-label="Site, compact"
-          class="relative flex items-center justify-between gap-3 border-b border-line bg-surface/90 px-4 py-1 font-mono text-xs shadow-window backdrop-blur"
+          class="relative flex items-center justify-between gap-3 border-b border-line bg-surface/90 px-4 pt-4 pb-1 font-mono text-xs shadow-window backdrop-blur"
         >
           <Identity author={author} project={project} compact />
           <GitHubLink author={author} />
