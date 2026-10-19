@@ -14,20 +14,22 @@
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono:
     "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
-  /* A few soft pulses, then the caret fades away and stays hidden. */
-  --animate-caret: caret 1.6s ease-in-out 4 forwards;
+  /* Blinks like a real caret for a few seconds, then switches off. */
+  --animate-caret: caret 1.06s steps(1) 5 forwards;
+  /* Slight overshoot, for things that slide into place. */
+  --ease-spring: cubic-bezier(0.2, 0.9, 0.3, 1.2);
 
   /* One height for inputs, selects and buttons, so controls in a row line up. */
   --spacing-control: 2.25rem;
   --spacing-control-sm: 1.75rem;
 
   @keyframes caret {
-    0%,
+    0% {
+      opacity: 1;
+    }
+    50%,
     100% {
       opacity: 0;
-    }
-    50% {
-      opacity: 0.7;
     }
   }
 }
@@ -115,4 +117,21 @@
     120px 120px,
     24px 24px,
     24px 24px;
+}
+
+/* A bar that fills as the page scrolls, where browsers support scroll-driven animations. */
+@keyframes scroll-progress {
+  to {
+    scale: 1 1;
+  }
+}
+
+@utility scroll-progress {
+  scale: 0 1;
+  transform-origin: left;
+
+  @supports (animation-timeline: scroll()) {
+    animation: scroll-progress linear both;
+    animation-timeline: scroll(root);
+  }
 }
