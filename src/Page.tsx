@@ -1,5 +1,6 @@
 import type { ComponentChildren } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
+import { cn } from "./cn.ts";
 import { Link } from "./text.tsx";
 
 export type Author = {
@@ -44,50 +45,40 @@ export function Page({
   author = defaultAuthor,
   children,
 }: PageProps) {
-  const [topMarker, scrolled] = useScrolledPast();
+  const [fullBar, scrolled] = useScrolledPast();
 
   return (
-    <div class="relative flex min-h-screen flex-col bg-canvas bg-grid font-sans text-ink antialiased">
+    <div class="flex min-h-screen flex-col bg-canvas bg-grid font-sans text-ink antialiased">
+      <div ref={fullBar} class="px-3 pt-3">
+        <nav
+          aria-label="Site"
+          class="mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-lg border border-line bg-surface/85 px-3 py-2 font-mono text-sm shadow-window backdrop-blur"
+        >
+          <Identity author={author} project={project} caret />
+          <GitHubLink author={author} labelled />
+        </nav>
+      </div>
+
+      {/* Slides down once the full bar has scrolled away, and back up when it returns.
+          It starts 12px above the screen, so the spring's overshoot shows more bar, not a gap. */}
       <div
-        ref={topMarker}
-        aria-hidden="true"
-        class="pointer-events-none absolute top-0 h-12 w-px"
-      />
-      <div
-        class={`sticky top-0 z-10 transition-[padding] duration-200 ${scrolled ? "px-0 pt-0" : "px-3 pt-3"}`}
+        inert={!scrolled}
+        aria-hidden={!scrolled}
+        class={cn(
+          "fixed inset-x-0 -top-3 z-20 transition-[translate,opacity] duration-500 ease-spring motion-reduce:transition-none",
+          scrolled ? "translate-y-0" : "-translate-y-full opacity-0",
+        )}
       >
         <nav
-          class={`mx-auto flex items-center justify-between gap-3 border-line bg-surface/85 font-mono shadow-window backdrop-blur transition-all duration-200 ${scrolled ? "max-w-none border-b px-4 py-1 text-xs" : "max-w-6xl rounded-lg border px-3 py-2 text-sm"}`}
+          aria-label="Site, compact"
+          class="relative flex items-center justify-between gap-3 border-b border-line bg-surface/90 px-4 pt-4 pb-1 font-mono text-xs shadow-window backdrop-blur"
         >
-          <a href={author.url} class="group flex items-center gap-2 font-bold">
-            {author.photo !== undefined && (
-              <img
-                src={author.photo}
-                alt=""
-                class={`rounded-full border border-line-strong object-cover transition-all duration-200 ${scrolled ? "size-6" : "size-8"}`}
-              />
-            )}
-            <span class="sr-only">{author.name}</span>
-            <span aria-hidden="true">
-              <span class="text-muted">
-                {author.home}
-                {project !== undefined && "/"}
-              </span>
-              {project !== undefined && (
-                <span class="text-accent">{project}</span>
-              )}
-              <span class="text-muted"> $</span>
-              <span class="ml-1 inline-block h-[1em] w-0.5 animate-caret bg-muted align-middle opacity-0 motion-reduce:hidden" />
-            </span>
-          </a>
-          <a
-            href={author.url}
-            aria-label={`${author.name} on GitHub`}
-            class={`flex items-center gap-1.5 rounded-md border border-b-2 border-line-strong bg-surface font-bold transition hover:border-ink/60 active:translate-y-px active:border-b ${scrolled ? "px-1.5 py-0.5" : "px-2.5 py-1 text-xs"}`}
-          >
-            <GitHubMark />
-            {!scrolled && "GitHub"}
-          </a>
+          <Identity author={author} project={project} compact />
+          <GitHubLink author={author} />
+          <span
+            aria-hidden="true"
+            class="absolute inset-x-0 bottom-0 h-0.5 scroll-progress bg-accent"
+          />
         </nav>
       </div>
 
@@ -132,6 +123,67 @@ export function Page({
         </div>
       </footer>
     </div>
+  );
+}
+
+function Identity({
+  author,
+  project,
+  compact = false,
+  caret = false,
+}: {
+  author: Author;
+  project?: string;
+  compact?: boolean;
+  caret?: boolean;
+}) {
+  return (
+    <a href={author.url} class="flex items-center gap-2 font-bold">
+      {author.photo !== undefined && (
+        <img
+          src={author.photo}
+          alt=""
+          class={cn(
+            "rounded-full border border-line-strong object-cover",
+            compact ? "size-6" : "size-8",
+          )}
+        />
+      )}
+      <span class="sr-only">{author.name}</span>
+      <span aria-hidden="true">
+        <span class="text-muted">
+          {author.home}
+          {project !== undefined && "/"}
+        </span>
+        {project !== undefined && <span class="text-accent">{project}</span>}
+        <span class="text-muted"> $</span>
+        {caret && (
+          <span class="ml-1 inline-block h-[1em] w-0.5 animate-caret bg-muted align-middle opacity-0 motion-reduce:hidden" />
+        )}
+      </span>
+    </a>
+  );
+}
+
+function GitHubLink({
+  author,
+  labelled = false,
+}: {
+  author: Author;
+  labelled?: boolean;
+}) {
+  return (
+    <a
+      href={author.url}
+      aria-label={`${author.name} on GitHub`}
+      class={cn(
+        "flex items-center gap-1.5 rounded-md border border-b-2 border-line-strong bg-surface font-bold transition hover:border-ink/60 active:translate-y-px active:border-b",
+        labelled ? "px-2.5 py-1 text-xs" : "px-1.5 py-0.5",
+      )}
+    >
+      <GitHubMark />
+      {labelled && "GitHub"}
+    </a>
   );
 }
 
