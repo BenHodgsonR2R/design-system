@@ -14,7 +14,8 @@
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono:
     "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --animate-blink: blink 1.1s steps(1) infinite;
+  /* A few blinks, then a steady caret, like a terminal gone idle. */
+  --animate-blink: blink 1.1s steps(1) 6;
 
   /* One height for inputs, selects and buttons, so controls in a row line up. */
   --spacing-control: 2.25rem;
