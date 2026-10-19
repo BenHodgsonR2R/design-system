@@ -2,6 +2,7 @@ import type { ComponentChildren } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 import { cn } from "./cn.ts";
 import { Link } from "./text.tsx";
+import { ThemeToggle } from "./ThemeToggle.tsx";
 
 export type Author = {
   name: string;
@@ -55,7 +56,10 @@ export function Page({
           class="mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-lg border border-line bg-surface/85 px-3 py-2 font-mono text-sm shadow-window backdrop-blur"
         >
           <Identity author={author} project={project} caret />
-          <GitHubLink author={author} labelled />
+          <div class="flex items-center gap-2">
+            <ThemeToggle />
+            <GitHubLink author={author} labelled />
+          </div>
         </nav>
       </div>
 
@@ -74,7 +78,10 @@ export function Page({
           class="relative flex items-center justify-between gap-3 border-b border-line bg-surface/90 px-4 pt-4 pb-1 font-mono text-xs shadow-window backdrop-blur"
         >
           <Identity author={author} project={project} compact />
-          <GitHubLink author={author} />
+          <div class="flex items-center gap-2">
+            <ThemeToggle />
+            <GitHubLink author={author} />
+          </div>
           <span
             aria-hidden="true"
             class="absolute inset-x-0 bottom-0 h-0.5 scroll-progress bg-accent"

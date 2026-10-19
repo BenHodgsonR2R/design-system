@@ -76,7 +76,12 @@
   },
   "overrides": [
     {
-      "files": ["**/*.test.tsx", "vitest.config.ts", "example/vite.config.ts"],
+      "files": [
+        "**/*.test.ts",
+        "**/*.test.tsx",
+        "vitest.config.ts",
+        "example/vite.config.ts"
+      ],
       "rules": {
         "no-restricted-imports": "off",
         "no-restricted-globals": "off"

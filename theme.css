@@ -37,6 +37,7 @@
 @theme inline {
   --color-canvas: var(--canvas);
   --color-surface: var(--surface);
+  --color-surface-sunken: var(--surface-sunken);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-line: var(--line);
@@ -45,54 +46,113 @@
   --color-accent-edge: var(--accent-edge);
   --color-on-accent: var(--on-accent);
   --color-accent-soft: var(--accent-soft);
+  --color-secondary: var(--secondary);
+  --color-secondary-soft: var(--secondary-soft);
   --color-link: var(--link);
+  --color-focus: var(--focus);
   --color-highlight-blue: var(--highlight-blue);
   --color-highlight-red: var(--highlight-red);
   --color-danger: var(--danger);
   --color-danger-soft: var(--danger-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
   --color-notice-soft: var(--notice-soft);
+  --color-data-1: var(--data-1);
+  --color-data-1-soft: var(--data-1-soft);
+  --color-data-2: var(--data-2);
+  --color-data-2-soft: var(--data-2-soft);
+  --color-data-3: var(--data-3);
+  --color-data-3-soft: var(--data-3-soft);
+  --color-data-4: var(--data-4);
+  --color-data-4-soft: var(--data-4-soft);
+  --color-data-5: var(--data-5);
+  --color-data-5-soft: var(--data-5-soft);
+  --color-data-6: var(--data-6);
+  --color-data-6-soft: var(--data-6-soft);
   --shadow-window: 0 2px 0 var(--line);
 }
 
 :root {
   color-scheme: light dark;
-  --canvas: oklch(0.97 0.008 255);
-  --surface: oklch(1 0 0);
-  --ink: oklch(0.24 0.06 265);
-  --muted: oklch(0.5 0.04 260);
-  --line: oklch(0.9 0.015 255);
-  --line-strong: oklch(0.78 0.03 258);
-  --accent: oklch(0.49 0.22 264);
-  --accent-edge: oklch(0.34 0.16 266);
-  --on-accent: oklch(1 0 0);
-  --accent-soft: oklch(0.94 0.03 255);
-  --link: oklch(0.49 0.22 264);
-  --highlight-blue: oklch(0.91 0.05 250);
-  --highlight-red: oklch(0.91 0.06 25);
-  --danger: oklch(0.55 0.21 27);
-  --danger-soft: oklch(0.95 0.03 27);
-  --notice-soft: oklch(0.95 0.05 95);
+
+  --canvas: light-dark(oklch(0.97 0.008 255), oklch(0.19 0.04 262));
+  --surface: light-dark(oklch(1 0 0), oklch(0.23 0.05 263));
+  --surface-sunken: light-dark(oklch(0.945 0.012 255), oklch(0.165 0.035 262));
+  --ink: light-dark(oklch(0.24 0.06 265), oklch(0.94 0.015 255));
+  --muted: light-dark(oklch(0.47 0.04 260), oklch(0.74 0.03 255));
+
+  /* Lines: `line` is decorative only; controls use `line-strong` (3:1). */
+  --line: light-dark(oklch(0.9 0.015 255), oklch(0.32 0.05 262));
+  --line-strong: light-dark(oklch(0.62 0.035 258), oklch(0.6 0.05 260));
+
+  --accent: light-dark(oklch(0.49 0.22 264), oklch(0.74 0.134 258));
+  --accent-edge: light-dark(oklch(0.34 0.16 266), oklch(0.58 0.15 262));
+  --on-accent: light-dark(oklch(1 0 0), oklch(0.2 0.05 265));
+  --accent-soft: light-dark(oklch(0.94 0.028 255), oklch(0.32 0.08 262));
+  --secondary: light-dark(oklch(0.53 0.22 345), oklch(0.76 0.15 345));
+  --secondary-soft: light-dark(oklch(0.95 0.031 345), oklch(0.33 0.09 345));
+  --link: light-dark(oklch(0.49 0.22 264), oklch(0.8 0.104 252));
+  --focus: light-dark(oklch(0.55 0.24 300), oklch(0.78 0.132 300));
+  --highlight-blue: light-dark(oklch(0.91 0.044 250), oklch(0.36 0.09 260));
+  --highlight-red: light-dark(oklch(0.91 0.046 25), oklch(0.37 0.1 25));
+
+  /* Status: the solid colour is for text and icons, the soft one for backgrounds. */
+  --danger: light-dark(oklch(0.51 0.2 27), oklch(0.78 0.128 25));
+  --danger-soft: light-dark(oklch(0.955 0.022 27), oklch(0.3 0.08 25));
+  --warning: light-dark(oklch(0.5 0.112 65), oklch(0.84 0.13 80));
+  --warning-soft: light-dark(oklch(0.96 0.05 90), oklch(0.31 0.06 75));
+  --success: light-dark(oklch(0.5 0.13 150), oklch(0.8 0.14 150));
+  --success-soft: light-dark(oklch(0.955 0.04 150), oklch(0.3 0.06 150));
+  --info: light-dark(oklch(0.5 0.1 230), oklch(0.8 0.1 230));
+  --info-soft: light-dark(oklch(0.955 0.026 230), oklch(0.3 0.06 235));
+  /* Older name for warning-soft. */
+  --notice-soft: var(--warning-soft);
+
+  /* Categorical colours for telling things apart, from the Okabe–Ito palette. Their
+     lightness is tuned so they stay distinct with colour-vision deficiencies. */
+  --data-1: light-dark(
+    oklch(0.532 0.131 244),
+    oklch(0.532 0.131 244)
+  ); /* blue */
+  --data-1-soft: light-dark(oklch(0.94 0.031 244), oklch(0.32 0.07 244));
+  --data-2: light-dark(
+    oklch(0.49 0.102 76.8),
+    oklch(0.753 0.158 76.8)
+  ); /* orange */
+  --data-2-soft: light-dark(oklch(0.94 0.045 76.8), oklch(0.32 0.068 76.8));
+  --data-3: light-dark(
+    oklch(0.4 0.084 165.5),
+    oklch(0.62 0.13 165.5)
+  ); /* green */
+  --data-3-soft: light-dark(oklch(0.94 0.045 165.5), oklch(0.32 0.068 165.5));
+  --data-4: light-dark(
+    oklch(0.621 0.17 47.5),
+    oklch(0.621 0.17 47.5)
+  ); /* vermillion */
+  --data-4-soft: light-dark(oklch(0.94 0.033 47.5), oklch(0.32 0.07 47.5));
+  --data-5: light-dark(
+    oklch(0.46 0.099 236.2),
+    oklch(0.735 0.117 236.2)
+  ); /* sky */
+  --data-5-soft: light-dark(oklch(0.94 0.033 236.2), oklch(0.32 0.07 236.2));
+  --data-6: light-dark(
+    oklch(0.654 0.118 346.3),
+    oklch(0.679 0.118 346.3)
+  ); /* purple */
+  --data-6-soft: light-dark(oklch(0.94 0.037 346.3), oklch(0.32 0.07 346.3));
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --canvas: oklch(0.19 0.04 262);
-    --surface: oklch(0.23 0.05 263);
-    --ink: oklch(0.94 0.015 255);
-    --muted: oklch(0.72 0.03 255);
-    --line: oklch(0.32 0.05 262);
-    --line-strong: oklch(0.45 0.06 262);
-    --accent: oklch(0.6 0.19 260);
-    --accent-edge: oklch(0.42 0.16 263);
-    --on-accent: oklch(1 0 0);
-    --accent-soft: oklch(0.3 0.07 262);
-    --link: oklch(0.81 0.1 252);
-    --highlight-blue: oklch(0.36 0.09 260);
-    --highlight-red: oklch(0.37 0.1 25);
-    --danger: oklch(0.75 0.15 25);
-    --danger-soft: oklch(0.3 0.08 25);
-    --notice-soft: oklch(0.32 0.05 90);
-  }
+/* A choice saved by ThemeToggle overrides the system setting. */
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 /* Tailwind's base styles give buttons the default cursor. */

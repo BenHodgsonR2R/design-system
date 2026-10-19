@@ -1,5 +1,8 @@
 import {
+  applyStoredTheme,
+  Badge,
   Button,
+  dataTone,
   Field,
   Highlight,
   Input,
@@ -9,10 +12,20 @@ import {
   Panel,
   Select,
   TextArea,
+  ThemeToggle,
 } from "@bhodgson/design-system";
 import { render } from "preact";
+import { ColourTable } from "./ColourTable.tsx";
 
-function Showcase() {
+function Code({ children }: { children: string }) {
+  return (
+    <pre class="overflow-x-auto rounded-lg border border-line bg-surface-sunken p-3 font-mono text-xs leading-relaxed">
+      <code>{children.trim()}</code>
+    </pre>
+  );
+}
+
+function Docs() {
   return (
     <Page
       eyebrow="@bhodgson/design-system"
@@ -25,99 +38,162 @@ function Showcase() {
       description={
         <>
           Tailwind CSS theme tokens, Preact components and this page layout.
-          Source on{" "}
-          <Link href="https://github.com/BenHodgsonR2R/design-system">
-            GitHub
-          </Link>
-          .
+          Every colour pair below meets WCAG AA, in light and dark mode, and a
+          test suite keeps it that way.
         </>
       }
       actions={
         <>
-          <Button>Primary action</Button>
-          <Button variant="secondary">Secondary</Button>
+          <Link href="https://github.com/BenHodgsonR2R/design-system">
+            Source on GitHub
+          </Link>
+          <Link href="https://www.npmjs.com/package/@bhodgson/design-system">
+            npm
+          </Link>
         </>
       }
-      footer={<p>Footer content from the page goes here.</p>}
     >
-      <div class="grid items-start gap-4 md:grid-cols-2">
-        <Panel
-          id="buttons"
-          title="Buttons"
-          actions={<Button variant="secondary">Panel action</Button>}
-        >
-          <div class="flex flex-wrap items-center gap-2">
-            <Button>Primary</Button>
-            <Button variant="secondary">Secondary</Button>
-            <Button variant="link">Link</Button>
-            <Button variant="icon" aria-label="Remove">
-              ×
-            </Button>
-            <Button disabled>Disabled</Button>
+      <div class="grid grid-cols-1 items-start gap-4 lg:grid-cols-2">
+        <Panel id="install" title="Install">
+          <div class="flex flex-col gap-3 text-sm">
+            <Code>{`pnpm add @bhodgson/design-system preact`}</Code>
+            <p>Import the theme after Tailwind:</p>
+            <Code>
+              {`
+@import "tailwindcss";
+@import "@bhodgson/design-system/theme.css";`}
+            </Code>
+            <p>
+              Apply a saved theme before the first render, so there's no flash:
+            </p>
+            <Code>
+              {`
+import { applyStoredTheme } from "@bhodgson/design-system";
+
+applyStoredTheme();
+render(<App />, root);`}
+            </Code>
+          </div>
+        </Panel>
+
+        <Panel id="buttons" title="Buttons">
+          <div class="flex flex-col gap-3">
+            <div class="flex flex-wrap items-center gap-2">
+              <Button>Primary</Button>
+              <Button variant="secondary">Secondary</Button>
+              <Button variant="link">Link</Button>
+              <Button variant="icon" aria-label="Remove">
+                ×
+              </Button>
+              <Button disabled>Disabled</Button>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <Button size="sm">Small</Button>
+              <Button size="sm" variant="secondary">
+                Small
+              </Button>
+              <Button size="sm" variant="icon" aria-label="Remove">
+                ×
+              </Button>
+            </div>
+            <Code>{`<Button variant="secondary" size="sm">Small</Button>`}</Code>
           </div>
         </Panel>
 
         <Panel id="fields" title="Fields">
           <div class="flex flex-col gap-3">
-            <Field label="Name">
-              <Input placeholder="e.g. people" />
-            </Field>
-            <Field label="Answer">
-              <Select>
-                <option>One value</option>
-                <option>Any number of values</option>
-              </Select>
-            </Field>
+            <div class="flex flex-wrap items-end gap-2">
+              <Field label="Name" class="flex-1 basis-40">
+                <Input placeholder="e.g. people" />
+              </Field>
+              <Field label="Answer">
+                <Select>
+                  <option>One value</option>
+                  <option>Any number of values</option>
+                </Select>
+              </Field>
+              <Button variant="icon" aria-label="Remove">
+                ×
+              </Button>
+            </div>
             <Field label="Notes">
               <TextArea placeholder="Anything else?" />
             </Field>
           </div>
         </Panel>
 
-        <Panel id="text" title="Text">
-          <p class="leading-relaxed">
-            Mark a few words with a <Highlight>blue</Highlight> or{" "}
-            <Highlight tone="red">signal red</Highlight> highlight, and link
-            with a <Link href="#text">bold underline</Link>.
-          </p>
-        </Panel>
-
         <Panel id="messages" title="Messages">
           <div class="flex flex-col gap-2">
-            <Message tone="notice">A notice, such as a hint or status.</Message>
-            <Message tone="error">An error the person needs to fix.</Message>
+            <Message tone="info">Info: something worth knowing.</Message>
+            <Message tone="success">Success: it worked.</Message>
+            <Message tone="warning">
+              Warning: check this before you go on.
+            </Message>
+            <Message tone="error">Error: something to fix.</Message>
           </div>
         </Panel>
 
-        <Panel id="tokens" title="Colour tokens">
-          <ul class="grid grid-cols-3 gap-2 text-xs">
-            {[
-              "bg-canvas",
-              "bg-surface",
-              "bg-ink",
-              "bg-muted",
-              "bg-line",
-              "bg-accent",
-              "bg-accent-edge",
-              "bg-link",
-              "bg-highlight-red",
-              "bg-highlight-blue",
-              "bg-danger",
-              "bg-notice-soft",
-            ].map((token) => (
-              <li key={token} class="flex flex-col gap-1">
-                <span class={`h-10 rounded-lg border border-line ${token}`} />
-                {token.replace("bg-", "")}
-              </li>
-            ))}
-          </ul>
+        <Panel id="badges" title="Badges">
+          <div class="flex flex-col gap-3">
+            <div class="flex flex-wrap gap-1.5">
+              <Badge>neutral</Badge>
+              <Badge tone="accent">accent</Badge>
+              <Badge tone="info">info</Badge>
+              <Badge tone="success">success</Badge>
+              <Badge tone="warning">warning</Badge>
+              <Badge tone="danger">danger</Badge>
+            </div>
+            <p class="text-sm text-muted">
+              Six categorical tones tell groups apart, and stay distinct with
+              colour-vision deficiencies. Always pair them with text.
+            </p>
+            <div class="flex flex-wrap gap-1.5">
+              {[
+                "people",
+                "setting",
+                "time-of-day",
+                "weather",
+                "room",
+                "style",
+              ].map((name, index) => (
+                <Badge key={name} tone={dataTone(index)}>
+                  {name}
+                </Badge>
+              ))}
+            </div>
+            <Code>{`<Badge tone={dataTone(index)}>{name}</Badge>`}</Code>
+          </div>
         </Panel>
+
+        <Panel id="text" title="Text and theme">
+          <div class="flex flex-col gap-3 text-sm leading-relaxed">
+            <p>
+              Mark a few words with a <Highlight>blue</Highlight> or{" "}
+              <Highlight tone="red">signal red</Highlight> highlight, and link
+              with a <Link href="#text">bold underline</Link>.
+            </p>
+            <div class="flex items-center gap-2">
+              <ThemeToggle />
+              <span class="text-muted">
+                Cycles system, light and dark. Every toggle on the page stays in
+                step, and the choice is saved.
+              </span>
+            </div>
+          </div>
+        </Panel>
+
+        <div class="lg:col-span-2">
+          <Panel id="colours" title="Colours">
+            <ColourTable />
+          </Panel>
+        </div>
       </div>
     </Page>
   );
 }
 
+applyStoredTheme();
 const root = document.getElementById("app");
 if (root !== null) {
-  render(<Showcase />, root);
+  render(<Docs />, root);
 }

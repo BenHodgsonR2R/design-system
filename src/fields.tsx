@@ -2,7 +2,7 @@ import type { ComponentChildren, JSX } from "preact";
 import { cn } from "./cn.ts";
 
 const field =
-  "min-w-0 rounded-md border border-line-strong bg-surface px-2.5 text-sm text-ink transition placeholder:text-muted/70 focus-visible:border-link focus-visible:outline-2 focus-visible:outline-link/30";
+  "min-w-0 rounded-md border border-line-strong bg-surface px-2.5 text-sm text-ink transition placeholder:text-muted/70 focus-visible:border-focus focus-visible:outline-2 focus-visible:outline-focus/40";
 
 type InputProps = JSX.InputHTMLAttributes & { class?: string };
 
