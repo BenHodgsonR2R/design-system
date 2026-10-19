@@ -41,7 +41,7 @@ import { Button, Highlight, Page, Panel } from "@bhodgson/design-system";
 
 `cn()` joins classes the way the components do, so yours replace theirs cleanly.
 
-Call `applyStoredTheme()` before the first render so a theme picked with `ThemeToggle` applies without a flash. Every component is on the [showcase](https://benhodgsonr2r.github.io/design-system/).
+Call `applyStoredTheme()` before the first render so a theme picked with `ThemeToggle` applies without a flash.
 
 ## Develop
 
