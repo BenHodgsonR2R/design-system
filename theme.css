@@ -1,0 +1,105 @@
+/*
+ * Import after Tailwind:
+ *   @import "tailwindcss";
+ *   @import "@bhodgson/design-system/theme.css";
+ */
+
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/jetbrains-mono";
+
+/* Generates the classes the components use, in the importing project's build. */
+@source "./src";
+
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:
+    "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --animate-blink: blink 1.1s steps(1) infinite;
+
+  /* One height for inputs, selects and buttons, so controls in a row line up. */
+  --spacing-control: 2.25rem;
+  --spacing-control-sm: 1.75rem;
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-edge: var(--accent-edge);
+  --color-on-accent: var(--on-accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-link: var(--link);
+  --color-highlight-blue: var(--highlight-blue);
+  --color-highlight-red: var(--highlight-red);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-notice-soft: var(--notice-soft);
+  --shadow-window: 0 2px 0 var(--line);
+}
+
+:root {
+  color-scheme: light dark;
+  --canvas: oklch(0.97 0.008 255);
+  --surface: oklch(1 0 0);
+  --ink: oklch(0.24 0.06 265);
+  --muted: oklch(0.5 0.04 260);
+  --line: oklch(0.9 0.015 255);
+  --line-strong: oklch(0.78 0.03 258);
+  --accent: oklch(0.49 0.22 264);
+  --accent-edge: oklch(0.34 0.16 266);
+  --on-accent: oklch(1 0 0);
+  --accent-soft: oklch(0.94 0.03 255);
+  --link: oklch(0.49 0.22 264);
+  --highlight-blue: oklch(0.91 0.05 250);
+  --highlight-red: oklch(0.91 0.06 25);
+  --danger: oklch(0.55 0.21 27);
+  --danger-soft: oklch(0.95 0.03 27);
+  --notice-soft: oklch(0.95 0.05 95);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --canvas: oklch(0.19 0.04 262);
+    --surface: oklch(0.23 0.05 263);
+    --ink: oklch(0.94 0.015 255);
+    --muted: oklch(0.72 0.03 255);
+    --line: oklch(0.32 0.05 262);
+    --line-strong: oklch(0.45 0.06 262);
+    --accent: oklch(0.6 0.19 260);
+    --accent-edge: oklch(0.42 0.16 263);
+    --on-accent: oklch(1 0 0);
+    --accent-soft: oklch(0.3 0.07 262);
+    --link: oklch(0.81 0.1 252);
+    --highlight-blue: oklch(0.36 0.09 260);
+    --highlight-red: oklch(0.37 0.1 25);
+    --danger: oklch(0.75 0.15 25);
+    --danger-soft: oklch(0.3 0.08 25);
+    --notice-soft: oklch(0.32 0.05 90);
+  }
+}
+
+/* Blueprint paper: a fine grid with a heavier line every fifth square. */
+@utility bg-grid {
+  --grid-minor: color-mix(in oklch, var(--accent) 7%, transparent);
+  --grid-major: color-mix(in oklch, var(--accent) 12%, transparent);
+  background-image:
+    linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(var(--grid-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+  background-size:
+    120px 120px,
+    120px 120px,
+    24px 24px,
+    24px 24px;
+}

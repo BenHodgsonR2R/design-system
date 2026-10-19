@@ -1,0 +1,19 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@4/schema.json",
+  "baseBranch": "main",
+  "access": "public",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "changedFilePatterns": [
+    "src/**",
+    "!src/**/*.test.ts",
+    "!src/**/*.test.tsx",
+    "theme.css",
+    "package.json"
+  ],
+  "ignore": [],
+  "privatePackages": {
+    "version": false,
+    "tag": false
+  }
+}

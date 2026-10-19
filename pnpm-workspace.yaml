@@ -1,0 +1,9 @@
+packages:
+  # The root is the published package. changesets only versions workspace packages.
+  - "."
+  - example
+
+# Dependencies allowed to run install scripts.
+allowBuilds:
+  # Checks its platform binary is installed. Needed by vite and vitest.
+  esbuild: true

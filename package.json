@@ -1,0 +1,88 @@
+{
+  "name": "@bhodgson/design-system",
+  "version": "0.1.0",
+  "description": "Ben Hodgson's design system: Tailwind CSS theme tokens, Preact components and a page layout.",
+  "keywords": [
+    "design-system",
+    "tailwindcss",
+    "preact",
+    "components"
+  ],
+  "homepage": "https://github.com/BenHodgsonR2R/design-system#readme",
+  "bugs": {
+    "url": "https://github.com/BenHodgsonR2R/design-system/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BenHodgsonR2R/design-system.git"
+  },
+  "license": "MIT",
+  "author": "Ben Hodgson",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./theme.css": "./theme.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src",
+    "!src/**/*.test.ts",
+    "!src/**/*.test.tsx",
+    "theme.css"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "clean:dist": "node -e \"import('node:fs').then((fs) => fs.rmSync('dist', { recursive: true, force: true }))\"",
+    "prebuild": "pnpm clean:dist",
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "knip": "knip",
+    "prepack": "pnpm build",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "lint": "oxlint",
+    "lint:ci": "oxlint --deny-warnings",
+    "lint:fix": "oxlint --fix",
+    "check:package": "publint && attw --pack ."
+  },
+  "packageManager": "pnpm@12.6.0",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "peerDependencies": {
+    "preact": "^10.29.8"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@changesets/cli": "^3.0.3",
+    "knip": "^6.37.0",
+    "oxlint": "^1.85.0",
+    "oxlint-tsgolint": "^7.0.2002",
+    "preact": "^10.29.8",
+    "preact-render-to-string": "^6.8.1",
+    "prettier": "^3.9.8",
+    "publint": "^0.3.24",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.1"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.7.0"
+  }
+}

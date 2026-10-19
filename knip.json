@@ -1,0 +1,17 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "workspaces": {
+    ".": {
+      "project": ["src/**/*.{ts,tsx}"],
+      "ignoreDependencies": [
+        "@fontsource-variable/inter",
+        "@fontsource-variable/jetbrains-mono"
+      ]
+    },
+    "example": {
+      "entry": ["src/styles.css"],
+      "project": ["src/**/*.{ts,tsx,css}"]
+    }
+  },
+  "tags": ["-lintignore"]
+}
