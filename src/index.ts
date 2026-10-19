@@ -14,3 +14,4 @@ export {
   ThemeToggle,
 } from "./ThemeToggle.tsx";
 export type { ThemeChoice } from "./ThemeToggle.tsx";
+export { Tooltip } from "./Tooltip.tsx";

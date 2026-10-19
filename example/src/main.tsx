@@ -173,7 +173,7 @@ render(<App />, root);`}
               with a <Link href="#text">bold underline</Link>.
             </p>
             <div class="flex items-center gap-2">
-              <ThemeToggle />
+              <ThemeToggle align="start" />
               <span class="text-muted">
                 Cycles system, light and dark. Every toggle on the page stays in
                 step, and the choice is saved.

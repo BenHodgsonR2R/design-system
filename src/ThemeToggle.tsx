@@ -1,5 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
 import { Button } from "./Button.tsx";
+import { Tooltip } from "./Tooltip.tsx";
 
 export type ThemeChoice = "system" | "light" | "dark";
 
@@ -49,14 +50,26 @@ function isThemeChoice(value: unknown): value is ThemeChoice {
   return order.some((choice) => choice === value);
 }
 
-const labels: Record<ThemeChoice, string> = {
+const names: Record<ThemeChoice, string> = {
   system: "System theme",
   light: "Light theme",
   dark: "Dark theme",
 };
 
+const hints: Record<ThemeChoice, string> = {
+  system: "Matches your device. Click for light.",
+  light: "Click for dark.",
+  dark: "Click to match your device.",
+};
+
 /** Cycles system, light and dark. Every toggle on the page stays in step. */
-export function ThemeToggle({ class: extra }: { class?: string }) {
+export function ThemeToggle({
+  align = "end",
+  class: extra,
+}: {
+  align?: "start" | "center" | "end";
+  class?: string;
+}) {
   const [choice, setChoice] = useState(storedTheme);
 
   useEffect(() => {
@@ -70,19 +83,27 @@ export function ThemeToggle({ class: extra }: { class?: string }) {
   }, []);
 
   const next = order[(order.indexOf(choice) + 1) % order.length] ?? "system";
-  const label = `${labels[choice]}. Switch to ${labels[next].toLowerCase()}.`;
 
   return (
-    <Button
-      variant="icon"
-      size="sm"
+    <Tooltip
+      align={align}
       class={extra}
-      title={label}
-      aria-label={label}
-      onClick={() => setTheme(next)}
+      content={
+        <>
+          <span class="block font-semibold">{names[choice]}</span>
+          <span class="text-muted">{hints[choice]}</span>
+        </>
+      }
     >
-      <ThemeIcon choice={choice} />
-    </Button>
+      <Button
+        variant="icon"
+        size="sm"
+        aria-label={`${names[choice]}. ${hints[choice]}`}
+        onClick={() => setTheme(next)}
+      >
+        <ThemeIcon choice={choice} />
+      </Button>
+    </Tooltip>
   );
 }
 
