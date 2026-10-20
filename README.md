@@ -6,6 +6,8 @@
 
 My design system: Tailwind CSS theme tokens, Preact components and a page layout.
 
+**[Read the docs](https://benhodgsonr2r.github.io/design-system/)** for guides, live examples and the API reference.
+
 ## Use it
 
 ```bash
@@ -41,7 +43,7 @@ import { Button, Highlight, Page, Panel } from "@bhodgson/design-system";
 
 `cn()` joins classes the way the components do, so yours replace theirs cleanly.
 
-Guides, live examples and the API reference are on the [docs site](https://benhodgsonr2r.github.io/design-system/). Its source is in [docs/](docs/), and [`@bhodgson/docs`](docs-kit/) styles any Starlight site the same way.
+The docs site's source is in [docs/](docs/), and [`@bhodgson/docs`](docs-kit/) styles any Starlight site the same way.
 
 Call `applyStoredTheme()` before the first render, or put `themeScript` in `<head>` on server-rendered pages, so a theme picked with `ThemeToggle` applies without a flash.
 
