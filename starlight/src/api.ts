@@ -100,8 +100,30 @@ const elementNames: Record<string, string> = {
   Textarea: "textarea",
 };
 
-/** Documents a package from its source with TypeDoc, for the API pages and sidebar. */
-export async function loadApi(options: LoadApiOptions): Promise<Api> {
+// Astro loads the config and the pages as separate module copies, so the cache lives on globalThis.
+const cacheKey = Symbol.for("@bhodgson/starlight/api");
+const loaded: Map<string, Promise<Api>> = ((
+  globalThis as Record<symbol, unknown>
+)[cacheKey] ??= new Map()) as Map<string, Promise<Api>>;
+
+/**
+ * Documents a package from its source with TypeDoc, for the API pages and sidebar.
+ *
+ * Every export gets a page in its `@group`, with its summary, `@example`s and what uses it. A type named after a
+ * component with `Props` on the end, such as `ButtonProps` for `Button`, is shown as that component's props
+ * rather than on a page of its own.
+ */
+export function loadApi(options: LoadApiOptions): Promise<Api> {
+  const key = JSON.stringify(options);
+  let api = loaded.get(key);
+  if (api === undefined) {
+    api = convert(options);
+    loaded.set(key, api);
+  }
+  return api;
+}
+
+async function convert(options: LoadApiOptions): Promise<Api> {
   const app = await Application.bootstrapWithPlugins({
     entryPoints: options.entryPoints,
     tsconfig: options.tsconfig,

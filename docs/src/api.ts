@@ -1,9 +1,10 @@
 import { loadApi } from "@bhodgson/starlight/api";
+import { base } from "./site.ts";
 
 export const api = await loadApi({
   entryPoints: ["../src/index.ts"],
   tsconfig: "../tsconfig.json",
-  base: "/design-system/api/",
+  base: `${base}/api/`,
   groups: [
     "Layout",
     "Navigation",

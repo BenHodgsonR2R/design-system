@@ -16,4 +16,4 @@ export default defineConfig({
 });
 ```
 
-For the API reference, see how [the design system's docs](../docs/src/api.ts) use `loadApi`, `apiSidebar` and `apiPaths`.
+For the API reference, see how [the design system's docs](../docs/src/api.ts) use `loadApi`, `apiSidebar` and `apiPaths`, and [the conventions it relies on](../docs/src/content/docs/contributing/api-reference.md): a `@group` on every export, and props types named after their component, such as `ButtonProps`.

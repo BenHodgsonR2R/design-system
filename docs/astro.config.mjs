@@ -3,10 +3,11 @@ import { designSystem } from "@bhodgson/starlight";
 import { apiSidebar } from "@bhodgson/starlight/api";
 import { defineConfig } from "astro/config";
 import { api } from "./src/api.ts";
+import { base } from "./src/site.ts";
 
 export default defineConfig({
   site: "https://benhodgsonr2r.github.io",
-  base: "/design-system",
+  base,
   integrations: [
     starlight({
       title: "design-system",
