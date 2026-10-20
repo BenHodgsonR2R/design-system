@@ -7,15 +7,19 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "test": "vitest run"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
-    "typescript": "~6.0.3"
+    "@happy-dom/global-registrator": "^21.0.3",
+    "@types/node": "^24.19.2",
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.5"
   },
   "dependencies": {
     "@astrojs/preact": "^6.1.0",
-    "@astrojs/starlight": "^0.42.6",
+    "@astrojs/starlight": "~0.42.6",
     "@bhodgson/design-system": "workspace:*",
     "@bhodgson/starlight": "workspace:*",
     "astro": "^7.4.1",
