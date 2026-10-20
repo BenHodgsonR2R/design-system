@@ -29,6 +29,7 @@ export function designSystem(): StarlightPlugin {
             SiteTitle: "@bhodgson/design-system/starlight/SiteTitle.astro",
             Footer: "@bhodgson/design-system/starlight/Footer.astro",
             Hero: "@bhodgson/design-system/starlight/Hero.astro",
+            Pagination: "@bhodgson/design-system/starlight/Pagination.astro",
             ...config.components,
           },
           expressiveCode: {

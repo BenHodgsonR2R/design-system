@@ -1,0 +1,35 @@
+---
+const { pagination } = Astro.locals.starlightRoute;
+const links = [
+  { link: pagination.prev, rel: "prev", label: "Previous", arrow: "←" },
+  { link: pagination.next, rel: "next", label: "Next", arrow: "→" },
+];
+---
+
+<nav
+  aria-label="Pages"
+  class="not-content mt-12 grid gap-3 sm:grid-cols-2 print:hidden"
+>
+  {links.map(
+    ({ link, rel, label, arrow }) =>
+      link !== undefined && (
+        <a
+          href={link.href}
+          rel={rel}
+          class:list={[
+            "group flex flex-col gap-1 rounded-md border border-b-3 border-line-strong bg-surface px-4 py-3 no-underline transition hover:border-ink/60 active:translate-y-0.5 active:border-b",
+            rel === "next" && "items-end text-end sm:col-start-2",
+          ]}
+        >
+          <span class="type-eyebrow text-muted">
+            {rel === "prev" && `${arrow} `}
+            {label}
+            {rel === "next" && ` ${arrow}`}
+          </span>
+          <span class="type-subheading text-ink group-hover:text-link">
+            {link.label}
+          </span>
+        </a>
+      ),
+  )}
+</nav>
