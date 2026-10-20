@@ -12,7 +12,6 @@ import { ThemeToggle } from "./ThemeToggle.tsx";
 
 /**
  * The props for {@link Page}.
- * @inline
  * @group Layout
  */
 export type PageProps = {
@@ -95,13 +94,9 @@ export function Page({
       <header class="px-3 pt-8 pb-2">
         <div class="mx-auto max-w-6xl border-l-4 border-accent pl-4 sm:pl-5">
           {eyebrow !== undefined && (
-            <p class="font-mono text-xs font-semibold tracking-wide text-accent uppercase">
-              {eyebrow}
-            </p>
+            <p class="type-eyebrow text-accent">{eyebrow}</p>
           )}
-          <h1 class="mt-1 font-mono text-2xl leading-tight font-bold tracking-tight sm:text-3xl">
-            {title}
-          </h1>
+          <h1 class="mt-1 type-title">{title}</h1>
           {description !== undefined && (
             <div class="mt-2 max-w-2xl leading-relaxed text-muted">
               {description}

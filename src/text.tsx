@@ -20,7 +20,6 @@ const highlight = cva("rounded-sm px-1 box-decoration-clone text-inherit", {
 
 /**
  * The props for {@link Highlight}.
- * @inline
  * @group Text
  */
 export type HighlightProps = {

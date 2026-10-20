@@ -1,0 +1,132 @@
+---
+import { Code } from "@astrojs/starlight/components";
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import { Badge, Link, Panel } from "@bhodgson/design-system";
+import type { ApiEntry } from "@bhodgson/design-system/starlight/api";
+import ApiFields from "./ApiFields.astro";
+import ApiType from "./ApiType.astro";
+
+interface Props {
+  entry: ApiEntry;
+}
+
+const { entry } = Astro.props;
+
+const kindLabels: Record<ApiEntry["kind"], string> = {
+  component: "Component",
+  function: "Function",
+  type: "Type",
+  constant: "Constant",
+};
+
+const sections = [
+  { id: "example", title: "Example", shown: entry.examples.length > 0 },
+  { id: "props", title: "Props", shown: entry.props !== undefined },
+  {
+    id: "parameters",
+    title: "Parameters",
+    shown: (entry.parameters ?? []).length > 0,
+  },
+  { id: "returns", title: "Returns", shown: entry.returns !== undefined },
+  { id: "fields", title: "Fields", shown: entry.fields !== undefined },
+  { id: "values", title: "Values", shown: entry.values !== undefined },
+  { id: "used-by", title: "Used by", shown: entry.usedBy.length > 0 },
+].filter((section) => section.shown);
+---
+
+<StarlightPage
+  frontmatter={{ title: entry.name, description: entry.plainSummary }}
+  headings={sections.map(({ id, title }) => ({
+    depth: 2,
+    slug: id,
+    text: title,
+  }))}
+>
+  <div class="not-content flex flex-col gap-6">
+    <div class="flex flex-wrap items-center gap-2">
+      <Badge tone="accent">{kindLabels[entry.kind]}</Badge>
+      <Badge>{entry.group}</Badge>
+      {entry.sourceUrl !== undefined && (
+        <Link href={entry.sourceUrl} class="ml-auto type-label">
+          Source
+        </Link>
+      )}
+    </div>
+
+    {entry.summary !== "" && (
+      <div
+        class="flex max-w-3xl flex-col gap-3 text-lg leading-relaxed text-ink"
+        set:html={entry.summary}
+      />
+    )}
+
+    {entry.signature !== undefined && <Code code={entry.signature} lang="ts" />}
+
+    {entry.examples.length > 0 && (
+      <Panel id="example" title="Example">
+        <div class="flex flex-col gap-3">
+          {entry.examples.map((example) => (
+            <Code code={example.code} lang={example.lang} />
+          ))}
+        </div>
+      </Panel>
+    )}
+
+    {entry.props !== undefined && (
+      <Panel id="props" title="Props">
+        <ApiFields fields={entry.props} />
+        {entry.propsElement !== undefined && (
+          <p class="mt-4 border-t border-line pt-4 text-sm text-muted">
+            Also takes every{" "}
+            <code class="type-code">{`<${entry.propsElement}>`}</code>{" "}
+            attribute.
+          </p>
+        )}
+      </Panel>
+    )}
+
+    {(entry.parameters ?? []).length > 0 && (
+      <Panel id="parameters" title="Parameters">
+        <ApiFields fields={entry.parameters ?? []} />
+      </Panel>
+    )}
+
+    {entry.returns !== undefined && (
+      <Panel id="returns" title="Returns">
+        <ApiType type={entry.returns} class="text-ink" />
+      </Panel>
+    )}
+
+    {entry.fields !== undefined && (
+      <Panel id="fields" title="Fields">
+        <ApiFields fields={entry.fields} />
+      </Panel>
+    )}
+
+    {entry.values !== undefined && (
+      <Panel id="values" title="Values">
+        <ul class="flex flex-wrap gap-2">
+          {entry.values.map((value) => (
+            <li class="rounded-md border border-line bg-surface-sunken px-2 py-1">
+              <ApiType type={value} class="text-ink" />
+            </li>
+          ))}
+        </ul>
+      </Panel>
+    )}
+
+    {entry.usedBy.length > 0 && (
+      <Panel id="used-by" title="Used by">
+        <ul class="flex flex-wrap gap-x-4 gap-y-2">
+          {entry.usedBy.map((user) => (
+            <li>
+              <Link href={user.href} class="type-code">
+                {user.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Panel>
+    )}
+  </div>
+</StarlightPage>

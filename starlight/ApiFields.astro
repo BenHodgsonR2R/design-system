@@ -1,0 +1,33 @@
+---
+import { Badge } from "@bhodgson/design-system";
+import type { ApiField } from "@bhodgson/design-system/starlight/api";
+import ApiType from "./ApiType.astro";
+
+interface Props {
+  fields: ApiField[];
+}
+
+const { fields } = Astro.props;
+---
+
+<dl class="-my-4 divide-y divide-line">
+  {fields.map((field) => (
+    <div class="py-4" id={`field-${field.name}`}>
+      <dt class="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+        <span class="type-subheading text-ink">{field.name}</span>
+        {field.optional ? (
+          <Badge>optional</Badge>
+        ) : (
+          <Badge tone="accent">required</Badge>
+        )}
+        <ApiType type={field.type} class="text-muted" />
+      </dt>
+      {field.description !== "" && (
+        <dd
+          class="mt-2 flex flex-col gap-2 text-sm leading-relaxed text-ink"
+          set:html={field.description}
+        />
+      )}
+    </div>
+  ))}
+</dl>

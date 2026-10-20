@@ -2,7 +2,6 @@ import type { ComponentChildren } from "preact";
 
 /**
  * The props for {@link Panel}.
- * @inline
  * @group Layout
  */
 export type PanelProps = {
@@ -25,7 +24,7 @@ export function Panel({ id, title, actions, children }: PanelProps) {
       aria-labelledby={id}
     >
       <header class="flex flex-wrap items-center justify-between gap-2 border-b border-line bg-canvas/60 px-4 py-2.5">
-        <h2 id={id} class="font-mono text-sm font-bold">
+        <h2 id={id} class="type-subheading">
           {title}
         </h2>
         {actions !== undefined && (

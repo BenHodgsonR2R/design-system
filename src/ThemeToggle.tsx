@@ -77,7 +77,6 @@ const hints: Record<ThemeChoice, string> = {
 
 /**
  * The props for {@link ThemeToggle}.
- * @inline
  * @group Theme
  */
 export type ThemeToggleProps = {

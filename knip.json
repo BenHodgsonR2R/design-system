@@ -5,7 +5,6 @@
       "project": ["src/**/*.{ts,tsx}", "starlight/**/*.{astro,css}"]
     },
     "docs": {
-      "entry": ["typedoc-props.mjs"],
       "project": ["**/*.{ts,tsx,mjs,astro,mdx}"]
     }
   },

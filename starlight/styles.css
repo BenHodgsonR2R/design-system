@@ -16,6 +16,12 @@
     color: inherit;
     letter-spacing: inherit;
   }
+
+  .not-content :is(ul, ol, dl, dd) {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
 }
 
 /* Starlight's colours, from the design system's tokens. Unlayered, so they win over Starlight's own. */

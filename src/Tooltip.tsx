@@ -30,7 +30,6 @@ const popover = cva(
 
 /**
  * The props for {@link Tooltip}.
- * @inline
  * @group Feedback
  */
 export type TooltipProps = {

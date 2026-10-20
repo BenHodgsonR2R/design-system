@@ -25,7 +25,6 @@ const message = cva(
 
 /**
  * The props for {@link Message}.
- * @inline
  * @group Feedback
  */
 export type MessageProps = {

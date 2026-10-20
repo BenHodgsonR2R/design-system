@@ -1,16 +1,8 @@
 import starlight from "@astrojs/starlight";
 import { designSystem } from "@bhodgson/design-system/starlight";
+import { apiSidebar } from "@bhodgson/design-system/starlight/api";
 import { defineConfig } from "astro/config";
-import starlightTypeDoc from "starlight-typedoc";
-
-const apiGroups = [
-  "Layout",
-  "Controls",
-  "Feedback",
-  "Text",
-  "Theme",
-  "Utilities",
-];
+import { api } from "./src/api.ts";
 
 export default defineConfig({
   site: "https://benhodgsonr2r.github.io",
@@ -32,39 +24,10 @@ export default defineConfig({
         baseUrl:
           "https://github.com/BenHodgsonR2R/design-system/edit/main/docs/",
       },
-      plugins: [
-        designSystem(),
-        starlightTypeDoc({
-          entryPoints: ["../src/index.ts"],
-          tsconfig: "../tsconfig.json",
-          output: "api",
-          typeDoc: {
-            plugin: ["./typedoc-props.mjs"],
-            parametersFormat: "list",
-            router: "group",
-            sort: ["source-order"],
-            groupOrder: [
-              "Layout",
-              "Controls",
-              "Feedback",
-              "Text",
-              "Theme",
-              "*",
-            ],
-            disableSources: true,
-          },
-        }),
-      ],
+      plugins: [designSystem()],
       sidebar: [
         { label: "Guides", items: [{ autogenerate: { directory: "guides" } }] },
-        {
-          label: "API reference",
-          collapsed: true,
-          items: apiGroups.map((group) => ({
-            label: group,
-            items: [{ autogenerate: { directory: `api/${group}` } }],
-          })),
-        },
+        apiSidebar(api),
         {
           label: "Contributing",
           items: [{ autogenerate: { directory: "contributing" } }],

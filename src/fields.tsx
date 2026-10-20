@@ -48,7 +48,6 @@ export function TextArea({ class: extra, ...props }: TextAreaProps) {
 
 /**
  * The props for {@link Field}.
- * @inline
  * @group Controls
  */
 export type FieldProps = {
@@ -64,12 +63,7 @@ export type FieldProps = {
  */
 export function Field({ label, class: extra, children }: FieldProps) {
   return (
-    <label
-      class={cn(
-        "flex flex-col gap-1 font-mono text-xs font-semibold text-muted",
-        extra,
-      )}
-    >
+    <label class={cn("flex flex-col gap-1 type-label text-muted", extra)}>
       {label}
       {children}
     </label>

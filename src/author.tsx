@@ -35,7 +35,6 @@ export const defaultAuthor: Author = {
 
 /**
  * The props for {@link Identity}.
- * @inline
  * @group Layout
  */
 export type IdentityProps = {
@@ -95,7 +94,6 @@ export function Identity({
 
 /**
  * The props for {@link Credit}.
- * @inline
  * @group Layout
  */
 export type CreditProps = {

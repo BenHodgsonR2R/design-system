@@ -1,0 +1,11 @@
+---
+import ApiPage from "@bhodgson/design-system/starlight/ApiPage.astro";
+import { apiPaths, type ApiEntry } from "@bhodgson/design-system/starlight/api";
+import { api } from "../../api.ts";
+
+export const getStaticPaths = () => apiPaths(api);
+
+const { entry } = Astro.props as { entry: ApiEntry };
+---
+
+<ApiPage entry={entry} />

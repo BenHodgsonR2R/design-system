@@ -85,7 +85,8 @@
         "**/*.test.ts",
         "**/*.test.tsx",
         "vitest.config.ts",
-        "docs/astro.config.mjs"
+        "docs/astro.config.mjs",
+        "docs/src/api.ts"
       ],
       "rules": {
         "no-restricted-imports": "off",

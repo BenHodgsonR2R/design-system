@@ -40,7 +40,6 @@ const badge = cva(
 
 /**
  * The props for {@link Badge}.
- * @inline
  * @group Feedback
  */
 export type BadgeProps = {

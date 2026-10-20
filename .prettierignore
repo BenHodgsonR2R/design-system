@@ -1,5 +1,4 @@
 dist
 coverage
 pnpm-lock.yaml
-docs/src/content/docs/api
 .astro
