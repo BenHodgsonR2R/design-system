@@ -29,7 +29,9 @@ export type SelectProps = JSX.SelectHTMLAttributes & { class?: string };
  * @group Controls
  */
 export function Select({ class: extra, ...props }: SelectProps) {
-  return <select class={cn(field, "h-control", extra)} {...props} />;
+  return (
+    <select class={cn(field, "h-control select-chevron", extra)} {...props} />
+  );
 }
 
 /**
