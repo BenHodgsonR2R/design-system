@@ -1,5 +1,5 @@
 ---
-import { buttonClass, type ButtonVariant } from "@bhodgson/design-system";
+import { buttonClass, cn, type ButtonVariant } from "@bhodgson/design-system";
 
 const { entry, siteTitle } = Astro.locals.starlightRoute;
 const {
@@ -37,10 +37,10 @@ const variants: Record<string, ButtonVariant> = {
         {actions.map(({ link, text, variant = "primary" }) => (
           <a
             href={link}
-            class:list={[
+            class={cn(
               buttonClass({ variant: variants[variant] }),
-              "no-underline",
-            ]}
+              "self-center no-underline",
+            )}
           >
             {text}
           </a>
