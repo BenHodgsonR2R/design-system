@@ -10,22 +10,34 @@ import {
 import { cn } from "./cn.ts";
 import { ThemeToggle } from "./ThemeToggle.tsx";
 
+/**
+ * The props for {@link Page}.
+ * @inline
+ * @group Layout
+ */
 export type PageProps = {
-  /** Can include a `Highlight` for a few words. */
+  /** The page heading. Can include a {@link Highlight} for a few words. */
   title: ComponentChildren;
   /** A short label above the title, such as the project name. */
   eyebrow?: string;
-  /** Shown as the prompt's working directory, such as `image-tagger`. */
+  /** Shown as the prompt's working directory, such as `image-tagger`, and named in the footer credit. */
   project?: string;
+  /** A sentence or two under the title. */
   description?: ComponentChildren;
   /** Buttons or links under the description. */
   actions?: ComponentChildren;
-  /** Extra footer content, such as credits. */
+  /** Extra footer content, such as image credits. */
   footer?: ComponentChildren;
+  /** Whose site this is. Defaults to {@link defaultAuthor}. */
   author?: Author;
+  /** The content, such as {@link Panel}s. */
   children: ComponentChildren;
 };
 
+/**
+ * The frame for a single-page app: a site bar with the author's {@link Identity} and a {@link ThemeToggle}, a header, your content, and a footer with a {@link Credit}. A compact bar slides in once the site bar scrolls away.
+ * @group Layout
+ */
 export function Page({
   title,
   eyebrow,

@@ -3,6 +3,10 @@ import type { ComponentChildren } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { cn } from "./cn.ts";
 
+/**
+ * Which edge of its trigger a {@link Tooltip} lines up with.
+ * @group Feedback
+ */
 export type TooltipAlign = "start" | "center" | "end";
 
 // The padding, not a margin, spaces it from the trigger, so the pointer can cross onto it.
@@ -24,6 +28,11 @@ const popover = cva(
   },
 );
 
+/**
+ * The props for {@link Tooltip}.
+ * @inline
+ * @group Feedback
+ */
 export type TooltipProps = {
   content: ComponentChildren;
   /** Which edge of the trigger the tooltip lines up with. Defaults to `center`. */
@@ -36,6 +45,7 @@ export type TooltipProps = {
 /**
  * Shows `content` while the trigger is hovered or focused from the keyboard; Escape hides it.
  * Screen readers don't hear it, so give the trigger a label that says the same.
+ * @group Feedback
  */
 export function Tooltip({
   content,

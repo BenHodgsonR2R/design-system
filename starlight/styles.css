@@ -68,6 +68,12 @@
 }
 
 /* Headings and the page title in mono, like the design system's Page. */
+:root {
+  --sl-text-h3: var(--sl-text-xl);
+  --sl-text-h4: var(--sl-text-lg);
+  --sl-text-h5: var(--sl-text-base);
+}
+
 .sl-markdown-content :is(h1, h2, h3, h4, h5, h6),
 h1#_top {
   font-family: var(--font-mono);

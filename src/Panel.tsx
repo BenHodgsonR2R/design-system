@@ -1,5 +1,10 @@
 import type { ComponentChildren } from "preact";
 
+/**
+ * The props for {@link Panel}.
+ * @inline
+ * @group Layout
+ */
 export type PanelProps = {
   /** The title's id, so the panel can be linked to. */
   id: string;
@@ -9,7 +14,10 @@ export type PanelProps = {
   children: ComponentChildren;
 };
 
-/** A window: a title bar over the content. */
+/**
+ * A window: a title bar over the content.
+ * @group Layout
+ */
 export function Panel({ id, title, actions, children }: PanelProps) {
   return (
     <section

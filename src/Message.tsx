@@ -2,6 +2,10 @@ import { cva } from "class-variance-authority";
 import type { ComponentChildren } from "preact";
 import { cn } from "./cn.ts";
 
+/**
+ * What kind of {@link Message} it is. `notice` is the same as `warning`.
+ * @group Feedback
+ */
 export type MessageTone = "info" | "success" | "warning" | "notice" | "error";
 
 const message = cva(
@@ -19,6 +23,11 @@ const message = cva(
   },
 );
 
+/**
+ * The props for {@link Message}.
+ * @inline
+ * @group Feedback
+ */
 export type MessageProps = {
   /** `notice` is the same as `warning`. Errors are announced straight away, the rest politely. */
   tone: MessageTone;
@@ -26,6 +35,10 @@ export type MessageProps = {
   children: ComponentChildren;
 };
 
+/**
+ * A message with a coloured edge. Errors are announced to screen readers straight away; the other tones are announced politely.
+ * @group Feedback
+ */
 export function Message({ tone, class: extra, children }: MessageProps) {
   return (
     <div

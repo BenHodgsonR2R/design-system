@@ -6,10 +6,21 @@ import { cn } from "./cn.ts";
 const bevel =
   "inline-flex items-center justify-center gap-1.5 rounded-md border border-b-3 active:translate-y-0.5 active:border-b";
 
+/**
+ * How a {@link Button} looks: `primary` for the main action in a view, `secondary` for the rest, `link` for a button that reads as a link, and `icon` for a square icon button.
+ * @group Controls
+ */
 export type ButtonVariant = "primary" | "secondary" | "link" | "icon";
+/**
+ * A {@link Button}'s height. Each size matches fields of the same size, so they line up in a row.
+ * @group Controls
+ */
 export type ButtonSize = "md" | "sm";
 
-/** The button classes, for a link that should look like a button. */
+/**
+ * The classes {@link Button} uses, for a link that should look like a button.
+ * @group Controls
+ */
 export const buttonClass = cva(
   "font-mono text-xs font-bold tracking-wide uppercase transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:pointer-events-none disabled:opacity-50",
   {
@@ -40,7 +51,10 @@ export const buttonClass = cva(
   },
 );
 
-/** Every `<button>` attribute, plus: */
+/**
+ * The props for {@link Button}: every `<button>` attribute, plus these.
+ * @group Controls
+ */
 export type ButtonProps = JSX.ButtonHTMLAttributes & {
   /** Defaults to `primary`. Icon buttons need an `aria-label`. */
   variant?: ButtonVariant;
@@ -49,7 +63,10 @@ export type ButtonProps = JSX.ButtonHTMLAttributes & {
   class?: string;
 };
 
-/** Defaults to `type="button"`, so it never submits a form by accident. */
+/**
+ * A button. Defaults to `type="button"`, so it never submits a form by accident.
+ * @group Controls
+ */
 export function Button({
   variant,
   size,

@@ -2,6 +2,10 @@ import { cva } from "class-variance-authority";
 import type { ComponentChildren } from "preact";
 import { cn } from "./cn.ts";
 
+/**
+ * A {@link Badge}'s colour: a status, or one of six categorical colours (`data-1` to `data-6`) that {@link dataTone} picks from.
+ * @group Feedback
+ */
 export type BadgeTone =
   | "neutral"
   | "accent"
@@ -34,6 +38,11 @@ const badge = cva(
   },
 );
 
+/**
+ * The props for {@link Badge}.
+ * @inline
+ * @group Feedback
+ */
 export type BadgeProps = {
   /** Defaults to `neutral`. Use `dataTone(index)` for categories. */
   tone?: BadgeTone;
@@ -41,7 +50,10 @@ export type BadgeProps = {
   children: ComponentChildren;
 };
 
-/** A small label. The categorical tones tell groups apart; pair them with text, never colour alone. */
+/**
+ * A small label. The categorical tones tell groups apart; pair them with text, never colour alone.
+ * @group Feedback
+ */
 export function Badge({ tone, class: extra, children }: BadgeProps) {
   return <span class={cn(badge({ tone }), extra)}>{children}</span>;
 }
@@ -55,7 +67,10 @@ const dataTones = [
   "data-6",
 ] as const;
 
-/** The categorical tone for the nth item, cycling through the six colours. */
+/**
+ * The categorical {@link BadgeTone} for the nth item, cycling through the six colours.
+ * @group Feedback
+ */
 export function dataTone(index: number): (typeof dataTones)[number] {
   return dataTones[index % dataTones.length] ?? "data-1";
 }

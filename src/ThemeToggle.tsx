@@ -2,13 +2,20 @@ import { useEffect, useState } from "preact/hooks";
 import { Button } from "./Button.tsx";
 import { Tooltip, type TooltipAlign } from "./Tooltip.tsx";
 
+/**
+ * A theme the reader can pick: `system` follows their device's setting.
+ * @group Theme
+ */
 export type ThemeChoice = "system" | "light" | "dark";
 
 const storageKey = "bhodgson-theme";
 const changeEvent = "bhodgson-themechange";
 const order: readonly ThemeChoice[] = ["system", "light", "dark"];
 
-/** The saved choice, or `system` when there's none or storage is unavailable. */
+/**
+ * The saved {@link ThemeChoice}, or `system` when there's none or storage is unavailable.
+ * @group Theme
+ */
 export function storedTheme(): ThemeChoice {
   try {
     const saved = localStorage.getItem(storageKey);
@@ -18,7 +25,10 @@ export function storedTheme(): ThemeChoice {
   }
 }
 
-/** Applies and saves a choice. `system` follows the operating system's setting. */
+/**
+ * Applies and saves a {@link ThemeChoice}, and keeps every {@link ThemeToggle} on the page in step.
+ * @group Theme
+ */
 export function setTheme(choice: ThemeChoice): void {
   applyToDocument(choice);
   try {
@@ -33,7 +43,10 @@ export function setTheme(choice: ThemeChoice): void {
   window.dispatchEvent(new CustomEvent(changeEvent, { detail: choice }));
 }
 
-/** Call before the first render, so a saved choice applies without a flash. */
+/**
+ * Applies the saved {@link ThemeChoice}. Call it before the first render, so it applies without a flash.
+ * @group Theme
+ */
 export function applyStoredTheme(): void {
   applyToDocument(storedTheme());
 }
@@ -62,13 +75,21 @@ const hints: Record<ThemeChoice, string> = {
   dark: "Click to match your device.",
 };
 
+/**
+ * The props for {@link ThemeToggle}.
+ * @inline
+ * @group Theme
+ */
 export type ThemeToggleProps = {
   /** Where its tooltip lines up. Defaults to `end`, for a toggle at the right of a header. */
   align?: TooltipAlign;
   class?: string;
 };
 
-/** Cycles system, light and dark. Every toggle on the page stays in step. */
+/**
+ * Cycles the system, light and dark themes. Its tooltip says which is on and what a click does. Every toggle on the page stays in step.
+ * @group Theme
+ */
 export function ThemeToggle({ align = "end", class: extra }: ThemeToggleProps) {
   const [choice, setChoice] = useState(storedTheme);
 

@@ -1,8 +1,20 @@
 import { cn } from "./cn.ts";
 import { Link } from "./text.tsx";
 
+/**
+ * Who a site belongs to. {@link Page}, {@link Identity} and {@link Credit} show it in the site bar and footer; they use {@link defaultAuthor} unless given another.
+ * @example
+ * ```tsx
+ * <Page author={{ name: "Ada", url: "https://github.com/ada", home: "~/ada" }} title="Docs">
+ *   …
+ * </Page>
+ * ```
+ * @group Layout
+ */
 export type Author = {
+  /** Shown in the footer credit, and read out in place of the photo and prompt. */
   name: string;
+  /** Where the identity and credit link to, such as a GitHub profile. */
   url: string;
   /** The home directory the prompt starts from, such as `~/ben`. */
   home: string;
@@ -10,6 +22,10 @@ export type Author = {
   photo?: string;
 };
 
+/**
+ * Ben Hodgson, the author every component credits unless given another {@link Author}.
+ * @group Layout
+ */
 export const defaultAuthor: Author = {
   name: "Ben Hodgson",
   url: "https://github.com/BenHodgsonR2R",
@@ -17,7 +33,13 @@ export const defaultAuthor: Author = {
   photo: "https://avatars.githubusercontent.com/u/116538172?s=96&v=4",
 };
 
+/**
+ * The props for {@link Identity}.
+ * @inline
+ * @group Layout
+ */
 export type IdentityProps = {
+  /** Defaults to {@link defaultAuthor}. */
   author?: Author;
   /** Shown as the prompt's working directory, such as `image-tagger`. */
   project?: string;
@@ -29,7 +51,10 @@ export type IdentityProps = {
   caret?: boolean;
 };
 
-/** The author's photo and a shell prompt in their home directory, such as `~/ben/image-tagger $`. */
+/**
+ * The author's photo and a shell prompt in their home directory, such as `~/ben/image-tagger $`. {@link Page} shows it in its site bar.
+ * @group Layout
+ */
 export function Identity({
   author = defaultAuthor,
   project,
@@ -68,13 +93,22 @@ export function Identity({
   );
 }
 
+/**
+ * The props for {@link Credit}.
+ * @inline
+ * @group Layout
+ */
 export type CreditProps = {
+  /** Defaults to {@link defaultAuthor}. */
   author?: Author;
   /** Without one, it reads "A Ben Hodgson project". */
   project?: string;
 };
 
-/** Credits the author: "image-tagger is a Ben Hodgson project", with a link to their GitHub. */
+/**
+ * Credits the author, such as "image-tagger is a Ben Hodgson project", with a link to their GitHub. {@link Page} shows it in its footer.
+ * @group Layout
+ */
 export function Credit({ author = defaultAuthor, project }: CreditProps) {
   return (
     <p class="flex flex-wrap items-center gap-x-2">
