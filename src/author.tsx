@@ -85,7 +85,7 @@ export function Identity({
         {project !== undefined && <span class="text-accent">{project}</span>}
         <span class="text-muted"> $</span>
         {caret && (
-          <span class="ml-1 inline-block h-[1em] w-0.5 animate-caret bg-muted align-middle opacity-0 motion-reduce:hidden" />
+          <span class="ml-1 inline-block h-[1em] w-0.5 animate-caret bg-muted align-[-0.12em] opacity-0 motion-reduce:hidden" />
         )}
       </span>
     </a>
