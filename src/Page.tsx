@@ -1,40 +1,42 @@
 import type { ComponentChildren } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
+import {
+  type Author,
+  Credit,
+  defaultAuthor,
+  GitHubMark,
+  Identity,
+} from "./author.tsx";
 import { cn } from "./cn.ts";
-import { Link } from "./text.tsx";
+import { ThemeToggle } from "./ThemeToggle.tsx";
 
-export type Author = {
-  name: string;
-  url: string;
-  /** The home directory the prompt starts from, such as `~/ben`. */
-  home: string;
-  /** A square photo, shown small and round. */
-  photo?: string;
-};
-
-export const defaultAuthor: Author = {
-  name: "Ben Hodgson",
-  url: "https://github.com/BenHodgsonR2R",
-  home: "~/ben",
-  photo: "https://avatars.githubusercontent.com/u/116538172?s=96&v=4",
-};
-
-type PageProps = {
-  /** Can include a `Highlight` for a few words. */
+/**
+ * The props for {@link Page}.
+ * @group Layout
+ */
+export type PageProps = {
+  /** The page heading. Can include a {@link Highlight} for a few words. */
   title: ComponentChildren;
   /** A short label above the title, such as the project name. */
   eyebrow?: string;
-  /** Shown as the prompt's working directory, such as `image-tagger`. */
+  /** Shown as the prompt's working directory, such as `image-tagger`, and named in the footer credit. */
   project?: string;
+  /** A sentence or two under the title. */
   description?: ComponentChildren;
   /** Buttons or links under the description. */
   actions?: ComponentChildren;
-  /** Extra footer content, such as credits. */
+  /** Extra footer content, such as image credits. */
   footer?: ComponentChildren;
+  /** Whose site this is. Defaults to {@link defaultAuthor}. */
   author?: Author;
+  /** The content, such as {@link Panel}s. */
   children: ComponentChildren;
 };
 
+/**
+ * The frame for a single-page app: a site bar with the author's {@link Identity} and a {@link ThemeToggle}, a header, your content, and a footer with a {@link Credit}. A compact bar slides in once the site bar scrolls away.
+ * @group Layout
+ */
 export function Page({
   title,
   eyebrow,
@@ -55,7 +57,10 @@ export function Page({
           class="mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-lg border border-line bg-surface/85 px-3 py-2 font-mono text-sm shadow-window backdrop-blur"
         >
           <Identity author={author} project={project} caret />
-          <GitHubLink author={author} labelled />
+          <div class="flex items-center gap-2">
+            <ThemeToggle />
+            <GitHubLink author={author} labelled />
+          </div>
         </nav>
       </div>
 
@@ -74,7 +79,10 @@ export function Page({
           class="relative flex items-center justify-between gap-3 border-b border-line bg-surface/90 px-4 pt-4 pb-1 font-mono text-xs shadow-window backdrop-blur"
         >
           <Identity author={author} project={project} compact />
-          <GitHubLink author={author} />
+          <div class="flex items-center gap-2">
+            <ThemeToggle />
+            <GitHubLink author={author} />
+          </div>
           <span
             aria-hidden="true"
             class="absolute inset-x-0 bottom-0 h-0.5 scroll-progress bg-accent"
@@ -86,13 +94,9 @@ export function Page({
       <header class="px-3 pt-8 pb-2">
         <div class="mx-auto max-w-6xl border-l-4 border-accent pl-4 sm:pl-5">
           {eyebrow !== undefined && (
-            <p class="font-mono text-xs font-semibold tracking-wide text-accent uppercase">
-              {eyebrow}
-            </p>
+            <p class="type-eyebrow text-accent">{eyebrow}</p>
           )}
-          <h1 class="mt-1 font-mono text-2xl leading-tight font-bold tracking-tight sm:text-3xl">
-            {title}
-          </h1>
+          <h1 class="mt-1 type-title">{title}</h1>
           {description !== undefined && (
             <div class="mt-2 max-w-2xl leading-relaxed text-muted">
               {description}
@@ -109,59 +113,10 @@ export function Page({
       <footer class="px-3 pb-6">
         <div class="mx-auto flex max-w-6xl flex-col gap-3 rounded-xl border border-line bg-surface/70 px-5 py-4 text-sm text-muted">
           {footer}
-          <p class="flex flex-wrap items-center gap-x-2">
-            Made by <Link href={author.url}>{author.name}</Link>
-            <span aria-hidden="true">·</span>
-            <a
-              class="inline-flex items-center gap-1.5 font-medium hover:text-ink"
-              href={author.url}
-            >
-              <GitHubMark />
-              GitHub
-            </a>
-          </p>
+          <Credit author={author} project={project} />
         </div>
       </footer>
     </div>
-  );
-}
-
-function Identity({
-  author,
-  project,
-  compact = false,
-  caret = false,
-}: {
-  author: Author;
-  project?: string;
-  compact?: boolean;
-  caret?: boolean;
-}) {
-  return (
-    <a href={author.url} class="flex items-center gap-2 font-bold">
-      {author.photo !== undefined && (
-        <img
-          src={author.photo}
-          alt=""
-          class={cn(
-            "rounded-full border border-line-strong object-cover",
-            compact ? "size-6" : "size-8",
-          )}
-        />
-      )}
-      <span class="sr-only">{author.name}</span>
-      <span aria-hidden="true">
-        <span class="text-muted">
-          {author.home}
-          {project !== undefined && "/"}
-        </span>
-        {project !== undefined && <span class="text-accent">{project}</span>}
-        <span class="text-muted"> $</span>
-        {caret && (
-          <span class="ml-1 inline-block h-[1em] w-0.5 animate-caret bg-muted align-middle opacity-0 motion-reduce:hidden" />
-        )}
-      </span>
-    </a>
   );
 }
 
@@ -206,10 +161,3 @@ function useScrolledPast() {
 }
 
 // GitHub's mark, from Octicons (MIT).
-function GitHubMark() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 16 16" class="size-4 fill-current">
-      <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z" />
-    </svg>
-  );
-}

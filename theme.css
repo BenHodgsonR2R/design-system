@@ -37,6 +37,7 @@
 @theme inline {
   --color-canvas: var(--canvas);
   --color-surface: var(--surface);
+  --color-surface-sunken: var(--surface-sunken);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-line: var(--line);
@@ -45,55 +46,118 @@
   --color-accent-edge: var(--accent-edge);
   --color-on-accent: var(--on-accent);
   --color-accent-soft: var(--accent-soft);
+  --color-secondary: var(--secondary);
+  --color-secondary-soft: var(--secondary-soft);
   --color-link: var(--link);
+  --color-focus: var(--focus);
   --color-highlight-blue: var(--highlight-blue);
   --color-highlight-red: var(--highlight-red);
   --color-danger: var(--danger);
   --color-danger-soft: var(--danger-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
   --color-notice-soft: var(--notice-soft);
+  --color-data-1: var(--data-1);
+  --color-data-1-soft: var(--data-1-soft);
+  --color-data-2: var(--data-2);
+  --color-data-2-soft: var(--data-2-soft);
+  --color-data-3: var(--data-3);
+  --color-data-3-soft: var(--data-3-soft);
+  --color-data-4: var(--data-4);
+  --color-data-4-soft: var(--data-4-soft);
+  --color-data-5: var(--data-5);
+  --color-data-5-soft: var(--data-5-soft);
+  --color-data-6: var(--data-6);
+  --color-data-6-soft: var(--data-6-soft);
   --shadow-window: 0 2px 0 var(--line);
 }
 
 :root {
   color-scheme: light dark;
-  --canvas: oklch(0.97 0.008 255);
-  --surface: oklch(1 0 0);
-  --ink: oklch(0.24 0.06 265);
-  --muted: oklch(0.5 0.04 260);
-  --line: oklch(0.9 0.015 255);
-  --line-strong: oklch(0.78 0.03 258);
-  --accent: oklch(0.49 0.22 264);
-  --accent-edge: oklch(0.34 0.16 266);
-  --on-accent: oklch(1 0 0);
-  --accent-soft: oklch(0.94 0.03 255);
-  --link: oklch(0.49 0.22 264);
-  --highlight-blue: oklch(0.91 0.05 250);
-  --highlight-red: oklch(0.91 0.06 25);
-  --danger: oklch(0.55 0.21 27);
-  --danger-soft: oklch(0.95 0.03 27);
-  --notice-soft: oklch(0.95 0.05 95);
+
+  --canvas: light-dark(oklch(0.97 0.008 255), oklch(0.19 0.04 262));
+  --surface: light-dark(oklch(1 0 0), oklch(0.23 0.05 263));
+  --surface-sunken: light-dark(oklch(0.945 0.012 255), oklch(0.165 0.035 262));
+  --ink: light-dark(oklch(0.24 0.06 265), oklch(0.94 0.015 255));
+  --muted: light-dark(oklch(0.47 0.04 260), oklch(0.74 0.03 255));
+
+  /* Lines: `line` is decorative only; controls use `line-strong` (3:1). */
+  --line: light-dark(oklch(0.9 0.015 255), oklch(0.32 0.05 262));
+  --line-strong: light-dark(oklch(0.62 0.035 258), oklch(0.6 0.05 260));
+
+  --accent: light-dark(oklch(0.49 0.22 264), oklch(0.74 0.134 258));
+  --accent-edge: light-dark(oklch(0.34 0.16 266), oklch(0.58 0.15 262));
+  --on-accent: light-dark(oklch(1 0 0), oklch(0.2 0.05 265));
+  --accent-soft: light-dark(oklch(0.94 0.028 255), oklch(0.32 0.08 262));
+  --secondary: light-dark(oklch(0.53 0.22 345), oklch(0.76 0.15 345));
+  --secondary-soft: light-dark(oklch(0.95 0.031 345), oklch(0.33 0.09 345));
+  --link: light-dark(oklch(0.49 0.22 264), oklch(0.8 0.104 252));
+  --focus: light-dark(oklch(0.55 0.24 300), oklch(0.78 0.132 300));
+  --highlight-blue: light-dark(oklch(0.91 0.044 250), oklch(0.36 0.09 260));
+  --highlight-red: light-dark(oklch(0.91 0.046 25), oklch(0.37 0.1 25));
+
+  /* Status: the solid colour is for text and icons, the soft one for backgrounds. */
+  --danger: light-dark(oklch(0.51 0.2 27), oklch(0.78 0.128 25));
+  --danger-soft: light-dark(oklch(0.955 0.022 27), oklch(0.3 0.08 25));
+  --warning: light-dark(oklch(0.5 0.112 65), oklch(0.84 0.13 80));
+  --warning-soft: light-dark(oklch(0.96 0.05 90), oklch(0.31 0.06 75));
+  --success: light-dark(oklch(0.5 0.13 150), oklch(0.8 0.14 150));
+  --success-soft: light-dark(oklch(0.955 0.04 150), oklch(0.3 0.06 150));
+  --info: light-dark(oklch(0.5 0.1 230), oklch(0.8 0.1 230));
+  --info-soft: light-dark(oklch(0.955 0.026 230), oklch(0.3 0.06 235));
+  /* Older name for warning-soft. */
+  --notice-soft: var(--warning-soft);
+
+  /* Categorical colours for telling things apart, from the Okabe–Ito palette. Their
+     lightness is tuned so they stay distinct with colour-vision deficiencies. */
+  --data-1: light-dark(
+    oklch(0.532 0.131 244),
+    oklch(0.532 0.131 244)
+  ); /* blue */
+  --data-1-soft: light-dark(oklch(0.94 0.031 244), oklch(0.32 0.07 244));
+  --data-2: light-dark(
+    oklch(0.49 0.102 76.8),
+    oklch(0.753 0.158 76.8)
+  ); /* orange */
+  --data-2-soft: light-dark(oklch(0.94 0.045 76.8), oklch(0.32 0.068 76.8));
+  --data-3: light-dark(
+    oklch(0.4 0.084 165.5),
+    oklch(0.62 0.13 165.5)
+  ); /* green */
+  --data-3-soft: light-dark(oklch(0.94 0.045 165.5), oklch(0.32 0.068 165.5));
+  --data-4: light-dark(
+    oklch(0.621 0.17 47.5),
+    oklch(0.621 0.17 47.5)
+  ); /* vermillion */
+  --data-4-soft: light-dark(oklch(0.94 0.033 47.5), oklch(0.32 0.07 47.5));
+  --data-5: light-dark(
+    oklch(0.46 0.099 236.2),
+    oklch(0.735 0.117 236.2)
+  ); /* sky */
+  --data-5-soft: light-dark(oklch(0.94 0.033 236.2), oklch(0.32 0.07 236.2));
+  --data-6: light-dark(
+    oklch(0.654 0.118 346.3),
+    oklch(0.679 0.118 346.3)
+  ); /* purple */
+  --data-6-soft: light-dark(oklch(0.94 0.037 346.3), oklch(0.32 0.07 346.3));
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --canvas: oklch(0.19 0.04 262);
-    --surface: oklch(0.23 0.05 263);
-    --ink: oklch(0.94 0.015 255);
-    --muted: oklch(0.72 0.03 255);
-    --line: oklch(0.32 0.05 262);
-    --line-strong: oklch(0.45 0.06 262);
-    --accent: oklch(0.6 0.19 260);
-    --accent-edge: oklch(0.42 0.16 263);
-    --on-accent: oklch(1 0 0);
-    --accent-soft: oklch(0.3 0.07 262);
-    --link: oklch(0.81 0.1 252);
-    --highlight-blue: oklch(0.36 0.09 260);
-    --highlight-red: oklch(0.37 0.1 25);
-    --danger: oklch(0.75 0.15 25);
-    --danger-soft: oklch(0.3 0.08 25);
-    --notice-soft: oklch(0.32 0.05 90);
-  }
+/* A choice saved by ThemeToggle overrides the system setting. */
+[data-theme="light"] {
+  color-scheme: light;
 }
+
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* The saved theme choice, which ThemeToggle shows. Set on the root element before the page draws. */
+@custom-variant theme-choice-light (&:where(:root[data-theme-choice="light"] *));
+@custom-variant theme-choice-dark (&:where(:root[data-theme-choice="dark"] *));
 
 /* Tailwind's base styles give buttons the default cursor. */
 @layer base {
@@ -133,5 +197,186 @@
   @supports (animation-timeline: scroll()) {
     animation: scroll-progress linear both;
     animation-timeline: scroll(root);
+  }
+}
+
+/* Text styles. Colour is left to the caller. */
+@utility type-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+
+  @media (width >= 40rem) {
+    font-size: var(--text-3xl);
+  }
+}
+
+@utility type-heading {
+  font-family: var(--font-mono);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+}
+
+@utility type-subheading {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+@utility type-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+@utility type-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+@utility type-code {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+/* Long-form content, such as docs pages. Wrap live examples in `not-prose` to opt them out. */
+@utility prose {
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.75;
+
+  & > :where(* + *:not(.not-prose *)) {
+    margin-top: 1.25rem;
+  }
+
+  & :where(h2, h3, h4):not(:where(.not-prose *)) {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+
+  & :where(h2):not(:where(.not-prose *)) {
+    font-size: var(--text-2xl);
+  }
+
+  & :where(h3):not(:where(.not-prose *)) {
+    font-size: var(--text-lg);
+  }
+
+  & :where(h4):not(:where(.not-prose *)) {
+    font-size: var(--text-base);
+  }
+
+  & > :where(h2, h3, h4) {
+    margin-top: 2.5rem;
+  }
+
+  & > :where(:first-child) {
+    margin-top: 0;
+  }
+
+  & :where(a):not(:where(.not-prose *)) {
+    color: var(--link);
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 2px;
+  }
+
+  & :where(a:hover):not(:where(.not-prose *)) {
+    text-decoration-color: var(--ink);
+  }
+
+  & :where(strong):not(:where(.not-prose *)) {
+    font-weight: 600;
+  }
+
+  & :where(:not(pre) > code):not(:where(.not-prose *)) {
+    border-radius: 0.25rem;
+    background-color: var(--surface-sunken);
+    padding: 0.1em 0.35em;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+  }
+
+  & :where(pre):not(:where(.not-prose *)) {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 0.5rem;
+    background-color: var(--surface-sunken);
+    padding: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+  }
+
+  & :where(ul, ol):not(:where(.not-prose *)) {
+    padding-left: 1.5rem;
+  }
+
+  & :where(ul):not(:where(.not-prose *)) {
+    list-style: disc;
+  }
+
+  & :where(ol):not(:where(.not-prose *)) {
+    list-style: decimal;
+  }
+
+  & :where(li + li):not(:where(.not-prose *)) {
+    margin-top: 0.375rem;
+  }
+
+  & :where(li):not(:where(.not-prose *))::marker {
+    color: var(--muted);
+  }
+
+  & :where(blockquote):not(:where(.not-prose *)) {
+    border-left: 4px solid var(--line-strong);
+    padding-left: 1rem;
+    color: var(--muted);
+  }
+
+  & :where(hr):not(:where(.not-prose *)) {
+    margin-block: 2.5rem;
+    border: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  & :where(table):not(:where(.not-prose *)) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  & :where(th):not(:where(.not-prose *)) {
+    border-bottom: 1px solid var(--line-strong);
+    padding: 0.5rem 1rem 0.5rem 0;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-align: left;
+  }
+
+  & :where(td):not(:where(.not-prose *)) {
+    border-bottom: 1px solid var(--line);
+    padding: 0.5rem 1rem 0.5rem 0;
+    vertical-align: top;
+  }
+
+  & :where(img):not(:where(.not-prose *)) {
+    border-radius: 0.5rem;
   }
 }

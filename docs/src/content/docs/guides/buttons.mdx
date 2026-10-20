@@ -1,0 +1,47 @@
+---
+title: Buttons
+description: Primary, secondary, link and icon buttons, in two sizes.
+sidebar:
+  order: 2
+---
+
+import { Button } from "@bhodgson/design-system";
+import Preview from "../../../components/Preview.astro";
+
+Use one primary button for the main action in a view, and secondary buttons for the rest.
+
+<Preview
+  code={`
+<Button>Primary</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="link">Link</Button>
+<Button variant="icon" aria-label="Remove">×</Button>
+<Button disabled>Disabled</Button>`}
+>
+  <Button>Primary</Button>
+  <Button variant="secondary">Secondary</Button>
+  <Button variant="link">Link</Button>
+  <Button variant="icon" aria-label="Remove">
+    ×
+  </Button>
+  <Button disabled>Disabled</Button>
+</Preview>
+
+`size="sm"` fits a button into a row of compact controls.
+
+<Preview
+  code={`
+<Button size="sm">Small</Button>
+<Button size="sm" variant="secondary">Small</Button>
+<Button size="sm" variant="icon" aria-label="Remove">×</Button>`}
+>
+  <Button size="sm">Small</Button>
+  <Button size="sm" variant="secondary">
+    Small
+  </Button>
+  <Button size="sm" variant="icon" aria-label="Remove">
+    ×
+  </Button>
+</Preview>
+
+Icon buttons have no visible text, so always give them an `aria-label`. Buttons are `type="button"` unless you say otherwise.

@@ -1,0 +1,16 @@
+---
+import Default from "@astrojs/starlight/components/Footer.astro";
+import { Credit } from "@bhodgson/design-system";
+
+const { siteTitle } = Astro.locals.starlightRoute;
+---
+
+<Default>
+  <slot />
+</Default>
+<div
+  class="not-prose mt-8 border-t border-line pt-4 text-sm text-muted"
+  data-pagefind-ignore
+>
+  <Credit project={siteTitle} />
+</div>

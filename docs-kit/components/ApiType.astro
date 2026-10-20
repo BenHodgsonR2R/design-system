@@ -1,0 +1,25 @@
+---
+import type { ApiType } from "@bhodgson/docs/api";
+
+interface Props {
+  type: ApiType;
+  class?: string;
+}
+
+const { type, class: extra } = Astro.props;
+---
+
+<code class:list={["type-code break-words", extra]}>
+  {type.map((token) =>
+    token.href === undefined ? (
+      token.text
+    ) : (
+      <a
+        href={token.href}
+        class="text-link underline decoration-1 underline-offset-2 hover:decoration-2"
+      >
+        {token.text}
+      </a>
+    ),
+  )}
+</code>

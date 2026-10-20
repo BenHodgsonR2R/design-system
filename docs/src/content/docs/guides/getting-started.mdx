@@ -1,0 +1,54 @@
+---
+title: Getting started
+description: Install the design system and import its theme.
+sidebar:
+  order: 1
+---
+
+`@bhodgson/design-system` is Tailwind CSS v4 theme tokens, Preact components and a page layout. These docs are built with it.
+
+## Install
+
+```bash
+pnpm add @bhodgson/design-system preact
+```
+
+Import the theme after Tailwind in your stylesheet. It adds the colour, font and spacing tokens as Tailwind utilities, such as `bg-surface`, `text-muted` and `border-data-3`.
+
+```css
+@import "tailwindcss";
+@import "@bhodgson/design-system/theme.css";
+```
+
+## Use the components
+
+```tsx
+import { Button, Highlight, Page, Panel } from "@bhodgson/design-system";
+
+<Page
+  eyebrow="playground"
+  project="my-project"
+  title={
+    <>
+      A <Highlight>new</Highlight> project
+    </>
+  }
+>
+  <Panel id="hello" title="Hello">
+    <Button>Get started</Button>
+  </Panel>
+</Page>;
+```
+
+Every component takes a `class`, merged with `cn()` so yours replaces theirs where they conflict. Use `cn()` the same way in your own components.
+
+## Apply the saved theme
+
+In an app that renders in the browser, call `applyStoredTheme()` before the first render, so a theme picked with the [theme toggle](../theme/) applies without a flash. On server-rendered pages, put `themeScript` in an inline `<script>` in `<head>` instead.
+
+```tsx
+import { applyStoredTheme } from "@bhodgson/design-system";
+
+applyStoredTheme();
+render(<App />, document.getElementById("app"));
+```

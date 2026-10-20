@@ -32,7 +32,13 @@ jobs:
       - run: pnpm knip
       - run: pnpm build
       - run: pnpm check:package
-      - run: pnpm --filter design-system-example typecheck
+      - run: pnpm --filter @bhodgson/docs typecheck
+      - run: pnpm --filter @bhodgson/docs test
+      - run: pnpm --filter @bhodgson/docs build
+      - run: pnpm --filter @bhodgson/docs check:package
+      - run: pnpm --filter design-system-docs check
+      - run: pnpm --filter design-system-docs build
+      - run: pnpm --filter design-system-docs test
       # Changes to the published package need a changeset. The Version
       # Packages pull request removes them, so it is skipped.
       - if: github.event_name == 'pull_request' && github.head_ref != 'changeset-release/main'

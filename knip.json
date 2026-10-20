@@ -2,15 +2,20 @@
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "workspaces": {
     ".": {
-      "project": ["src/**/*.{ts,tsx}"],
-      "ignoreDependencies": [
-        "@fontsource-variable/inter",
-        "@fontsource-variable/jetbrains-mono"
-      ]
+      "project": ["src/**/*.{ts,tsx}"]
     },
-    "example": {
-      "entry": ["src/styles.css"],
-      "project": ["src/**/*.{ts,tsx,css}"]
+    "docs": {
+      "project": ["**/*.{ts,tsx,mjs,astro,mdx}"]
+    },
+    "docs-kit": {
+      "entry": [
+        "src/index.ts",
+        "src/api.ts",
+        "src/pagefind.tsx",
+        "components/*.astro"
+      ],
+      "project": ["src/**/*.{ts,tsx}", "components/**/*.astro", "styles.css"],
+      "ignore": ["test/fixture/**"]
     }
   },
   "tags": ["-lintignore"]

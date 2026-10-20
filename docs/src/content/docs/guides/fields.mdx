@@ -1,0 +1,57 @@
+---
+title: Fields
+description: Labelled inputs, selects and text areas.
+sidebar:
+  order: 3
+---
+
+import {
+  Button,
+  Field,
+  Input,
+  Select,
+  TextArea,
+} from "@bhodgson/design-system";
+import Preview from "../../../components/Preview.astro";
+
+`Field` labels a control. Controls match the button height, so they line up in a row.
+
+<Preview
+  code={`
+<Field label="Name">
+  <Input placeholder="e.g. people" />
+</Field>
+<Field label="Answer">
+  <Select>
+    <option>One value</option>
+    <option>Any number of values</option>
+  </Select>
+</Field>
+<Button variant="icon" aria-label="Remove">×</Button>`}
+>
+  <div class="flex w-full flex-wrap items-end gap-2">
+    <Field label="Name" class="flex-1 basis-40">
+      <Input placeholder="e.g. people" />
+    </Field>
+    <Field label="Answer">
+      <Select>
+        <option>One value</option>
+        <option>Any number of values</option>
+      </Select>
+    </Field>
+    <Button variant="icon" aria-label="Remove">
+      ×
+    </Button>
+  </div>
+</Preview>
+
+<Preview
+  code={`
+<Field label="Notes">
+  <TextArea placeholder="Anything else?" />
+</Field>`}
+>
+  <Field label="Notes" class="w-full">
+    <TextArea placeholder="Anything else?" />
+  </Field>
+</Preview>

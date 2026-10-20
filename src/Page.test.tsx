@@ -49,6 +49,9 @@ describe("Page", () => {
       </Page>,
     );
 
+    const plain = html.replace(/<[^>]+>/g, "");
+    expect(plain).toContain("tagger-demo is a Ben Hodgson project");
+
     const nav = html.slice(html.indexOf("<nav"), html.indexOf("</nav>"));
     expect(nav.replace(/<[^>]+>/g, "")).toContain("~/ben/tagger-demo $");
 

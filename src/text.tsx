@@ -1,27 +1,51 @@
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import type { ComponentChildren, JSX } from "preact";
 import { cn } from "./cn.ts";
+
+/**
+ * A {@link Highlight}'s marker colour.
+ * @group Text
+ */
+export type HighlightTone = "blue" | "red";
 
 const highlight = cva("rounded-sm px-1 box-decoration-clone text-inherit", {
   variants: {
     tone: {
       blue: "bg-highlight-blue",
       red: "bg-highlight-red",
-    },
+    } satisfies Record<HighlightTone, string>,
   },
   defaultVariants: { tone: "blue" },
 });
 
-/** Marker-pen emphasis for a few words. */
-export function Highlight({
-  tone,
-  children,
-}: VariantProps<typeof highlight> & { children: ComponentChildren }) {
+/**
+ * The props for {@link Highlight}.
+ * @group Text
+ */
+export type HighlightProps = {
+  /** Defaults to `blue`. */
+  tone?: HighlightTone;
+  children: ComponentChildren;
+};
+
+/**
+ * Marker-pen emphasis for a few words.
+ * @group Text
+ */
+export function Highlight({ tone, children }: HighlightProps) {
   return <mark class={highlight({ tone })}>{children}</mark>;
 }
 
-type LinkProps = JSX.AnchorHTMLAttributes & { class?: string };
+/**
+ * The props for {@link Link}: every `<a>` attribute, plus these.
+ * @group Text
+ */
+export type LinkProps = JSX.AnchorHTMLAttributes & { class?: string };
 
+/**
+ * A link with a bold underline.
+ * @group Text
+ */
 export function Link({ class: extra, ...props }: LinkProps) {
   return (
     <a

@@ -1,0 +1,42 @@
+---
+title: Badges
+description: Status badges and categorical badges that tell groups apart.
+sidebar:
+  order: 5
+---
+
+import { Badge, dataTone } from "@bhodgson/design-system";
+import Preview from "../../../components/Preview.astro";
+
+<Preview
+  code={`
+<Badge>neutral</Badge>
+<Badge tone="accent">accent</Badge>
+<Badge tone="info">info</Badge>
+<Badge tone="success">success</Badge>
+<Badge tone="warning">warning</Badge>
+<Badge tone="danger">danger</Badge>`}
+>
+  <Badge>neutral</Badge>
+  <Badge tone="accent">accent</Badge>
+  <Badge tone="info">info</Badge>
+  <Badge tone="success">success</Badge>
+  <Badge tone="warning">warning</Badge>
+  <Badge tone="danger">danger</Badge>
+</Preview>
+
+## Categories
+
+Six categorical tones tell groups apart, such as the categories in a vocabulary. They stay distinct with protanopia, deuteranopia and tritanopia. `dataTone(index)` picks one, and repeats after six.
+
+<Preview
+  code={`{categories.map((name, index) => <Badge tone={dataTone(index)}>{name}</Badge>)}`}
+>
+  {["people", "setting", "time-of-day", "weather", "room", "style"].map(
+    (name, index) => (
+      <Badge tone={dataTone(index)}>{name}</Badge>
+    ),
+  )}
+</Preview>
+
+The same colours are Tailwind utilities, such as `bg-data-2` for a bar or `border-data-4` for an edge. Always pair them with text: colour alone doesn't say which group is which.

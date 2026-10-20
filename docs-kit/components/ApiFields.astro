@@ -1,0 +1,39 @@
+---
+import { Badge } from "@bhodgson/design-system";
+import type { ApiField } from "@bhodgson/docs/api";
+import ApiType from "./ApiType.astro";
+
+interface Props {
+  fields: ApiField[];
+}
+
+const { fields } = Astro.props;
+---
+
+<dl class="-my-4 divide-y divide-line">
+  {fields.map((field) => (
+    <div class="py-4" id={`field-${field.name}`}>
+      <dt class="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+        <span class="type-subheading text-ink">{field.name}</span>
+        {field.optional ? (
+          <span data-pagefind-ignore>
+            <Badge>optional</Badge>
+          </span>
+        ) : (
+          <span data-pagefind-ignore>
+            <Badge tone="accent">required</Badge>
+          </span>
+        )}
+        <span data-pagefind-ignore>
+          <ApiType type={field.type} class="text-muted" />
+        </span>
+      </dt>
+      {field.description !== "" && (
+        <dd
+          class="mt-2 flex flex-col gap-2 text-sm leading-relaxed text-ink"
+          set:html={field.description}
+        />
+      )}
+    </div>
+  ))}
+</dl>

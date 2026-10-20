@@ -1,0 +1,9 @@
+---
+import { Identity } from "@bhodgson/design-system";
+
+const { siteTitle, siteTitleHref } = Astro.locals.starlightRoute;
+---
+
+<div class="font-mono text-sm">
+  <Identity project={siteTitle} href={siteTitleHref} caret />
+</div>

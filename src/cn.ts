@@ -11,7 +11,10 @@ const merge = extendTailwindMerge({
   },
 });
 
-/** Joins classes, letting later ones replace earlier ones that set the same thing. */
+/**
+ * Joins classes, letting later ones replace earlier ones that set the same thing. Every component's `class` prop goes through it.
+ * @group Utilities
+ */
 export function cn(...inputs: ClassValue[]): string {
   return merge(clsx(inputs));
 }
