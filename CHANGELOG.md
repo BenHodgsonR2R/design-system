@@ -1,5 +1,12 @@
 # @bhodgson/design-system
 
+## 0.2.1
+
+### Patch Changes
+
+- fa54250: Link the npm page to the docs site.
+- 36d07fe: `Select` draws its own chevron in the muted colour, with room beside it, instead of the browser's arrow against the edge, and selects get a pointer cursor like buttons.
+
 ## 0.2.0
 
 ### Minor Changes
