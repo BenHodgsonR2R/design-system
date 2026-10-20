@@ -12,6 +12,9 @@ const storageKey = "bhodgson-theme";
 const changeEvent = "bhodgson-themechange";
 const order: readonly ThemeChoice[] = ["system", "light", "dark"];
 
+// Runs as the server-rendered page is read, so the right icon shows before any JavaScript loads.
+const choiceScript = `try{var c=localStorage.getItem("${storageKey}");document.documentElement.dataset.themeChoice=c==="light"||c==="dark"?c:"system"}catch(e){}`;
+
 /**
  * The saved {@link ThemeChoice}, or `system` when there's none or storage is unavailable.
  * @group Theme
@@ -30,6 +33,9 @@ export function storedTheme(): ThemeChoice {
  * @group Theme
  */
 export function setTheme(choice: ThemeChoice): void {
+  if (typeof document === "undefined") {
+    return;
+  }
   applyToDocument(choice);
   try {
     if (choice === "system") {
@@ -48,10 +54,13 @@ export function setTheme(choice: ThemeChoice): void {
  * @group Theme
  */
 export function applyStoredTheme(): void {
-  applyToDocument(storedTheme());
+  if (typeof document !== "undefined") {
+    applyToDocument(storedTheme());
+  }
 }
 
 function applyToDocument(choice: ThemeChoice): void {
+  document.documentElement.dataset.themeChoice = choice;
   if (choice === "system") {
     delete document.documentElement.dataset.theme;
   } else {
@@ -107,52 +116,65 @@ export function ThemeToggle({ align = "end", class: extra }: ThemeToggleProps) {
   const next = order[(order.indexOf(choice) + 1) % order.length] ?? "system";
 
   return (
-    <Tooltip
-      align={align}
-      class={extra}
-      content={
-        <>
-          <span class="block font-semibold">{names[choice]}</span>
-          <span class="text-muted">{hints[choice]}</span>
-        </>
-      }
-    >
-      <Button
-        variant="icon"
-        size="sm"
-        aria-label={`${names[choice]}. ${hints[choice]}`}
-        onClick={() => setTheme(next)}
+    <>
+      <script dangerouslySetInnerHTML={{ __html: choiceScript }} />
+      <Tooltip
+        align={align}
+        class={extra}
+        content={
+          <>
+            <span class="block font-semibold">{names[choice]}</span>
+            <span class="text-muted">{hints[choice]}</span>
+          </>
+        }
       >
-        <ThemeIcon choice={choice} />
-      </Button>
-    </Tooltip>
+        <Button
+          variant="icon"
+          size="sm"
+          aria-label={`${names[choice]}. ${hints[choice]}`}
+          onClick={() => setTheme(next)}
+        >
+          <ThemeIcon />
+        </Button>
+      </Tooltip>
+    </>
   );
 }
 
-function ThemeIcon({ choice }: { choice: ThemeChoice }) {
+// All three icons render; the page's data-theme-choice picks one, so it's right before hydration.
+function ThemeIcon() {
+  const svg = "size-4 fill-none stroke-current";
   return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 16 16"
-      class="size-4 fill-none stroke-current"
-      stroke-width="1.5"
-      stroke-linecap="round"
-    >
-      {choice === "light" && (
-        <>
-          <circle cx="8" cy="8" r="3" />
-          <path d="M8 1.5v1.5M8 13v1.5M1.5 8H3M13 8h1.5M3.4 3.4l1 1M11.6 11.6l1 1M3.4 12.6l1-1M11.6 4.4l1-1" />
-        </>
-      )}
-      {choice === "dark" && (
+    <>
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 16 16"
+        class={`${svg} theme-choice-light:hidden theme-choice-dark:hidden`}
+        stroke-width="1.5"
+        stroke-linecap="round"
+      >
+        <rect x="2" y="3" width="12" height="8" rx="1" />
+        <path d="M6 14h4M8 11v3" />
+      </svg>
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 16 16"
+        class={`${svg} hidden theme-choice-light:block`}
+        stroke-width="1.5"
+        stroke-linecap="round"
+      >
+        <circle cx="8" cy="8" r="3" />
+        <path d="M8 1.5v1.5M8 13v1.5M1.5 8H3M13 8h1.5M3.4 3.4l1 1M11.6 11.6l1 1M3.4 12.6l1-1M11.6 4.4l1-1" />
+      </svg>
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 16 16"
+        class={`${svg} hidden theme-choice-dark:block`}
+        stroke-width="1.5"
+        stroke-linecap="round"
+      >
         <path d="M13 9.5A5.5 5.5 0 1 1 6.5 3a4.5 4.5 0 0 0 6.5 6.5Z" />
-      )}
-      {choice === "system" && (
-        <>
-          <rect x="2" y="3" width="12" height="8" rx="1" />
-          <path d="M6 14h4M8 11v3" />
-        </>
-      )}
-    </svg>
+      </svg>
+    </>
   );
 }

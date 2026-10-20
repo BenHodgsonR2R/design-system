@@ -155,6 +155,10 @@
   color-scheme: dark;
 }
 
+/* The saved theme choice, which ThemeToggle shows. Set on the root element before the page draws. */
+@custom-variant theme-choice-light (&:where(:root[data-theme-choice="light"] *));
+@custom-variant theme-choice-dark (&:where(:root[data-theme-choice="dark"] *));
+
 /* Tailwind's base styles give buttons the default cursor. */
 @layer base {
   button:not(:disabled),
