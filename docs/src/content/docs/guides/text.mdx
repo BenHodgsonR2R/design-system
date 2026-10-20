@@ -1,0 +1,22 @@
+---
+title: Text
+description: Highlights and links.
+sidebar:
+  order: 6
+---
+
+import { Highlight, Link } from "@bhodgson/design-system";
+import Preview from "../../../components/Preview.astro";
+
+<Preview
+  code={`
+Mark a few words with a <Highlight>blue</Highlight> or{" "}
+<Highlight tone="red">signal red</Highlight> highlight, and link with a{" "}
+<Link href="#">bold underline</Link>.`}
+>
+  <p class="text-sm leading-relaxed">
+    Mark a few words with a <Highlight>blue</Highlight> or{" "}
+    <Highlight tone="red">signal red</Highlight> highlight, and link with a{" "}
+    <Link href="#">bold underline</Link>.
+  </p>
+</Preview>

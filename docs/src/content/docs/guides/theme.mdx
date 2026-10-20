@@ -1,0 +1,38 @@
+---
+title: Theme and tooltips
+description: Light, dark and system themes, and the tooltip the toggle uses.
+sidebar:
+  order: 7
+---
+
+import { Button, ThemeToggle, Tooltip } from "@bhodgson/design-system";
+import Preview from "../../../components/Preview.astro";
+
+## Theme toggle
+
+`ThemeToggle` cycles the system, light and dark themes. The choice is saved, and every toggle on the page stays in step, including the one in this site's header.
+
+<Preview code={`<ThemeToggle />`}>
+  <ThemeToggle align="start" client:load />
+</Preview>
+
+Call `applyStoredTheme()` before the first render, so the saved choice applies without a flash. To build your own control, use `storedTheme()` and `setTheme(choice)`.
+
+## Tooltip
+
+`Tooltip` shows a hint while its trigger is hovered or focused from the keyboard; Escape hides it. Screen readers don't hear it, so give the trigger a label that says the same.
+
+<Preview
+  code={`
+<Tooltip content="Copies the link" align="start">
+  <Button variant="secondary" aria-label="Copy link. Copies the link">
+    Copy link
+  </Button>
+</Tooltip>`}
+>
+  <Tooltip content="Copies the link" align="start" client:load>
+    <Button variant="secondary" aria-label="Copy link. Copies the link">
+      Copy link
+    </Button>
+  </Tooltip>
+</Preview>

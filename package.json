@@ -26,6 +26,11 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./starlight": {
+      "types": "./dist/starlight.d.ts",
+      "default": "./dist/starlight.js"
+    },
+    "./starlight/*": "./starlight/*",
     "./theme.css": "./theme.css",
     "./package.json": "./package.json"
   },
@@ -34,7 +39,8 @@
     "src",
     "!src/**/*.test.ts",
     "!src/**/*.test.tsx",
-    "theme.css"
+    "theme.css",
+    "starlight"
   ],
   "sideEffects": [
     "*.css"
@@ -63,19 +69,31 @@
     "node": ">=22.12"
   },
   "peerDependencies": {
-    "preact": "^10.29.8"
+    "@astrojs/preact": "^6.1.0",
+    "@astrojs/starlight": "^0.42.6",
+    "@astrojs/starlight-tailwind": "^5.0.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "preact": "^10.29.8",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
+    "@astrojs/preact": "^6.1.0",
+    "@astrojs/starlight": "^0.42.6",
+    "@astrojs/starlight-tailwind": "^5.0.0",
     "@changesets/cli": "^3.0.3",
+    "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^24.19.2",
+    "astro": "^7.4.1",
     "knip": "^6.37.0",
     "oxlint": "^1.85.0",
     "oxlint-tsgolint": "^7.0.2002",
     "preact": "^10.29.8",
     "preact-render-to-string": "^6.8.1",
     "prettier": "^3.9.8",
+    "prettier-plugin-astro": "^1.1.1",
     "publint": "^0.3.24",
+    "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
     "vitest": "^5.0.1"
   },
@@ -85,5 +103,19 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "tailwind-merge": "^3.7.0"
+  },
+  "peerDependenciesMeta": {
+    "@astrojs/preact": {
+      "optional": true
+    },
+    "@astrojs/starlight": {
+      "optional": true
+    },
+    "@astrojs/starlight-tailwind": {
+      "optional": true
+    },
+    "@tailwindcss/vite": {
+      "optional": true
+    }
   }
 }

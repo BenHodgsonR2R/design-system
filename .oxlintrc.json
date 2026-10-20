@@ -12,7 +12,12 @@
     "browser": true,
     "es2024": true
   },
-  "ignorePatterns": ["dist/**", "coverage/**"],
+  "ignorePatterns": [
+    "dist/**",
+    "coverage/**",
+    "docs/dist/**",
+    "docs/.astro/**"
+  ],
   "rules": {
     "no-unused-vars": [
       "error",
@@ -80,7 +85,7 @@
         "**/*.test.ts",
         "**/*.test.tsx",
         "vitest.config.ts",
-        "example/vite.config.ts"
+        "docs/astro.config.mjs"
       ],
       "rules": {
         "no-restricted-imports": "off",

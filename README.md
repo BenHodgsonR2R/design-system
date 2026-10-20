@@ -41,14 +41,16 @@ import { Button, Highlight, Page, Panel } from "@bhodgson/design-system";
 
 `cn()` joins classes the way the components do, so yours replace theirs cleanly.
 
+Guides, live examples and the API reference are on the [docs site](https://benhodgsonr2r.github.io/design-system/). Its source is in [docs/](docs/), and `@bhodgson/design-system/starlight` styles any Starlight site the same way.
+
 Call `applyStoredTheme()` before the first render so a theme picked with `ThemeToggle` applies without a flash.
 
 ## Develop
 
 ```bash
 pnpm install
-pnpm --filter design-system-example dev   # The showcase, at http://localhost:5173
+pnpm build && pnpm --filter design-system-docs dev   # The docs site, at http://localhost:4321/design-system/
 pnpm test:run
 ```
 
-Before opening a pull request: `pnpm format && pnpm lint && pnpm typecheck && pnpm knip`, and `pnpm changeset` if the published package changed. Releasing: [docs/releasing.md](docs/releasing.md).
+Before opening a pull request: `pnpm format && pnpm lint && pnpm typecheck && pnpm knip`, and `pnpm changeset` if the published package changed. Releasing: [docs/src/content/docs/contributing/releasing.md](docs/src/content/docs/contributing/releasing.md).

@@ -1,0 +1,55 @@
+@layer base, starlight, theme, components, utilities;
+
+@import "@astrojs/starlight-tailwind";
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "../theme.css";
+
+/* Starlight's colours, from the design system's tokens. Unlayered, so they win over Starlight's own. */
+:root,
+:root[data-theme] {
+  --sl-font: var(--font-sans);
+  --sl-font-mono: var(--font-mono);
+
+  --sl-color-white: var(--ink);
+  --sl-color-gray-1: var(--ink);
+  --sl-color-gray-2: var(--ink);
+  --sl-color-gray-3: var(--muted);
+  --sl-color-gray-4: var(--muted);
+  --sl-color-gray-5: var(--line-strong);
+  --sl-color-gray-6: var(--line);
+  --sl-color-gray-7: var(--surface-sunken);
+  --sl-color-black: var(--surface);
+
+  --sl-color-bg: var(--canvas);
+  --sl-color-bg-nav: var(--surface);
+  --sl-color-bg-sidebar: var(--surface);
+  --sl-color-bg-inline-code: var(--surface-sunken);
+  --sl-color-bg-accent: var(--accent);
+  --sl-color-text: var(--ink);
+  --sl-color-text-accent: var(--link);
+  --sl-color-text-invert: var(--on-accent);
+  --sl-color-hairline: var(--line);
+  --sl-color-hairline-light: var(--line);
+  --sl-color-hairline-shade: var(--line);
+
+  --sl-color-accent-low: var(--accent-soft);
+  --sl-color-accent: var(--accent);
+  --sl-color-accent-high: var(--link);
+
+  --sl-color-blue-low: var(--info-soft);
+  --sl-color-blue: var(--info);
+  --sl-color-blue-high: var(--info);
+  --sl-color-green-low: var(--success-soft);
+  --sl-color-green: var(--success);
+  --sl-color-green-high: var(--success);
+  --sl-color-orange-low: var(--warning-soft);
+  --sl-color-orange: var(--warning);
+  --sl-color-orange-high: var(--warning);
+  --sl-color-red-low: var(--danger-soft);
+  --sl-color-red: var(--danger);
+  --sl-color-red-high: var(--danger);
+  --sl-color-purple-low: var(--secondary-soft);
+  --sl-color-purple: var(--secondary);
+  --sl-color-purple-high: var(--secondary);
+}

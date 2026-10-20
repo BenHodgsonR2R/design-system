@@ -1,9 +1,13 @@
 packages:
   # The root is the published package. changesets only versions workspace packages.
   - "."
-  - example
+  - docs
 
 # Dependencies allowed to run install scripts.
 allowBuilds:
   # Checks its platform binary is installed. Needed by vite and vitest.
   esbuild: true
+
+minimumReleaseAgeExclude:
+  - astro@7.4.1
+  - typedoc-plugin-markdown@4.14.1

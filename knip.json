@@ -6,12 +6,10 @@
       "ignoreDependencies": [
         "@fontsource-variable/inter",
         "@fontsource-variable/jetbrains-mono"
-      ]
+      ],
+      "entry": ["src/index.ts", "src/starlight.ts"]
     },
-    "example": {
-      "entry": ["src/styles.css"],
-      "project": ["src/**/*.{ts,tsx,css}"]
-    }
+    "docs": {}
   },
   "tags": ["-lintignore"]
 }

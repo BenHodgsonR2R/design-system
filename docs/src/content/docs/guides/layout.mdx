@@ -1,0 +1,32 @@
+---
+title: Page layout
+description: The page frame and panels.
+sidebar:
+  order: 8
+---
+
+`Page` is the frame for a single-page app: a site bar with the author and a theme toggle, a header, your content, and a footer. Once the bar scrolls away, a compact one slides in with a reading-progress line.
+
+```tsx
+<Page
+  eyebrow="@bhodgson/image-tagger"
+  project="image-tagger"
+  title={
+    <>
+      Tag <Highlight>images</Highlight> from your own vocabulary
+    </>
+  }
+  description="Define tags, then tag the samples or your own images."
+  actions={
+    <Link href="https://github.com/BenHodgsonR2R/image-tagger">Source</Link>
+  }
+>
+  <Panel id="vocabulary" title="Vocabulary">
+    …
+  </Panel>
+</Page>
+```
+
+`Panel` is a window: a title bar over its content, with optional `actions` on the right. Its `id` makes the title a link target.
+
+See the [image-tagger playground](https://benhodgsonr2r.github.io/image-tagger/) for both in use.

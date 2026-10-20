@@ -1,0 +1,24 @@
+---
+// Replaces Starlight's provider so ThemeToggle drives the theme. The key matches src/ThemeToggle.tsx.
+// Starlight styles some parts by data-theme, so it always holds the resolved light or dark.
+---
+
+<script is:inline>
+  (() => {
+    const media = matchMedia("(prefers-color-scheme: dark)");
+    const apply = () => {
+      let saved = null;
+      try {
+        saved = localStorage.getItem("bhodgson-theme");
+      } catch {}
+      let theme = media.matches ? "dark" : "light";
+      if (saved === "light" || saved === "dark") {
+        theme = saved;
+      }
+      document.documentElement.dataset.theme = theme;
+    };
+    apply();
+    media.addEventListener("change", apply);
+    addEventListener("bhodgson-themechange", apply);
+  })();
+</script>

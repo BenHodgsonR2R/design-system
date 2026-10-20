@@ -1,0 +1,18 @@
+---
+import { Code } from "@astrojs/starlight/components";
+
+interface Props {
+  code: string;
+}
+
+const { code } = Astro.props;
+---
+
+<div class="not-content my-6 overflow-hidden rounded-lg border border-line">
+  <div class="flex flex-wrap items-center gap-2 bg-surface bg-grid p-5">
+    <slot />
+  </div>
+  <div class="border-t border-line">
+    <Code code={code.trim()} lang="tsx" />
+  </div>
+</div>

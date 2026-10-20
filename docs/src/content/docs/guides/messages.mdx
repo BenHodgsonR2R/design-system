@@ -1,0 +1,28 @@
+---
+title: Messages
+description: Info, success, warning and error messages.
+sidebar:
+  order: 4
+---
+
+import { Message } from "@bhodgson/design-system";
+import Preview from "../../../components/Preview.astro";
+
+Errors are announced to screen readers straight away (`role="alert"`); the other tones are announced politely (`role="status"`).
+
+<Preview
+  code={`
+<Message tone="info">Info: something worth knowing.</Message>
+<Message tone="success">Success: it worked.</Message>
+<Message tone="warning">Warning: check this before you go on.</Message>
+<Message tone="error">Error: something to fix.</Message>`}
+>
+  <div class="flex w-full flex-col gap-2">
+    <Message tone="info">Info: something worth knowing.</Message>
+    <Message tone="success">Success: it worked.</Message>
+    <Message tone="warning">Warning: check this before you go on.</Message>
+    <Message tone="error">Error: something to fix.</Message>
+  </div>
+</Preview>
+
+Say what happened in the text too: the colour and edge are a cue, not the message.
