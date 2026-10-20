@@ -6,6 +6,18 @@
 @import "../theme.css";
 @source "./";
 
+/* The parts of Tailwind's reset the components rely on. Starlight's own buttons are styled in later layers. */
+@layer base {
+  button {
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    background-color: transparent;
+    color: inherit;
+    letter-spacing: inherit;
+  }
+}
+
 /* Starlight's colours, from the design system's tokens. Unlayered, so they win over Starlight's own. */
 :root,
 :root[data-theme] {
