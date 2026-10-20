@@ -16,7 +16,7 @@ import Preview from "../../../components/Preview.astro";
   <ThemeToggle align="start" client:load />
 </Preview>
 
-Call `applyStoredTheme()` before the first render, so the saved choice applies without a flash. To build your own control, use `storedTheme()` and `setTheme(choice)`.
+The theme is set on the root element: `data-theme` is the light or dark in use, and `data-theme-choice` is what the reader picked. In a browser-only app, call `applyStoredTheme()` before the first render. On server-rendered pages, put `themeScript` in an inline `<script>` in `<head>`, so the page draws in the right theme. To build your own control, use `storedTheme()` and `setTheme(choice)`.
 
 ## Tooltip
 

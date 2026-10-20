@@ -44,7 +44,7 @@ Every component takes a `class`, merged with `cn()` so yours replaces theirs whe
 
 ## Apply the saved theme
 
-Call `applyStoredTheme()` before the first render, so a theme picked with the [theme toggle](../theme/) applies without a flash.
+In an app that renders in the browser, call `applyStoredTheme()` before the first render, so a theme picked with the [theme toggle](../theme/) applies without a flash. On server-rendered pages, put `themeScript` in an inline `<script>` in `<head>` instead.
 
 ```tsx
 import { applyStoredTheme } from "@bhodgson/design-system";

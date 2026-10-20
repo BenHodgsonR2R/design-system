@@ -1,76 +1,15 @@
 import { useEffect, useLayoutEffect, useState } from "preact/hooks";
 import { Button } from "./Button.tsx";
+import {
+  changeEvent,
+  isThemeChoice,
+  order,
+  setTheme,
+  storedTheme,
+  type ThemeChoice,
+  themeScript,
+} from "./theme.ts";
 import { Tooltip, type TooltipAlign } from "./Tooltip.tsx";
-
-/**
- * A theme the reader can pick: `system` follows their device's setting.
- * @group Theme
- */
-export type ThemeChoice = "system" | "light" | "dark";
-
-const storageKey = "bhodgson-theme";
-const changeEvent = "bhodgson-themechange";
-const order: readonly ThemeChoice[] = ["system", "light", "dark"];
-
-// Runs as the server-rendered page is read, so the right icon shows before any JavaScript loads.
-const choiceScript = `try{var c=localStorage.getItem("${storageKey}");document.documentElement.dataset.themeChoice=c==="light"||c==="dark"?c:"system"}catch(e){}`;
-
-/**
- * The saved {@link ThemeChoice}, or `system` when there's none or storage is unavailable.
- * @group Theme
- */
-export function storedTheme(): ThemeChoice {
-  try {
-    const saved = localStorage.getItem(storageKey);
-    return saved === "light" || saved === "dark" ? saved : "system";
-  } catch {
-    return "system";
-  }
-}
-
-/**
- * Applies and saves a {@link ThemeChoice}, and keeps every {@link ThemeToggle} on the page in step.
- * @group Theme
- */
-export function setTheme(choice: ThemeChoice): void {
-  if (typeof document === "undefined") {
-    return;
-  }
-  applyToDocument(choice);
-  try {
-    if (choice === "system") {
-      localStorage.removeItem(storageKey);
-    } else {
-      localStorage.setItem(storageKey, choice);
-    }
-  } catch {
-    // Storage can be blocked; the choice still applies until the page reloads.
-  }
-  window.dispatchEvent(new CustomEvent(changeEvent, { detail: choice }));
-}
-
-/**
- * Applies the saved {@link ThemeChoice}. Call it before the first render, so it applies without a flash.
- * @group Theme
- */
-export function applyStoredTheme(): void {
-  if (typeof document !== "undefined") {
-    applyToDocument(storedTheme());
-  }
-}
-
-function applyToDocument(choice: ThemeChoice): void {
-  document.documentElement.dataset.themeChoice = choice;
-  if (choice === "system") {
-    delete document.documentElement.dataset.theme;
-  } else {
-    document.documentElement.dataset.theme = choice;
-  }
-}
-
-function isThemeChoice(value: unknown): value is ThemeChoice {
-  return order.some((choice) => choice === value);
-}
 
 const names: Record<ThemeChoice, string> = {
   system: "System theme",
@@ -117,7 +56,7 @@ export function ThemeToggle({ align = "end", class: extra }: ThemeToggleProps) {
 
   return (
     <>
-      <script dangerouslySetInnerHTML={{ __html: choiceScript }} />
+      <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       <Tooltip
         align={align}
         class={extra}

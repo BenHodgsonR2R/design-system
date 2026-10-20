@@ -10,7 +10,7 @@ Every component renders on a server, as the pages of this site do, and hydrates 
 - **The first render is the same on the server and in the browser.** Don't read `localStorage`, `window`, `matchMedia`, the date or random numbers while rendering or in a `useState` default. Read them after mounting: in `useLayoutEffect` when they change what's drawn, otherwise in `useEffect`.
 - **Browser APIs belong in effects and event handlers.** Exported functions that touch the page, such as `setTheme`, do nothing on a server.
 - **IDs come from `useId`**, which matches on the server and in the browser.
-- **When saved state changes the first paint, use a small inline script.** `ThemeToggle` renders one that marks the saved choice on the page as it loads, and CSS shows the matching icon before any JavaScript runs.
+- **When saved state changes the first paint, use a small inline script.** `themeScript` is the one for the theme: it sets `data-theme` and `data-theme-choice` on the page as it loads, so CSS draws the right theme and toggle icon before any JavaScript runs. `ThemeToggle` renders it too, and `applyStoredTheme()` runs the same code.
 
 ## Tests
 

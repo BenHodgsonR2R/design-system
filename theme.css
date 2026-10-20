@@ -283,6 +283,10 @@
     margin-top: 2.5rem;
   }
 
+  & > :where(:first-child) {
+    margin-top: 0;
+  }
+
   & :where(a):not(:where(.not-prose *)) {
     color: var(--link);
     font-weight: 500;

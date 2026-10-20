@@ -26,8 +26,10 @@ export {
   applyStoredTheme,
   setTheme,
   storedTheme,
-  ThemeToggle,
-} from "./ThemeToggle.tsx";
-export type { ThemeChoice, ThemeToggleProps } from "./ThemeToggle.tsx";
+  themeScript,
+} from "./theme.ts";
+export type { ThemeChoice } from "./theme.ts";
+export { ThemeToggle } from "./ThemeToggle.tsx";
+export type { ThemeToggleProps } from "./ThemeToggle.tsx";
 export { Tooltip } from "./Tooltip.tsx";
 export type { TooltipAlign, TooltipProps } from "./Tooltip.tsx";

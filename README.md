@@ -43,7 +43,7 @@ import { Button, Highlight, Page, Panel } from "@bhodgson/design-system";
 
 Guides, live examples and the API reference are on the [docs site](https://benhodgsonr2r.github.io/design-system/). Its source is in [docs/](docs/), and [`@bhodgson/starlight`](starlight/) styles any Starlight site the same way.
 
-Call `applyStoredTheme()` before the first render so a theme picked with `ThemeToggle` applies without a flash.
+Call `applyStoredTheme()` before the first render, or put `themeScript` in `<head>` on server-rendered pages, so a theme picked with `ThemeToggle` applies without a flash.
 
 ## Develop
 

@@ -83,6 +83,10 @@
   margin-top: 2.5rem;
 }
 
+.prose > .sl-heading-wrapper:first-child {
+  margin-top: 0;
+}
+
 .prose .sl-anchor-link {
   display: inline-flex;
   color: var(--muted);
