@@ -1,17 +1,16 @@
 import type { ComponentChildren } from "preact";
 
-/** A window: a title bar over the content. */
-export function Panel({
-  id,
-  title,
-  actions,
-  children,
-}: {
+export type PanelProps = {
+  /** The title's id, so the panel can be linked to. */
   id: string;
   title: string;
+  /** Buttons or links on the right of the title bar. */
   actions?: ComponentChildren;
   children: ComponentChildren;
-}) {
+};
+
+/** A window: a title bar over the content. */
+export function Panel({ id, title, actions, children }: PanelProps) {
   return (
     <section
       class="overflow-hidden rounded-xl border border-line-strong bg-surface shadow-window"

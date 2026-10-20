@@ -8,7 +8,7 @@ export default defineConfig({
   base: "/design-system",
   integrations: [
     starlight({
-      title: "Design system",
+      title: "design-system",
       description:
         "Tailwind CSS theme tokens, Preact components and a page layout, with every colour pair meeting WCAG AA.",
       favicon: "/favicon.png",
@@ -30,7 +30,11 @@ export default defineConfig({
           tsconfig: "../tsconfig.json",
           output: "api",
           sidebar: { label: "API reference", collapsed: true },
-          typeDoc: { parametersFormat: "table", disableSources: true },
+          typeDoc: {
+            plugin: ["./typedoc-props.mjs"],
+            parametersFormat: "table",
+            disableSources: true,
+          },
         }),
       ],
       sidebar: [

@@ -1,10 +1,13 @@
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import type { JSX } from "preact";
 import { cn } from "./cn.ts";
 
 // The thick bottom edge gives a pressable look; pressing moves the button down onto it.
 const bevel =
   "inline-flex items-center justify-center gap-1.5 rounded-md border border-b-3 active:translate-y-0.5 active:border-b";
+
+export type ButtonVariant = "primary" | "secondary" | "link" | "icon";
+export type ButtonSize = "md" | "sm";
 
 const button = cva(
   "font-mono text-xs font-bold tracking-wide uppercase transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:pointer-events-none disabled:opacity-50",
@@ -15,9 +18,8 @@ const button = cva(
         secondary: `${bevel} border-line-strong bg-surface text-ink hover:border-ink/60`,
         link: "self-start tracking-normal normal-case text-link underline decoration-2 underline-offset-2 hover:decoration-ink",
         icon: "inline-grid shrink-0 place-items-center rounded-md border border-line-strong font-sans text-muted hover:border-ink/60 hover:text-ink",
-      },
-      /** Matches the height of fields of the same size. */
-      size: { md: "", sm: "" },
+      } satisfies Record<ButtonVariant, string>,
+      size: { md: "", sm: "" } satisfies Record<ButtonSize, string>,
     },
     compoundVariants: [
       {
@@ -37,9 +39,16 @@ const button = cva(
   },
 );
 
-type ButtonProps = JSX.ButtonHTMLAttributes &
-  VariantProps<typeof button> & { class?: string };
+/** Every `<button>` attribute, plus: */
+export type ButtonProps = JSX.ButtonHTMLAttributes & {
+  /** Defaults to `primary`. Icon buttons need an `aria-label`. */
+  variant?: ButtonVariant;
+  /** Defaults to `md`. Matches the height of fields of the same size. */
+  size?: ButtonSize;
+  class?: string;
+};
 
+/** Defaults to `type="button"`, so it never submits a form by accident. */
 export function Button({
   variant,
   size,

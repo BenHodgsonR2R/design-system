@@ -26,7 +26,26 @@ export function designSystem(): StarlightPlugin {
             ThemeProvider:
               "@bhodgson/design-system/starlight/ThemeProvider.astro",
             ThemeSelect: "@bhodgson/design-system/starlight/ThemeSelect.astro",
+            SiteTitle: "@bhodgson/design-system/starlight/SiteTitle.astro",
+            Footer: "@bhodgson/design-system/starlight/Footer.astro",
             ...config.components,
+          },
+          expressiveCode: {
+            styleOverrides: {
+              borderRadius: "0.5rem",
+              borderColor: "var(--line)",
+              codeBackground: "var(--surface-sunken)",
+              codeFontFamily: "var(--font-mono)",
+              uiFontFamily: "var(--font-mono)",
+              frames: {
+                editorTabBarBackground: "var(--surface)",
+                terminalTitlebarBackground: "var(--surface)",
+                frameBoxShadowCssValue: "none",
+              },
+            },
+            ...(typeof config.expressiveCode === "object"
+              ? config.expressiveCode
+              : {}),
           },
         });
       },

@@ -1,7 +1,9 @@
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import type { ComponentChildren } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { cn } from "./cn.ts";
+
+export type TooltipAlign = "start" | "center" | "end";
 
 // The padding, not a margin, spaces it from the trigger, so the pointer can cross onto it.
 const popover = cva(
@@ -12,7 +14,7 @@ const popover = cva(
         start: "left-0",
         center: "left-1/2 -translate-x-1/2",
         end: "right-0",
-      },
+      } satisfies Record<TooltipAlign, string>,
       open: {
         true: "opacity-100",
         false: "pointer-events-none opacity-0",
@@ -21,6 +23,15 @@ const popover = cva(
     defaultVariants: { align: "center" },
   },
 );
+
+export type TooltipProps = {
+  content: ComponentChildren;
+  /** Which edge of the trigger the tooltip lines up with. Defaults to `center`. */
+  align?: TooltipAlign;
+  class?: string;
+  /** The trigger. */
+  children: ComponentChildren;
+};
 
 /**
  * Shows `content` while the trigger is hovered or focused from the keyboard; Escape hides it.
@@ -31,11 +42,7 @@ export function Tooltip({
   align,
   class: extra,
   children,
-}: VariantProps<typeof popover> & {
-  content: ComponentChildren;
-  class?: string;
-  children: ComponentChildren;
-}) {
+}: TooltipProps) {
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const [dismissed, setDismissed] = useState(false);

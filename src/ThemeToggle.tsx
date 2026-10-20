@@ -1,6 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
 import { Button } from "./Button.tsx";
-import { Tooltip } from "./Tooltip.tsx";
+import { Tooltip, type TooltipAlign } from "./Tooltip.tsx";
 
 export type ThemeChoice = "system" | "light" | "dark";
 
@@ -62,14 +62,14 @@ const hints: Record<ThemeChoice, string> = {
   dark: "Click to match your device.",
 };
 
-/** Cycles system, light and dark. Every toggle on the page stays in step. */
-export function ThemeToggle({
-  align = "end",
-  class: extra,
-}: {
-  align?: "start" | "center" | "end";
+export type ThemeToggleProps = {
+  /** Where its tooltip lines up. Defaults to `end`, for a toggle at the right of a header. */
+  align?: TooltipAlign;
   class?: string;
-}) {
+};
+
+/** Cycles system, light and dark. Every toggle on the page stays in step. */
+export function ThemeToggle({ align = "end", class: extra }: ThemeToggleProps) {
   const [choice, setChoice] = useState(storedTheme);
 
   useEffect(() => {

@@ -1,6 +1,15 @@
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import type { ComponentChildren } from "preact";
 import { cn } from "./cn.ts";
+
+export type BadgeTone =
+  | "neutral"
+  | "accent"
+  | "info"
+  | "success"
+  | "warning"
+  | "danger"
+  | (typeof dataTones)[number];
 
 const badge = cva(
   "inline-flex items-center rounded-full border px-2 py-0.5 font-mono text-xs font-semibold text-ink",
@@ -19,21 +28,21 @@ const badge = cva(
         "data-4": "border-data-4 bg-data-4-soft",
         "data-5": "border-data-5 bg-data-5-soft",
         "data-6": "border-data-6 bg-data-6-soft",
-      },
+      } satisfies Record<BadgeTone, string>,
     },
     defaultVariants: { tone: "neutral" },
   },
 );
 
-/** A small label. The categorical tones tell groups apart; pair them with text, never colour alone. */
-export function Badge({
-  tone,
-  class: extra,
-  children,
-}: VariantProps<typeof badge> & {
+export type BadgeProps = {
+  /** Defaults to `neutral`. Use `dataTone(index)` for categories. */
+  tone?: BadgeTone;
   class?: string;
   children: ComponentChildren;
-}) {
+};
+
+/** A small label. The categorical tones tell groups apart; pair them with text, never colour alone. */
+export function Badge({ tone, class: extra, children }: BadgeProps) {
   return <span class={cn(badge({ tone }), extra)}>{children}</span>;
 }
 

@@ -2,14 +2,12 @@
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "workspaces": {
     ".": {
-      "project": ["src/**/*.{ts,tsx}"],
-      "ignoreDependencies": [
-        "@fontsource-variable/inter",
-        "@fontsource-variable/jetbrains-mono"
-      ],
-      "entry": ["src/index.ts", "src/starlight.ts"]
+      "project": ["src/**/*.{ts,tsx}", "starlight/**/*.{astro,css}"]
     },
-    "docs": {}
+    "docs": {
+      "entry": ["typedoc-props.mjs"],
+      "project": ["**/*.{ts,tsx,mjs,astro,mdx}"]
+    }
   },
   "tags": ["-lintignore"]
 }
