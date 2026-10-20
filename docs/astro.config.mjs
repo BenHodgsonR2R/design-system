@@ -1,6 +1,6 @@
 import starlight from "@astrojs/starlight";
-import { designSystem } from "@bhodgson/design-system/starlight";
-import { apiSidebar } from "@bhodgson/design-system/starlight/api";
+import { designSystem } from "@bhodgson/starlight";
+import { apiSidebar } from "@bhodgson/starlight/api";
 import { defineConfig } from "astro/config";
 import { api } from "./src/api.ts";
 

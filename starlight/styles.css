@@ -5,8 +5,8 @@
 @import "@astrojs/starlight-tailwind";
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
-@import "../theme.css";
-@source "./";
+@import "@bhodgson/design-system/theme.css";
+@source "./components";
 
 /* The parts of Tailwind's reset the components rely on. Starlight's own buttons are styled in later layers. */
 @layer base {

@@ -2,10 +2,19 @@
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "workspaces": {
     ".": {
-      "project": ["src/**/*.{ts,tsx}", "starlight/**/*.{astro,css}"]
+      "project": ["src/**/*.{ts,tsx}"]
     },
     "docs": {
       "project": ["**/*.{ts,tsx,mjs,astro,mdx}"]
+    },
+    "starlight": {
+      "entry": [
+        "src/index.ts",
+        "src/api.ts",
+        "src/pagefind.tsx",
+        "components/*.astro"
+      ],
+      "project": ["src/**/*.{ts,tsx}", "components/**/*.astro", "styles.css"]
     }
   },
   "tags": ["-lintignore"]

@@ -16,7 +16,8 @@
     "dist/**",
     "coverage/**",
     "docs/dist/**",
-    "docs/.astro/**"
+    "docs/.astro/**",
+    "starlight/dist/**"
   ],
   "rules": {
     "no-unused-vars": [
@@ -86,7 +87,7 @@
         "**/*.test.tsx",
         "vitest.config.ts",
         "docs/astro.config.mjs",
-        "docs/src/api.ts"
+        "starlight/src/api.ts"
       ],
       "rules": {
         "no-restricted-imports": "off",

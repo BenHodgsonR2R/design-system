@@ -1,3 +1,5 @@
+import { Application, normalizePath } from "typedoc";
+
 type Part = {
   kind: string;
   text: string;
@@ -46,14 +48,6 @@ type Declaration = {
 
 type Project = { children?: Declaration[] };
 
-/** The parts of TypeDoc's `Application` the loader uses. */
-export type TypeDocApplication = {
-  bootstrapWithPlugins(options: Record<string, unknown>): Promise<{
-    convert(): Promise<unknown>;
-    serializer: { projectToObject(project: never, root: string): unknown };
-  }>;
-};
-
 /** A type, as text with links to the entries it names. */
 export type ApiType = { text: string; href?: string }[];
 
@@ -91,10 +85,6 @@ export type ApiEntry = {
 export type Api = { groups: string[]; entries: ApiEntry[] };
 
 export type LoadApiOptions = {
-  /** TypeDoc's `Application`, imported by the docs site so it runs with that site's TypeScript. */
-  Application: TypeDocApplication;
-  /** An absolute path, such as `process.cwd()`. */
-  root: string;
   entryPoints: string[];
   tsconfig: string;
   /** Where the API pages are served, such as `/design-system/api/`. */
@@ -112,7 +102,7 @@ const elementNames: Record<string, string> = {
 
 /** Documents a package from its source with TypeDoc, for the API pages and sidebar. */
 export async function loadApi(options: LoadApiOptions): Promise<Api> {
-  const app = await options.Application.bootstrapWithPlugins({
+  const app = await Application.bootstrapWithPlugins({
     entryPoints: options.entryPoints,
     tsconfig: options.tsconfig,
     excludePrivate: true,
@@ -126,8 +116,8 @@ export async function loadApi(options: LoadApiOptions): Promise<Api> {
     throw new Error("TypeDoc couldn't document the entry points.");
   }
   const json = app.serializer.projectToObject(
-    project as never,
-    options.root,
+    project,
+    normalizePath(process.cwd()),
   ) as Project;
   return buildApi(json.children ?? [], options);
 }

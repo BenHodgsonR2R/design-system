@@ -1,6 +1,6 @@
 ---
-import ApiPage from "@bhodgson/design-system/starlight/ApiPage.astro";
-import { apiPaths, type ApiEntry } from "@bhodgson/design-system/starlight/api";
+import ApiPage from "@bhodgson/starlight/components/ApiPage.astro";
+import { apiPaths, type ApiEntry } from "@bhodgson/starlight/api";
 import { api } from "../../api.ts";
 
 export const getStaticPaths = () => apiPaths(api);

@@ -1,5 +1,5 @@
 import { useMemo } from "preact/hooks";
-import { Search, type SearchResult } from "./Search.tsx";
+import { Search, type SearchResult } from "@bhodgson/design-system";
 
 type PagefindData = {
   url: string;

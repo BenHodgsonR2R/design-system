@@ -16,12 +16,9 @@
   "dependencies": {
     "@astrojs/preact": "^6.1.0",
     "@astrojs/starlight": "^0.42.6",
-    "@astrojs/starlight-tailwind": "^5.0.0",
     "@bhodgson/design-system": "workspace:*",
-    "@tailwindcss/vite": "^4.3.3",
+    "@bhodgson/starlight": "workspace:*",
     "astro": "^7.4.1",
-    "preact": "^10.29.8",
-    "tailwindcss": "^4.3.3",
-    "typedoc": "^0.28.20"
+    "preact": "^10.29.8"
   }
 }

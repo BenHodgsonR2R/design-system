@@ -1,9 +1,6 @@
-import { loadApi } from "@bhodgson/design-system/starlight/api";
-import { Application } from "typedoc";
+import { loadApi } from "@bhodgson/starlight/api";
 
 export const api = await loadApi({
-  Application,
-  root: process.cwd(),
   entryPoints: ["../src/index.ts"],
   tsconfig: "../tsconfig.json",
   base: "/design-system/api/",

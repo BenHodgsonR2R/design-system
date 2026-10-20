@@ -19,21 +19,20 @@ export function designSystem(): StarlightPlugin {
         });
         updateConfig({
           customCss: [
-            "@bhodgson/design-system/starlight/styles.css",
+            "@bhodgson/starlight/styles.css",
             ...(config.customCss ?? []),
           ],
           components: {
-            ThemeProvider:
-              "@bhodgson/design-system/starlight/ThemeProvider.astro",
-            ThemeSelect: "@bhodgson/design-system/starlight/ThemeSelect.astro",
-            SiteTitle: "@bhodgson/design-system/starlight/SiteTitle.astro",
-            Footer: "@bhodgson/design-system/starlight/Footer.astro",
-            Hero: "@bhodgson/design-system/starlight/Hero.astro",
-            Pagination: "@bhodgson/design-system/starlight/Pagination.astro",
+            ThemeProvider: "@bhodgson/starlight/components/ThemeProvider.astro",
+            ThemeSelect: "@bhodgson/starlight/components/ThemeSelect.astro",
+            SiteTitle: "@bhodgson/starlight/components/SiteTitle.astro",
+            Footer: "@bhodgson/starlight/components/Footer.astro",
+            Hero: "@bhodgson/starlight/components/Hero.astro",
+            Pagination: "@bhodgson/starlight/components/Pagination.astro",
             MarkdownContent:
-              "@bhodgson/design-system/starlight/MarkdownContent.astro",
-            PageTitle: "@bhodgson/design-system/starlight/PageTitle.astro",
-            Search: "@bhodgson/design-system/starlight/Search.astro",
+              "@bhodgson/starlight/components/MarkdownContent.astro",
+            PageTitle: "@bhodgson/starlight/components/PageTitle.astro",
+            Search: "@bhodgson/starlight/components/Search.astro",
             ...config.components,
           },
           expressiveCode: {

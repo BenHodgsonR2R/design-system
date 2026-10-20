@@ -32,6 +32,9 @@ jobs:
       - run: pnpm knip
       - run: pnpm build
       - run: pnpm check:package
+      - run: pnpm --filter @bhodgson/starlight typecheck
+      - run: pnpm --filter @bhodgson/starlight build
+      - run: pnpm --filter @bhodgson/starlight check:package
       - run: pnpm --filter design-system-docs check
       - run: pnpm --filter design-system-docs build
       # Changes to the published package need a changeset. The Version

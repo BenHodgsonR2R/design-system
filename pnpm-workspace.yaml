@@ -1,7 +1,8 @@
 packages:
-  # The root is the published package. changesets only versions workspace packages.
+  # The root and starlight/ are published packages. changesets only versions workspace packages.
   - "."
   - docs
+  - starlight
 
 # Dependencies allowed to run install scripts.
 allowBuilds:

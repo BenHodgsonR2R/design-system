@@ -1,0 +1,85 @@
+{
+  "name": "@bhodgson/starlight",
+  "version": "0.0.0",
+  "description": "Starlight in Ben Hodgson's design system, with an API reference generated from a package's source.",
+  "keywords": [
+    "starlight",
+    "astro",
+    "design-system",
+    "typedoc"
+  ],
+  "homepage": "https://github.com/BenHodgsonR2R/design-system/tree/main/starlight#readme",
+  "bugs": {
+    "url": "https://github.com/BenHodgsonR2R/design-system/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BenHodgsonR2R/design-system.git",
+    "directory": "starlight"
+  },
+  "license": "MIT",
+  "author": "Ben Hodgson",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./api": {
+      "types": "./dist/api.d.ts",
+      "default": "./dist/api.js"
+    },
+    "./pagefind": {
+      "types": "./dist/pagefind.d.ts",
+      "default": "./dist/pagefind.js"
+    },
+    "./components/*": "./components/*",
+    "./styles.css": "./styles.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src",
+    "components",
+    "styles.css"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "clean:dist": "node -e \"import('node:fs').then((fs) => fs.rmSync('dist', { recursive: true, force: true }))\"",
+    "prebuild": "pnpm clean:dist",
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "prepack": "pnpm build",
+    "check:package": "publint && attw --pack ."
+  },
+  "engines": {
+    "node": ">=22.12"
+  },
+  "peerDependencies": {
+    "@astrojs/preact": "^6.1.0",
+    "@astrojs/starlight": "^0.42.6",
+    "@bhodgson/design-system": "workspace:^",
+    "astro": "^7.4.1",
+    "preact": "^10.29.8"
+  },
+  "dependencies": {
+    "@astrojs/starlight-tailwind": "^5.0.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "tailwindcss": "^4.3.3",
+    "typedoc": "^0.28.20",
+    "typescript": "~6.0.3"
+  },
+  "devDependencies": {
+    "@astrojs/preact": "^6.1.0",
+    "@astrojs/starlight": "^0.42.6",
+    "@bhodgson/design-system": "workspace:^",
+    "@types/node": "^24.19.2",
+    "astro": "^7.4.1",
+    "preact": "^10.29.8"
+  }
+}
