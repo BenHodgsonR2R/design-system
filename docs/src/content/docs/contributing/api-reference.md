@@ -3,7 +3,7 @@ title: API reference
 description: How the API reference is generated from the source, and the conventions it relies on.
 ---
 
-The API reference is generated from `src/` on every build, so it documents what the code exports and says. `loadApi` from `@bhodgson/starlight/api` runs TypeDoc, and each export gets a page.
+The API reference is generated from `src/` on every build, so it documents what the code exports and says. `loadApi` from `@bhodgson/docs/api` runs TypeDoc, and each export gets a page.
 
 ## Conventions
 

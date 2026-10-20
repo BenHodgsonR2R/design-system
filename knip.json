@@ -7,7 +7,7 @@
     "docs": {
       "project": ["**/*.{ts,tsx,mjs,astro,mdx}"]
     },
-    "starlight": {
+    "docs-kit": {
       "entry": [
         "src/index.ts",
         "src/api.ts",

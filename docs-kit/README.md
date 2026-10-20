@@ -1,18 +1,18 @@
-# @bhodgson/starlight
+# @bhodgson/docs
 
 [Starlight](https://starlight.astro.build) in [`@bhodgson/design-system`](../README.md), with an API reference generated from a package's source.
 
 ```bash
-pnpm add @bhodgson/starlight @bhodgson/design-system @astrojs/starlight @astrojs/preact astro preact
+pnpm add @bhodgson/docs @bhodgson/design-system @astrojs/starlight @astrojs/preact astro preact
 ```
 
 ```js
 // astro.config.mjs
 import starlight from "@astrojs/starlight";
-import { designSystem } from "@bhodgson/starlight";
+import { docsTheme } from "@bhodgson/docs";
 
 export default defineConfig({
-  integrations: [starlight({ title: "my-project", plugins: [designSystem()] })],
+  integrations: [starlight({ title: "my-project", plugins: [docsTheme()] })],
 });
 ```
 

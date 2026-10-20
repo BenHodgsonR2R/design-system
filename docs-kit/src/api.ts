@@ -125,7 +125,7 @@ const elementNames: Record<string, string> = {
 };
 
 // Astro loads the config and the pages as separate module copies, so the cache lives on globalThis.
-const cacheKey = Symbol.for("@bhodgson/starlight/api");
+const cacheKey = Symbol.for("@bhodgson/docs/api");
 const loaded: Map<string, Promise<Api>> = ((
   globalThis as Record<symbol, unknown>
 )[cacheKey] ??= new Map()) as Map<string, Promise<Api>>;

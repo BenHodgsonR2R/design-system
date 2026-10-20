@@ -1,21 +1,21 @@
 {
-  "name": "@bhodgson/starlight",
+  "name": "@bhodgson/docs",
   "version": "0.0.0",
-  "description": "Starlight in Ben Hodgson's design system, with an API reference generated from a package's source.",
+  "description": "Docs sites for Ben Hodgson's projects: Starlight in the design system, with an API reference generated from a package's source.",
   "keywords": [
+    "docs",
     "starlight",
     "astro",
-    "design-system",
     "typedoc"
   ],
-  "homepage": "https://github.com/BenHodgsonR2R/design-system/tree/main/starlight#readme",
+  "homepage": "https://github.com/BenHodgsonR2R/design-system/tree/main/docs-kit#readme",
   "bugs": {
     "url": "https://github.com/BenHodgsonR2R/design-system/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BenHodgsonR2R/design-system.git",
-    "directory": "starlight"
+    "directory": "docs-kit"
   },
   "license": "MIT",
   "author": "Ben Hodgson",

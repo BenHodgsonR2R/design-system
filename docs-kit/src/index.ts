@@ -3,14 +3,14 @@ import type { StarlightPlugin } from "@astrojs/starlight/types";
 import tailwindcss from "@tailwindcss/vite";
 
 /** Styles a Starlight site with the design system, and makes ThemeToggle its theme picker. */
-export function designSystem(): StarlightPlugin {
+export function docsTheme(): StarlightPlugin {
   return {
-    name: "@bhodgson/design-system",
+    name: "@bhodgson/docs",
     hooks: {
       "config:setup"({ config, updateConfig, addIntegration }) {
         addIntegration(preact());
         addIntegration({
-          name: "@bhodgson/design-system/tailwind",
+          name: "@bhodgson/docs/tailwind",
           hooks: {
             "astro:config:setup"({ updateConfig: updateAstroConfig }) {
               updateAstroConfig({ vite: { plugins: [tailwindcss()] } });
@@ -18,21 +18,17 @@ export function designSystem(): StarlightPlugin {
           },
         });
         updateConfig({
-          customCss: [
-            "@bhodgson/starlight/styles.css",
-            ...(config.customCss ?? []),
-          ],
+          customCss: ["@bhodgson/docs/styles.css", ...(config.customCss ?? [])],
           components: {
-            ThemeProvider: "@bhodgson/starlight/components/ThemeProvider.astro",
-            ThemeSelect: "@bhodgson/starlight/components/ThemeSelect.astro",
-            SiteTitle: "@bhodgson/starlight/components/SiteTitle.astro",
-            Footer: "@bhodgson/starlight/components/Footer.astro",
-            Hero: "@bhodgson/starlight/components/Hero.astro",
-            Pagination: "@bhodgson/starlight/components/Pagination.astro",
-            MarkdownContent:
-              "@bhodgson/starlight/components/MarkdownContent.astro",
-            PageTitle: "@bhodgson/starlight/components/PageTitle.astro",
-            Search: "@bhodgson/starlight/components/Search.astro",
+            ThemeProvider: "@bhodgson/docs/components/ThemeProvider.astro",
+            ThemeSelect: "@bhodgson/docs/components/ThemeSelect.astro",
+            SiteTitle: "@bhodgson/docs/components/SiteTitle.astro",
+            Footer: "@bhodgson/docs/components/Footer.astro",
+            Hero: "@bhodgson/docs/components/Hero.astro",
+            Pagination: "@bhodgson/docs/components/Pagination.astro",
+            MarkdownContent: "@bhodgson/docs/components/MarkdownContent.astro",
+            PageTitle: "@bhodgson/docs/components/PageTitle.astro",
+            Search: "@bhodgson/docs/components/Search.astro",
             ...config.components,
           },
           expressiveCode: {

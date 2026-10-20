@@ -1,6 +1,6 @@
 import starlight from "@astrojs/starlight";
-import { designSystem } from "@bhodgson/starlight";
-import { apiSidebar } from "@bhodgson/starlight/api";
+import { docsTheme } from "@bhodgson/docs";
+import { apiSidebar } from "@bhodgson/docs/api";
 import { defineConfig } from "astro/config";
 import { api } from "./src/api.ts";
 import { base } from "./src/site.ts";
@@ -25,7 +25,7 @@ export default defineConfig({
         baseUrl:
           "https://github.com/BenHodgsonR2R/design-system/edit/main/docs/",
       },
-      plugins: [designSystem()],
+      plugins: [docsTheme()],
       sidebar: [
         { label: "Guides", items: [{ autogenerate: { directory: "guides" } }] },
         apiSidebar(api),
