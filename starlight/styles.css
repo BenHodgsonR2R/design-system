@@ -62,7 +62,7 @@ h1#_top {
   letter-spacing: -0.025em;
 }
 
-h1#_top {
+h1#_top:not(.hero-title) {
   border-inline-start: 4px solid var(--accent);
   padding-inline-start: 1rem;
 }

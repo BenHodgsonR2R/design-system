@@ -28,6 +28,7 @@ export function designSystem(): StarlightPlugin {
             ThemeSelect: "@bhodgson/design-system/starlight/ThemeSelect.astro",
             SiteTitle: "@bhodgson/design-system/starlight/SiteTitle.astro",
             Footer: "@bhodgson/design-system/starlight/Footer.astro",
+            Hero: "@bhodgson/design-system/starlight/Hero.astro",
             ...config.components,
           },
           expressiveCode: {

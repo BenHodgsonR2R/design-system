@@ -1,6 +1,6 @@
 export { Badge, dataTone } from "./Badge.tsx";
 export type { BadgeProps, BadgeTone } from "./Badge.tsx";
-export { Button } from "./Button.tsx";
+export { Button, buttonClass } from "./Button.tsx";
 export type { ButtonProps, ButtonSize, ButtonVariant } from "./Button.tsx";
 export { cn } from "./cn.ts";
 export { Field, Input, Select, TextArea } from "./fields.tsx";

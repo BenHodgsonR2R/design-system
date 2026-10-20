@@ -1,0 +1,51 @@
+---
+import { buttonClass, type ButtonVariant } from "@bhodgson/design-system";
+
+const { entry, siteTitle } = Astro.locals.starlightRoute;
+const {
+  title = entry.data.title,
+  tagline,
+  actions = [],
+} = entry.data.hero ?? {};
+
+const variants: Record<string, ButtonVariant> = {
+  primary: "primary",
+  secondary: "secondary",
+  minimal: "link",
+};
+---
+
+<header class="not-content py-6 sm:py-10">
+  <div class="border-l-4 border-accent pl-4 sm:pl-5">
+    <p class="font-mono text-xs font-semibold tracking-wide text-accent uppercase">
+      {siteTitle}
+    </p>
+    <h1
+      id="_top"
+      data-page-title
+      class="hero-title mt-1 font-mono text-3xl leading-tight font-bold tracking-tight sm:text-4xl"
+      set:html={title}
+    />
+    {tagline && (
+      <div
+        class="mt-3 max-w-2xl text-lg leading-relaxed text-muted"
+        set:html={tagline}
+      />
+    )}
+    {actions.length > 0 && (
+      <div class="mt-6 flex flex-wrap items-center gap-3">
+        {actions.map(({ link, text, variant = "primary" }) => (
+          <a
+            href={link}
+            class:list={[
+              buttonClass({ variant: variants[variant] }),
+              "no-underline",
+            ]}
+          >
+            {text}
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</header>

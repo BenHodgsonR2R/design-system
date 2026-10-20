@@ -9,7 +9,8 @@ const bevel =
 export type ButtonVariant = "primary" | "secondary" | "link" | "icon";
 export type ButtonSize = "md" | "sm";
 
-const button = cva(
+/** The button classes, for a link that should look like a button. */
+export const buttonClass = cva(
   "font-mono text-xs font-bold tracking-wide uppercase transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
@@ -59,7 +60,7 @@ export function Button({
   return (
     <button
       type={type}
-      class={cn(button({ variant, size }), extra)}
+      class={cn(buttonClass({ variant, size }), extra)}
       {...props}
     />
   );

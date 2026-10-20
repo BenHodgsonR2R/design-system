@@ -38,7 +38,10 @@ export function Identity({
   href = author.url,
 }: IdentityProps) {
   return (
-    <a href={href} class="flex items-center gap-2 font-bold">
+    <a
+      href={href}
+      class="flex items-center gap-2 font-bold text-ink no-underline"
+    >
       {author.photo !== undefined && (
         <img
           src={author.photo}
@@ -81,7 +84,7 @@ export function Credit({ author = defaultAuthor, project }: CreditProps) {
       </span>
       <span aria-hidden="true">·</span>
       <a
-        class="inline-flex items-center gap-1.5 font-medium hover:text-ink"
+        class="inline-flex items-center gap-1.5 font-medium text-inherit no-underline hover:text-ink"
         href={author.url}
       >
         <GitHubMark />
