@@ -1,4 +1,4 @@
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useLayoutEffect, useState } from "preact/hooks";
 import { Button } from "./Button.tsx";
 import { Tooltip, type TooltipAlign } from "./Tooltip.tsx";
 
@@ -90,7 +90,9 @@ export type ThemeToggleProps = {
  * @group Theme
  */
 export function ThemeToggle({ align = "end", class: extra }: ThemeToggleProps) {
-  const [choice, setChoice] = useState(storedTheme);
+  // Starts as the server renders it, so hydrating doesn't mix two icons; the saved choice applies before paint.
+  const [choice, setChoice] = useState<ThemeChoice>("system");
+  useLayoutEffect(() => setChoice(storedTheme()), []);
 
   useEffect(() => {
     const update = (event: Event) => {
