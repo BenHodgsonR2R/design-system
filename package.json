@@ -46,6 +46,7 @@
     "clean:dist": "node -e \"import('node:fs').then((fs) => fs.rmSync('dist', { recursive: true, force: true }))\"",
     "prebuild": "pnpm clean:dist",
     "build": "tsc -p tsconfig.build.json",
+    "dev": "pnpm build && pnpm --filter @bhodgson/docs build && pnpm --filter design-system-docs dev",
     "typecheck": "tsc --noEmit",
     "test": "vitest",
     "test:run": "vitest run",
