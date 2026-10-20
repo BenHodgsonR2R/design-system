@@ -7,5 +7,13 @@ export const api = await loadApi({
   entryPoints: ["../src/index.ts"],
   tsconfig: "../tsconfig.json",
   base: "/design-system/api/",
-  groups: ["Layout", "Controls", "Feedback", "Text", "Theme", "Utilities"],
+  groups: [
+    "Layout",
+    "Navigation",
+    "Controls",
+    "Feedback",
+    "Text",
+    "Theme",
+    "Utilities",
+  ],
 });

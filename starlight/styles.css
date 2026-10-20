@@ -19,7 +19,7 @@
     letter-spacing: inherit;
   }
 
-  .not-content :is(ul, ol, dl, dd) {
+  .not-prose :is(ul, ol, dl, dd) {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -75,23 +75,9 @@
   --sl-color-purple-high: var(--secondary);
 }
 
-/* Headings and the page title in mono, like the design system's Page. */
-:root {
-  --sl-text-h3: var(--sl-text-xl);
-  --sl-text-h4: var(--sl-text-lg);
-  --sl-text-h5: var(--sl-text-base);
-}
-
-.sl-markdown-content :is(h1, h2, h3, h4, h5, h6),
-h1#_top {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  letter-spacing: -0.025em;
-}
-
-h1#_top:not(.hero-title) {
-  border-inline-start: 4px solid var(--accent);
-  padding-inline-start: 1rem;
+/* Starlight wraps each heading with its anchor link; the wrapper takes the heading's spacing. */
+.prose > .sl-heading-wrapper {
+  margin-top: 2.5rem;
 }
 
 .site-title,

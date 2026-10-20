@@ -26,6 +26,10 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./pagefind": {
+      "types": "./dist/pagefind.d.ts",
+      "default": "./dist/pagefind.js"
+    },
     "./starlight": {
       "types": "./dist/starlight.d.ts",
       "default": "./dist/starlight.js"

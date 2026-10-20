@@ -30,6 +30,10 @@ export function designSystem(): StarlightPlugin {
             Footer: "@bhodgson/design-system/starlight/Footer.astro",
             Hero: "@bhodgson/design-system/starlight/Hero.astro",
             Pagination: "@bhodgson/design-system/starlight/Pagination.astro",
+            MarkdownContent:
+              "@bhodgson/design-system/starlight/MarkdownContent.astro",
+            PageTitle: "@bhodgson/design-system/starlight/PageTitle.astro",
+            Search: "@bhodgson/design-system/starlight/Search.astro",
             ...config.components,
           },
           expressiveCode: {

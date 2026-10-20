@@ -16,11 +16,17 @@ const { fields } = Astro.props;
       <dt class="flex flex-wrap items-center gap-x-3 gap-y-1.5">
         <span class="type-subheading text-ink">{field.name}</span>
         {field.optional ? (
-          <Badge>optional</Badge>
+          <span data-pagefind-ignore>
+            <Badge>optional</Badge>
+          </span>
         ) : (
-          <Badge tone="accent">required</Badge>
+          <span data-pagefind-ignore>
+            <Badge tone="accent">required</Badge>
+          </span>
         )}
-        <ApiType type={field.type} class="text-muted" />
+        <span data-pagefind-ignore>
+          <ApiType type={field.type} class="text-muted" />
+        </span>
       </dt>
       {field.description !== "" && (
         <dd

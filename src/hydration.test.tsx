@@ -10,6 +10,7 @@ import { Field, Input, Select, TextArea } from "./fields.tsx";
 import { Message } from "./Message.tsx";
 import { Page } from "./Page.tsx";
 import { Panel } from "./Panel.tsx";
+import { Search } from "./Search.tsx";
 import { Highlight, Link } from "./text.tsx";
 import { ThemeToggle } from "./ThemeToggle.tsx";
 import { Tooltip } from "./Tooltip.tsx";
@@ -83,6 +84,7 @@ const components: [string, () => VNode][] = [
       </Tooltip>
     ),
   ],
+  ["Search", () => <Search search={async () => []} />],
   ["ThemeToggle", () => <ThemeToggle />],
   [
     "Page",

@@ -15,13 +15,13 @@ const variants: Record<string, ButtonVariant> = {
 };
 ---
 
-<header class="not-content py-6 sm:py-10">
+<header class="not-prose py-6 sm:py-10">
   <div class="border-l-4 border-accent pl-4 sm:pl-5">
     <p class="type-eyebrow text-accent">{siteTitle}</p>
     <h1
       id="_top"
       data-page-title
-      class="hero-title mt-1 font-mono text-3xl leading-tight font-bold tracking-tight sm:text-4xl"
+      class="mt-1 type-title sm:text-4xl"
       set:html={title}
     />
     {tagline && (

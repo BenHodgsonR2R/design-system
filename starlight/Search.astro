@@ -1,0 +1,7 @@
+---
+import { PagefindSearch } from "@bhodgson/design-system/pagefind";
+
+const base = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/`;
+---
+
+<PagefindSearch client:idle bundle={`${base}pagefind/`} baseUrl={base} />

@@ -18,6 +18,8 @@ export { Page } from "./Page.tsx";
 export type { PageProps } from "./Page.tsx";
 export { Panel } from "./Panel.tsx";
 export type { PanelProps } from "./Panel.tsx";
+export { Search } from "./Search.tsx";
+export type { SearchProps, SearchResult } from "./Search.tsx";
 export { Highlight, Link } from "./text.tsx";
 export type { HighlightProps, HighlightTone, LinkProps } from "./text.tsx";
 export {
