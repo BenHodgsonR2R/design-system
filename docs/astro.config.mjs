@@ -1,3 +1,4 @@
+import { fileURLToPath } from "node:url";
 import starlight from "@astrojs/starlight";
 import { docsTheme } from "@bhodgson/docs";
 import { apiSidebar } from "@bhodgson/docs/api";
@@ -36,4 +37,17 @@ export default defineConfig({
       ],
     }),
   ],
+  vite: {
+    resolve: {
+      alias: [
+        // The components' source, so edits show straight away without building the package.
+        {
+          find: /^@bhodgson\/design-system$/,
+          replacement: fileURLToPath(
+            new URL("../src/index.ts", import.meta.url),
+          ),
+        },
+      ],
+    },
+  },
 });

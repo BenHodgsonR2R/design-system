@@ -51,8 +51,7 @@ Call `applyStoredTheme()` before the first render, or put `themeScript` in `<hea
 
 ```bash
 pnpm install
-pnpm build && pnpm --filter @bhodgson/docs build
-pnpm --filter design-system-docs dev   # The docs site, at http://localhost:4321/design-system/
+pnpm dev        # The docs site, at http://localhost:4321/design-system/, showing your changes as you save
 pnpm test:run
 ```
 
