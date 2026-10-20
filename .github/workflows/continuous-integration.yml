@@ -33,6 +33,7 @@ jobs:
       - run: pnpm build
       - run: pnpm check:package
       - run: pnpm --filter @bhodgson/starlight typecheck
+      - run: pnpm --filter @bhodgson/starlight test
       - run: pnpm --filter @bhodgson/starlight build
       - run: pnpm --filter @bhodgson/starlight check:package
       - run: pnpm --filter design-system-docs check

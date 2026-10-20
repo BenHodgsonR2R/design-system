@@ -14,7 +14,8 @@
         "src/pagefind.tsx",
         "components/*.astro"
       ],
-      "project": ["src/**/*.{ts,tsx}", "components/**/*.astro", "styles.css"]
+      "project": ["src/**/*.{ts,tsx}", "components/**/*.astro", "styles.css"],
+      "ignore": ["test/fixture/**"]
     }
   },
   "tags": ["-lintignore"]

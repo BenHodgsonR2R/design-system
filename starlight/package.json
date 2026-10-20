@@ -55,7 +55,8 @@
     "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
     "prepack": "pnpm build",
-    "check:package": "publint && attw --pack ."
+    "check:package": "publint && attw --pack .",
+    "test": "vitest run"
   },
   "engines": {
     "node": ">=22.12"
@@ -80,6 +81,7 @@
     "@bhodgson/design-system": "workspace:^",
     "@types/node": "^24.19.2",
     "astro": "^7.4.1",
-    "preact": "^10.29.8"
+    "preact": "^10.29.8",
+    "vitest": "^5.0.5"
   }
 }

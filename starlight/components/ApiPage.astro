@@ -4,6 +4,7 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import { Badge, Link, Panel } from "@bhodgson/design-system";
 import type { ApiEntry } from "@bhodgson/starlight/api";
 import ApiFields from "./ApiFields.astro";
+import ApiMethods from "./ApiMethods.astro";
 import ApiType from "./ApiType.astro";
 
 interface Props {
@@ -15,9 +16,12 @@ const { entry } = Astro.props;
 const kindLabels: Record<ApiEntry["kind"], string> = {
   component: "Component",
   function: "Function",
+  class: "Class",
   type: "Type",
   constant: "Constant",
 };
+
+const fieldsTitle = entry.kind === "class" ? "Properties" : "Fields";
 
 const sections = [
   { id: "example", title: "Example", shown: entry.examples.length > 0 },
@@ -28,7 +32,13 @@ const sections = [
     shown: (entry.parameters ?? []).length > 0,
   },
   { id: "returns", title: "Returns", shown: entry.returns !== undefined },
-  { id: "fields", title: "Fields", shown: entry.fields !== undefined },
+  {
+    id: "constructor",
+    title: "Constructor",
+    shown: entry.construct !== undefined,
+  },
+  { id: "fields", title: fieldsTitle, shown: (entry.fields ?? []).length > 0 },
+  { id: "methods", title: "Methods", shown: (entry.methods ?? []).length > 0 },
   { id: "values", title: "Values", shown: entry.values !== undefined },
   { id: "used-by", title: "Used by", shown: entry.usedBy.length > 0 },
 ].filter((section) => section.shown);
@@ -101,9 +111,21 @@ const sections = [
       </Panel>
     )}
 
-    {entry.fields !== undefined && (
-      <Panel id="fields" title="Fields">
-        <ApiFields fields={entry.fields} />
+    {entry.construct !== undefined && (
+      <Panel id="constructor" title="Constructor">
+        <ApiMethods methods={[entry.construct]} constructs />
+      </Panel>
+    )}
+
+    {(entry.fields ?? []).length > 0 && (
+      <Panel id="fields" title={fieldsTitle}>
+        <ApiFields fields={entry.fields ?? []} />
+      </Panel>
+    )}
+
+    {(entry.methods ?? []).length > 0 && (
+      <Panel id="methods" title="Methods">
+        <ApiMethods methods={entry.methods ?? []} />
       </Panel>
     )}
 

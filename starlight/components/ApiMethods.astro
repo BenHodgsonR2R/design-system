@@ -1,0 +1,43 @@
+---
+import { Code } from "@astrojs/starlight/components";
+import type { ApiMethod } from "@bhodgson/starlight/api";
+import ApiFields from "./ApiFields.astro";
+import ApiType from "./ApiType.astro";
+
+interface Props {
+  methods: ApiMethod[];
+  /** Hides the return type, as for a constructor. */
+  constructs?: boolean;
+}
+
+const { methods, constructs = false } = Astro.props;
+---
+
+<div class="-my-4 divide-y divide-line">
+  {methods.map((method) => (
+    <section class="flex flex-col gap-3 py-4" id={`method-${method.name}`}>
+      {!constructs && <h3 class="type-subheading text-ink">{method.name}()</h3>}
+      <div data-pagefind-ignore>
+        <Code code={method.signature} lang="ts" />
+      </div>
+      {method.summary !== "" && (
+        <div
+          class="flex flex-col gap-2 text-sm leading-relaxed text-ink"
+          set:html={method.summary}
+        />
+      )}
+      {method.parameters.length > 0 && (
+        <div class="rounded-lg border border-line px-4 py-4">
+          <p class="mb-2 type-eyebrow text-muted">Parameters</p>
+          <ApiFields fields={method.parameters} />
+        </div>
+      )}
+      {!constructs && (
+        <p class="flex flex-wrap items-baseline gap-2 text-sm text-muted">
+          <span class="type-eyebrow">Returns</span>
+          <ApiType type={method.returns} class="text-ink" />
+        </p>
+      )}
+    </section>
+  ))}
+</div>

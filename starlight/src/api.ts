@@ -38,11 +38,13 @@ type Declaration = {
   id: number;
   name: string;
   kind: number;
-  flags: { isOptional?: boolean };
+  flags: { isOptional?: boolean; isStatic?: boolean; isExternal?: boolean };
   comment?: Comment;
   children?: Declaration[];
   signatures?: Signature[];
+  getSignature?: Signature;
   type?: TypeNode;
+  extendedTypes?: TypeNode[];
   sources?: { line: number; url?: string }[];
 };
 
@@ -59,12 +61,21 @@ export type ApiField = {
   description: string;
 };
 
+export type ApiMethod = {
+  name: string;
+  signature: string;
+  /** HTML. */
+  summary: string;
+  parameters: ApiField[];
+  returns: ApiType;
+};
+
 export type ApiEntry = {
   name: string;
   /** Such as `layout/page`. */
   slug: string;
   group: string;
-  kind: "component" | "function" | "type" | "constant";
+  kind: "component" | "function" | "class" | "type" | "constant";
   /** HTML. */
   summary: string;
   /** The summary without markup, for the page description. */
@@ -78,6 +89,11 @@ export type ApiEntry = {
   returns?: ApiType;
   fields?: ApiField[];
   values?: ApiType[];
+  /** What a class extends. */
+  extends?: ApiType;
+  /** How to construct a class. */
+  construct?: ApiMethod;
+  methods?: ApiMethod[];
   usedBy: { name: string; href: string }[];
   sourceUrl?: string;
 };
@@ -93,7 +109,15 @@ export type LoadApiOptions = {
   groups?: string[];
 };
 
-const kinds = { variable: 32, function: 64, typeAlias: 2097152 };
+const kinds = {
+  variable: 32,
+  function: 64,
+  class: 128,
+  constructor: 512,
+  method: 2048,
+  accessor: 262144,
+  typeAlias: 2097152,
+};
 
 const elementNames: Record<string, string> = {
   Anchor: "a",
@@ -260,13 +284,31 @@ function describe(
     return entry;
   }
 
+  if (d.kind === kinds.class) {
+    entry.kind = "class";
+    const members = membersOf(d.children, context, d.name);
+    const parent = d.extendedTypes?.[0];
+    entry.extends = parent === undefined ? undefined : tokens(parent, context);
+    entry.construct = members.construct;
+    entry.fields = members.fields;
+    entry.methods = members.methods;
+    entry.signature = `class ${d.name}${entry.extends === undefined ? "" : ` extends ${text(entry.extends)}`}`;
+    return entry;
+  }
+
   if (d.kind === kinds.variable) {
     entry.kind = "constant";
     entry.signature = `const ${d.name}: ${text(tokens(d.type, context))}`;
     return entry;
   }
 
-  const fields = fieldsOf(d.type, d.children, context);
+  if (d.children !== undefined) {
+    const members = membersOf(d.children, context);
+    entry.fields = members.fields;
+    entry.methods = members.methods.length > 0 ? members.methods : undefined;
+    return entry;
+  }
+  const fields = fieldsOf(d.type, undefined, context);
   if (fields.length > 0) {
     entry.fields = fields;
     return entry;
@@ -303,6 +345,64 @@ function examplesOf(comment: Comment | undefined) {
     });
 }
 
+// Members inherited from outside the package, such as Error's stack, aren't the package's to document.
+function isOwn(d: Declaration): boolean {
+  return d.flags.isExternal !== true;
+}
+
+function bySource(a: Declaration, b: Declaration): number {
+  return (a.sources?.[0]?.line ?? 0) - (b.sources?.[0]?.line ?? 0);
+}
+
+function membersOf(
+  children: Declaration[] | undefined,
+  context: Context,
+  className?: string,
+) {
+  const own = (children ?? []).filter(isOwn).toSorted(bySource);
+  const constructor = own.find((d) => d.kind === kinds.constructor);
+  return {
+    construct:
+      constructor === undefined || className === undefined
+        ? undefined
+        : method(constructor, context, `new ${className}`),
+    fields: own
+      .filter((d) => d.kind !== kinds.constructor && d.kind !== kinds.method)
+      .map((d) => field(d, context)),
+    methods: own
+      .filter((d) => d.kind === kinds.method)
+      .map((d) =>
+        method(
+          d,
+          context,
+          `${d.flags.isStatic === true ? "static " : ""}${d.name}`,
+        ),
+      ),
+  };
+}
+
+/** A method or constructor, called `label` in its signature, such as `new Tagger` or `static parse`. */
+function method(d: Declaration, context: Context, label: string): ApiMethod {
+  const signature = d.signatures?.[0];
+  const parameters = (signature?.parameters ?? []).map((p) =>
+    field(p, context),
+  );
+  const returns = tokens(signature?.type, context);
+  const list = parameters
+    .map((p) => `${p.name}${p.optional ? "?" : ""}: ${text(p.type)}`)
+    .join(", ");
+  const constructs = label.startsWith("new ");
+  return {
+    name: d.name,
+    signature: constructs
+      ? `${label}(${list})`
+      : `${label}(${list}): ${text(returns)}`,
+    summary: html(signature?.comment?.summary ?? [], context),
+    parameters,
+    returns,
+  };
+}
+
 function fieldsOf(
   type: TypeNode | undefined,
   children: Declaration[] | undefined,
@@ -313,17 +413,25 @@ function fieldsOf(
     type?.declaration?.children ??
     (type?.types ?? []).flatMap((t) => t.declaration?.children ?? []);
   return declared
-    .toSorted(
-      (a, b) => (a.sources?.[0]?.line ?? 0) - (b.sources?.[0]?.line ?? 0),
-    )
+    .filter(isOwn)
+    .toSorted(bySource)
     .map((child) => field(child, context));
+}
+
+// TypeDoc calls a destructured parameter __namedParameters; name it after its type, as TaggingRequest becomes request.
+function parameterName(d: Declaration): string {
+  if (d.name !== "__namedParameters") {
+    return d.name;
+  }
+  const words = d.type?.name?.match(/[A-Z][a-z]*/g) ?? [];
+  return words.at(-1)?.toLowerCase() ?? "options";
 }
 
 function field(d: Declaration, context: Context): ApiField {
   return {
-    name: d.name,
+    name: parameterName(d),
     optional: d.flags.isOptional === true,
-    type: tokens(d.type, context),
+    type: tokens(d.type ?? d.getSignature?.type, context),
     description: html(d.comment?.summary ?? [], context),
   };
 }
