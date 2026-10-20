@@ -1,5 +1,16 @@
 # @bhodgson/design-system
 
+## 0.2.0
+
+### Minor Changes
+
+- f41ff58: Make every colour pair meet WCAG AA in light and dark mode, with a test suite that checks it. Add status colours (`danger`, `warning`, `success`, `info`), six colour-blind-safe categorical colours (`data-1` to `data-6`), a `secondary` accent, a `focus` colour and a `surface-sunken` well. Add `Badge` with `dataTone()`, and `ThemeToggle` with `applyStoredTheme()` to pick light, dark or the system theme; `Page` shows the toggle. Add `Tooltip`, which the toggle uses to say what the current theme is and what a click does. `Message` gains `success` and `warning` tones.
+- f41ff58: Add text styles as Tailwind utilities: `type-title`, `type-heading`, `type-subheading`, `type-label`, `type-eyebrow` and `type-code`.
+- f41ff58: Export a props type for every component, such as `ButtonProps`, and the variant unions they use, such as `ButtonVariant` and `BadgeTone`. Export `Identity`, `Credit`, and `buttonClass` for links that look like buttons. The `Page` footer now reads "<project> is a Ben Hodgson project".
+- f41ff58: Add a `prose` text style for long-form content, and `Search`: a search button and results dialog, opened with `/` or ⌘K, that searches with any function you give it.
+- f41ff58: Every component renders on a server and hydrates without a mismatch, with a test for each. `ThemeToggle` shows the saved theme's icon before any JavaScript loads, and `setTheme` and `applyStoredTheme` do nothing on a server.
+- f41ff58: Add `themeScript`, an inline script that applies the saved theme as a server-rendered page loads. `data-theme` is now always the light or dark in use, and `data-theme-choice` what the reader picked; `applyStoredTheme()`, `setTheme()` and `ThemeToggle` all run the same code.
+
 ## 0.1.3
 
 ### Patch Changes
