@@ -201,20 +201,6 @@
   }
 }
 
-/* A select's chevron, drawn in the muted colour, replacing the browser's arrow. */
-@utility select-chevron {
-  appearance: none;
-  padding-right: 2rem;
-  background-image:
-    linear-gradient(45deg, transparent 50%, var(--muted) 50%),
-    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
-  background-position:
-    calc(100% - 1rem) 50%,
-    calc(100% - 0.6875rem) 50%;
-  background-size: 0.3125rem 0.3125rem;
-  background-repeat: no-repeat;
-}
-
 /* Text styles. Colour is left to the caller. */
 @utility type-title {
   font-family: var(--font-mono);
