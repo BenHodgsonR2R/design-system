@@ -184,6 +184,14 @@
     24px 24px;
 }
 
+/* A halo in the canvas colour, so text stays readable over a drawing or the grid behind it. */
+@utility text-halo {
+  text-shadow:
+    0 0 3px var(--canvas),
+    0 0 8px var(--canvas),
+    0 0 16px var(--canvas);
+}
+
 /* A bar that fills as the page scrolls, where browsers support scroll-driven animations. */
 @keyframes scroll-progress {
   to {

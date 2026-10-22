@@ -115,17 +115,27 @@ export function Credit({ author = defaultAuthor, project }: CreditProps) {
         <Link href={author.url}>{author.name}</Link> project
       </span>
       <span aria-hidden="true">·</span>
-      <a
-        class="inline-flex items-center gap-1.5 font-medium text-inherit no-underline hover:text-ink"
-        href={author.url}
-      >
-        <GitHubMark />
-        GitHub
-      </a>
+      <GitHubText author={author} />
     </p>
   );
 }
 
+export function GitHubText({ author }: { author: Author }) {
+  return (
+    <a
+      class="inline-flex items-center gap-1.5 font-medium text-inherit no-underline hover:text-ink"
+      href={author.url}
+    >
+      <GitHubMark />
+      GitHub
+    </a>
+  );
+}
+
+/**
+ * GitHub's mark, from Octicons (MIT), sized to the text and in its colour.
+ * @group Utilities
+ */
 export function GitHubMark() {
   return (
     <svg aria-hidden="true" viewBox="0 0 16 16" class="size-4 fill-current">

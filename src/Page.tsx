@@ -8,6 +8,7 @@ import {
   Identity,
 } from "./author.tsx";
 import { cn } from "./cn.ts";
+import { Footer } from "./Footer.tsx";
 import { ThemeToggle } from "./ThemeToggle.tsx";
 
 /**
@@ -110,12 +111,10 @@ export function Page({
 
       <main class="mx-auto w-full max-w-6xl flex-1 px-3 py-6">{children}</main>
 
-      <footer class="px-3 pb-6">
-        <div class="mx-auto flex max-w-6xl flex-col gap-3 rounded-xl border border-line bg-surface/70 px-5 py-4 text-sm text-muted">
-          {footer}
-          <Credit author={author} project={project} />
-        </div>
-      </footer>
+      <Footer>
+        {footer}
+        <Credit author={author} project={project} />
+      </Footer>
     </div>
   );
 }

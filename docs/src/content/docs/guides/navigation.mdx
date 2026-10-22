@@ -1,0 +1,88 @@
+---
+title: Navigation
+description: A command bar, breadcrumbs and link cards.
+sidebar:
+  order: 10
+---
+
+import { Breadcrumbs, LinkCard } from "@bhodgson/design-system";
+import { CommandBarDemo } from "../../../components/CommandBarDemo.tsx";
+import Preview from "../../../components/Preview.astro";
+
+## Command bar
+
+`CommandBar` is a sticky site bar whose prompt is a real input. Give it commands, and a search for anything else; `help` lists them. Try `help`, `ls`, `cd f` then Tab, or a search such as `mess`.
+
+<div class="not-prose my-6">
+  <CommandBarDemo client:load />
+</div>
+
+```tsx
+const commands: Command[] = [
+  {
+    name: "ls",
+    description: "list the pages",
+    run: () => ({ results: pages }),
+  },
+  {
+    name: "cd",
+    usage: "cd <page>",
+    description: "open a page",
+    run: (args) => {
+      const matches = pages.filter((page) => page.slug.startsWith(args));
+      return matches.length === 0
+        ? { message: `cd: no such page: ${args}`, tone: "error" }
+        : {
+            results: matches,
+            complete:
+              matches.length === 1 ? `cd ${matches[0].slug}` : undefined,
+          };
+    },
+  },
+];
+
+<CommandBar
+  commands={commands}
+  search={search}
+  cwd="docs"
+  actions={<a href="/contact/">contact</a>}
+/>;
+```
+
+A command's `run` gets everything after its name as the reader types, and returns what to print: `results` to choose from, a `message`, where Enter should `go`, and what Tab should `complete` to. `search` works like `Search`'s, and `unavailable` says why it failed; pass a function to tell failures apart.
+
+`/` or ⌘K (Ctrl K) focuses the prompt from anywhere, the arrow keys move through results, Enter opens one and Escape clears.
+
+## Breadcrumbs
+
+<Preview
+  code={`
+<Breadcrumbs
+  back
+  items={[{ label: "projects", href: "/" }, { label: "place-images" }]}
+/>`}
+>
+  <Breadcrumbs
+    back
+    items={[{ label: "projects", href: "#" }, { label: "place-images" }]}
+  />
+</Preview>
+
+## Link cards
+
+For a short list of next steps. `accent` marks the one to pick first, and `arrow` changes the arrow.
+
+<Preview
+  code={`
+<LinkCard href="mailto:me@example.com">Email me</LinkCard>
+<LinkCard href="/cv.pdf" download="cv.pdf" tone="accent" arrow="↓">
+  Download my CV
+</LinkCard>`}
+>
+  <div class="flex w-full max-w-xs flex-col gap-3">
+    <LinkCard href="#">Email me</LinkCard>
+    <LinkCard href="#" tone="accent" arrow="↓">
+      Download my CV
+    </LinkCard>
+  </div>
+</Preview>
