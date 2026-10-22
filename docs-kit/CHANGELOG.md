@@ -1,5 +1,13 @@
 # @bhodgson/docs
 
+## 0.1.2
+
+### Patch Changes
+
+- cbf77bf: The GitHub account is now `bhodgs`: `defaultAuthor` links to https://github.com/bhodgs, and the package links point at the renamed repository and docs site.
+- Updated dependencies [cbf77bf]
+  - @bhodgson/design-system@0.3.1
+
 ## 0.1.1
 
 ### Patch Changes
