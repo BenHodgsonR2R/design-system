@@ -1,5 +1,12 @@
 # @bhodgson/docs
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [853859a]
+  - @bhodgson/design-system@0.3.0
+
 ## 0.1.0
 
 ### Minor Changes

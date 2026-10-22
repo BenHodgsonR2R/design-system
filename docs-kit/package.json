@@ -1,6 +1,6 @@
 {
   "name": "@bhodgson/docs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Docs sites for Ben Hodgson's projects: Starlight in the design system, with an API reference generated from a package's source.",
   "keywords": [
     "docs",
