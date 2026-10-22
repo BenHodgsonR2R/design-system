@@ -110,7 +110,7 @@ describe("Footer", () => {
       </Footer>,
     );
     expect(text(html)).toBe("© 2026 Ben Hodgson · GitHub home");
-    expect(html).toContain('href="https://github.com/BenHodgsonR2R"');
+    expect(html).toContain('href="https://github.com/bhodgs"');
     expect(html).toContain('aria-label="Footer"');
   });
 

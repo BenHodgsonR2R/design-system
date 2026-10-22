@@ -28,7 +28,7 @@ export type Author = {
  */
 export const defaultAuthor: Author = {
   name: "Ben Hodgson",
-  url: "https://github.com/BenHodgsonR2R",
+  url: "https://github.com/bhodgs",
   home: "~/ben",
   photo: "https://avatars.githubusercontent.com/u/116538172?s=96&v=4",
 };

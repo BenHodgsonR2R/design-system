@@ -1,12 +1,12 @@
 # @bhodgson/design-system
 
 [![npm](https://img.shields.io/npm/v/@bhodgson/design-system)](https://www.npmjs.com/package/@bhodgson/design-system)
-[![CI](https://github.com/BenHodgsonR2R/design-system/actions/workflows/continuous-integration.yml/badge.svg?branch=main&event=push)](https://github.com/BenHodgsonR2R/design-system/actions/workflows/continuous-integration.yml?query=branch%3Amain)
+[![CI](https://github.com/bhodgs/design-system/actions/workflows/continuous-integration.yml/badge.svg?branch=main&event=push)](https://github.com/bhodgs/design-system/actions/workflows/continuous-integration.yml?query=branch%3Amain)
 [![License: MIT](https://img.shields.io/npm/l/@bhodgson/design-system)](LICENSE)
 
 My design system: Tailwind CSS theme tokens, Preact components and a page layout.
 
-**[Read the docs](https://benhodgsonr2r.github.io/design-system/)** for guides, live examples and the API reference.
+**[Read the docs](https://bhodgs.github.io/design-system/)** for guides, live examples and the API reference.
 
 ## Use it
 

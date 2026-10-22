@@ -10,7 +10,7 @@ describe("Page", () => {
     expect(html).toContain("Ben Hodgson");
     expect(html).toContain("~/ben");
     expect(html).toContain("avatars.githubusercontent.com");
-    expect(html).toContain('href="https://github.com/BenHodgsonR2R"');
+    expect(html).toContain('href="https://github.com/bhodgs"');
     expect(html).toContain("<h1");
     expect(html).toContain("Playground");
     expect(html).toContain("Content");
