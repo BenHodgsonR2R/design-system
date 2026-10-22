@@ -8,8 +8,8 @@ import { cn } from "./cn.ts";
 export type AnnotationProps = {
   /** What the note points out. Mark the part it's about with an `accent` {@link Highlight}. */
   children: ComponentChildren;
-  /** The note, led to by a dotted line. */
-  note: ComponentChildren;
+  /** The note, led to by a dotted line. In Astro, a `note` slot works too. */
+  note?: ComponentChildren;
   class?: string;
 };
 
@@ -33,13 +33,15 @@ export function Annotation({ children, note, class: extra }: AnnotationProps) {
       <p class="flex flex-wrap items-center gap-y-1 font-mono text-sm break-all">
         {children}
       </p>
-      <figcaption class="mt-3 flex items-start gap-2 font-mono text-xs text-muted">
-        <span
-          aria-hidden="true"
-          class="mt-[0.55em] h-px w-6 shrink-0 border-t border-dotted border-accent"
-        />
-        <span>{note}</span>
-      </figcaption>
+      {note !== undefined && (
+        <figcaption class="mt-3 flex items-start gap-2 font-mono text-xs text-muted">
+          <span
+            aria-hidden="true"
+            class="mt-[0.55em] h-px w-6 shrink-0 border-t border-dotted border-accent"
+          />
+          <span>{note}</span>
+        </figcaption>
+      )}
     </figure>
   );
 }

@@ -72,7 +72,7 @@ Pass an `icon`, such as a 24 × 24 stroked `<svg>`, to show it in a tile that fi
 
 ## Annotations
 
-Point at part of an address, a command or a line of code, the way a drawing labels its parts. Mark the part with an `accent` highlight.
+Point at part of an address, a command or a line of code, the way a drawing labels its parts. Mark the part with an `accent` highlight. In Astro, pass a rich note as a `note` slot.
 
 <Preview
   code={`
@@ -81,9 +81,12 @@ Point at part of an address, a command or a line of code, the way a drawing labe
   <Highlight tone="accent">acme-7k2x</Highlight>
 </Annotation>`}
 >
-  <Annotation class="w-full max-w-md" note="your access code, part of the link">
+  <Annotation class="w-full max-w-md">
     <span class="text-muted">example.com/?invite=</span>
     <Highlight tone="accent">acme-7k2x</Highlight>
+    <span slot="note">
+      <span class="text-accent">your access code</span>, part of the link
+    </span>
   </Annotation>
 </Preview>
 
