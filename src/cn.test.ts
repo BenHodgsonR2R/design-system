@@ -9,6 +9,8 @@ describe("cn()", () => {
     ["shadow-window", "shadow-none", "shadow-none"],
     ["bg-accent text-on-accent", "bg-surface", "text-on-accent bg-surface"],
     ["text-xs", "text-ink", "text-xs text-ink"],
+    ["bg-canvas bg-grid", "p-4", "bg-canvas bg-grid p-4"],
+    ["text-ink", "text-halo", "text-ink text-halo"],
   ])("merges %s with %s", (base, extra, expected) => {
     expect(cn(base, extra)).toBe(expected);
   });

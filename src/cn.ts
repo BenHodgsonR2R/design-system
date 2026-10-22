@@ -8,6 +8,11 @@ const merge = extendTailwindMerge({
       spacing: ["control", "control-sm"],
       shadow: ["window"],
     },
+    // The theme's utilities, so `bg-grid` joins a background colour instead of replacing it.
+    classGroups: {
+      "bg-image": ["bg-grid"],
+      "text-shadow": ["text-halo"],
+    },
   },
 });
 

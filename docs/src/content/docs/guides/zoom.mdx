@@ -1,0 +1,25 @@
+---
+title: Zoom dialog
+description: A full-screen view that zooms and pans, for detailed drawings and images.
+sidebar:
+  order: 12
+---
+
+import { ZoomDialogDemo } from "../../../components/ZoomDialogDemo.tsx";
+
+`ZoomDialog` shows its content full screen, fitted to the width, and zooms and pans it like a photo: pinch, drag, double-tap, or the mouse wheel. Escape, Close or a click outside closes it.
+
+<div class="not-prose my-6">
+  <ZoomDialogDemo client:load />
+</div>
+
+```tsx
+const [open, setOpen] = useState(false);
+
+<Button onClick={() => setOpen(true)}>Open the drawing</Button>
+<ZoomDialog open={open} title="A small system" onClose={() => setOpen(false)}>
+  <svg viewBox="0 0 400 160">…</svg>
+</ZoomDialog>;
+```
+
+An `<img>` or `<svg>` child fills the width. `maxScale` sets how far it zooms in; it defaults to 5.

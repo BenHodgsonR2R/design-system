@@ -3,17 +3,27 @@ import { hydrate, render, type VNode } from "preact";
 import { renderToString } from "preact-render-to-string";
 import { act } from "preact/test-utils";
 import { afterEach, describe, expect, test } from "vitest";
+import { Annotation } from "./Annotation.tsx";
 import { Credit, Identity } from "./author.tsx";
 import { Badge } from "./Badge.tsx";
+import { Breadcrumbs } from "./Breadcrumbs.tsx";
 import { Button } from "./Button.tsx";
+import { CommandBar } from "./CommandBar.tsx";
+import { Facts, Stats } from "./data.tsx";
+import { Disclosure } from "./Disclosure.tsx";
 import { Field, Input, Select, TextArea } from "./fields.tsx";
+import { Copyright, Footer } from "./Footer.tsx";
+import { LinkCard } from "./LinkCard.tsx";
 import { Message } from "./Message.tsx";
 import { Page } from "./Page.tsx";
 import { Panel } from "./Panel.tsx";
 import { Search } from "./Search.tsx";
+import { Steps } from "./Steps.tsx";
+import { Terminal } from "./Terminal.tsx";
 import { Highlight, Link } from "./text.tsx";
 import { ThemeToggle } from "./ThemeToggle.tsx";
 import { Tooltip } from "./Tooltip.tsx";
+import { ZoomDialog } from "./ZoomDialog.tsx";
 
 /**
  * Renders on the server, where touching a browser API fails the test, then hydrates that HTML in a
@@ -86,6 +96,59 @@ const components: [string, () => VNode][] = [
   ],
   ["Search", () => <Search search={async () => []} />],
   ["ThemeToggle", () => <ThemeToggle />],
+  [
+    "CommandBar",
+    () => (
+      <CommandBar
+        cwd="docs"
+        commands={[{ name: "ls", description: "list", run: () => ({}) }]}
+        search={async () => []}
+      />
+    ),
+  ],
+  [
+    "Disclosure",
+    () => (
+      <Disclosure title="More" description="Details" open>
+        Content
+      </Disclosure>
+    ),
+  ],
+  ["Steps", () => <Steps items={[{ title: "One", body: "first" }]} />],
+  [
+    "Annotation",
+    () => (
+      <Annotation note="the code">
+        <Highlight tone="accent">acme</Highlight>
+      </Annotation>
+    ),
+  ],
+  ["Stats", () => <Stats items={[{ value: "4×", label: "faster" }]} />],
+  ["Facts", () => <Facts items={[{ term: "Role", detail: "Lead" }]} />],
+  [
+    "Breadcrumbs",
+    () => (
+      <Breadcrumbs items={[{ label: "docs", href: "/" }, { label: "a" }]} />
+    ),
+  ],
+  [
+    "Footer",
+    () => (
+      <Footer links={[{ label: "home", href: "/" }]}>
+        <Copyright year={2026} />
+      </Footer>
+    ),
+  ],
+  ["Terminal", () => <Terminal command="cat contact">email</Terminal>],
+  ["LinkCard", () => <LinkCard href="#">Email me</LinkCard>],
+  [
+    "ZoomDialog",
+    () => (
+      <ZoomDialog open={false} title="Drawing" onClose={() => {}}>
+        <svg />
+      </ZoomDialog>
+    ),
+  ],
   [
     "Page",
     () => (

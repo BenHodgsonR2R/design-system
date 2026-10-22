@@ -30,3 +30,32 @@ sidebar:
 `Panel` is a window: a title bar over its content, with optional `actions` on the right. Its `id` makes the title a link target.
 
 See the [image-tagger playground](https://benhodgsonr2r.github.io/image-tagger/) for both in use.
+
+## Footer
+
+`Page` closes with a `Footer`. Use one on its own for pages you lay out yourself: your content on the left, and `links` on the right. `Copyright` reads "© 2026 Ben Hodgson · GitHub", for a personal site where "a Ben Hodgson project" would repeat itself.
+
+```tsx
+<Footer
+  links={[
+    { label: "home", href: "/" },
+    { label: "contact", href: "/contact/" },
+  ]}
+>
+  <Copyright />
+</Footer>
+```
+
+## Terminal
+
+A window whose title bar is a shell prompt, with the command's output inside, for short facts like contact details.
+
+```tsx
+<Terminal command="cat contact">
+  <dl>…</dl>
+</Terminal>
+```
+
+## Text halo
+
+`text-halo` gives text a halo in the canvas colour, so it stays readable over a drawing or the grid behind it.

@@ -3,16 +3,18 @@ import type { ComponentChildren, JSX } from "preact";
 import { cn } from "./cn.ts";
 
 /**
- * A {@link Highlight}'s marker colour.
+ * A {@link Highlight}'s marker colour. `accent` outlines the part an {@link Annotation} is about.
  * @group Text
  */
-export type HighlightTone = "blue" | "red";
+export type HighlightTone = "blue" | "red" | "accent";
 
 const highlight = cva("rounded-sm px-1 box-decoration-clone text-inherit", {
   variants: {
     tone: {
       blue: "bg-highlight-blue",
       red: "bg-highlight-red",
+      accent:
+        "bg-accent-soft py-0.5 font-semibold text-accent ring-1 ring-accent",
     } satisfies Record<HighlightTone, string>,
   },
   defaultVariants: { tone: "blue" },
@@ -33,7 +35,7 @@ export type HighlightProps = {
  * @group Text
  */
 export function Highlight({ tone, children }: HighlightProps) {
-  return <mark class={highlight({ tone })}>{children}</mark>;
+  return <mark class={cn(highlight({ tone }))}>{children}</mark>;
 }
 
 /**

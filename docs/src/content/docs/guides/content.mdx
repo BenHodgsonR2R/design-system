@@ -1,0 +1,128 @@
+---
+title: Content
+description: Disclosures, steps, annotations, stats and facts.
+sidebar:
+  order: 11
+---
+
+import {
+  Annotation,
+  Disclosure,
+  Facts,
+  Highlight,
+  Stats,
+  Steps,
+} from "@bhodgson/design-system";
+import Preview from "../../../components/Preview.astro";
+
+## Disclosures
+
+A card that opens to show more. It's a native `<details>`, so it works without JavaScript, and disclosures with the same `name` form an accordion: opening one closes the others.
+
+<Preview
+  code={`
+<Disclosure name="access" title="I have a link" description="Open it to get in">
+  …
+</Disclosure>
+<Disclosure name="access" title="I want access" description="Ask for an invite" open>
+  …
+</Disclosure>`}
+>
+  <div class="flex w-full max-w-xl flex-col gap-3">
+    <Disclosure
+      name="access"
+      title="I have a link"
+      description="Open it to get in"
+    >
+      <p class="text-sm text-muted">Open the link from the email it came in.</p>
+    </Disclosure>
+    <Disclosure
+      name="access"
+      title="I want access"
+      description="Ask for an invite"
+      open
+    >
+      <p class="text-sm text-muted">
+        Tell me who you are, and I'll send a link.
+      </p>
+    </Disclosure>
+  </div>
+</Preview>
+
+Pass an `icon`, such as a 24 × 24 stroked `<svg>`, to show it in a tile that fills with the accent colour when open.
+
+## Steps
+
+<Preview
+  code={`
+<Steps
+  items={[
+    { title: "Open the link,", body: "from the email it came in." },
+    { title: "Share any page.", body: "Its address carries your code." },
+  ]}
+/>`}
+>
+  <Steps
+    items={[
+      { title: "Open the link,", body: "from the email it came in." },
+      { title: "Share any page.", body: "Its address carries your code." },
+    ]}
+  />
+</Preview>
+
+## Annotations
+
+Point at part of an address, a command or a line of code, the way a drawing labels its parts. Mark the part with an `accent` highlight.
+
+<Preview
+  code={`
+<Annotation note={<><span class="text-accent">your access code</span>, part of the link</>}>
+  <span class="text-muted">example.com/?invite=</span>
+  <Highlight tone="accent">acme-7k2x</Highlight>
+</Annotation>`}
+>
+  <Annotation class="w-full max-w-md" note="your access code, part of the link">
+    <span class="text-muted">example.com/?invite=</span>
+    <Highlight tone="accent">acme-7k2x</Highlight>
+  </Annotation>
+</Preview>
+
+## Stats and facts
+
+`Stats` is a row of headline figures; `Facts` is short facts with labels. Mark `wide` facts that need the full width on narrow screens.
+
+<Preview
+  code={`
+<Facts
+  items={[
+    { term: "Role", detail: "Lead engineer" },
+    { term: "Year", detail: "2025" },
+    { term: "Stack", detail: "TypeScript · Postgres", wide: true },
+  ]}
+/>
+<Stats
+  items={[
+    { value: "4×", label: "faster builds" },
+    { value: "12k", label: "places covered" },
+    { value: "0", label: "manual steps" },
+  ]}
+/>`}
+>
+  <div class="flex w-full flex-col gap-6">
+    <Facts
+      items={[
+        { term: "Role", detail: "Lead engineer" },
+        { term: "Year", detail: "2025" },
+        { term: "Stack", detail: "TypeScript · Postgres", wide: true },
+      ]}
+    />
+    <Stats
+      class="rounded-lg border border-line bg-surface"
+      items={[
+        { value: "4×", label: "faster builds" },
+        { value: "12k", label: "places covered" },
+        { value: "0", label: "manual steps" },
+      ]}
+    />
+  </div>
+</Preview>
