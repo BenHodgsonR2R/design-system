@@ -8,13 +8,13 @@
     "preact",
     "components"
   ],
-  "homepage": "https://benhodgsonr2r.github.io/design-system/",
+  "homepage": "https://bhodgs.github.io/design-system/",
   "bugs": {
-    "url": "https://github.com/BenHodgsonR2R/design-system/issues"
+    "url": "https://github.com/bhodgs/design-system/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BenHodgsonR2R/design-system.git"
+    "url": "git+https://github.com/bhodgs/design-system.git"
   },
   "license": "MIT",
   "author": "Ben Hodgson",

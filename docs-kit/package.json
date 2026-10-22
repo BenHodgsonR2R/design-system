@@ -8,13 +8,13 @@
     "astro",
     "typedoc"
   ],
-  "homepage": "https://github.com/BenHodgsonR2R/design-system/tree/main/docs-kit#readme",
+  "homepage": "https://github.com/bhodgs/design-system/tree/main/docs-kit#readme",
   "bugs": {
-    "url": "https://github.com/BenHodgsonR2R/design-system/issues"
+    "url": "https://github.com/bhodgs/design-system/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BenHodgsonR2R/design-system.git",
+    "url": "git+https://github.com/bhodgs/design-system.git",
     "directory": "docs-kit"
   },
   "license": "MIT",

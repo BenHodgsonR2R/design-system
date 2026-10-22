@@ -7,7 +7,7 @@ import { api } from "./src/api.ts";
 import { base } from "./src/site.ts";
 
 export default defineConfig({
-  site: "https://benhodgsonr2r.github.io",
+  site: "https://bhodgs.github.io",
   base,
   integrations: [
     starlight({
@@ -19,12 +19,11 @@ export default defineConfig({
         {
           icon: "github",
           label: "GitHub",
-          href: "https://github.com/BenHodgsonR2R/design-system",
+          href: "https://github.com/bhodgs/design-system",
         },
       ],
       editLink: {
-        baseUrl:
-          "https://github.com/BenHodgsonR2R/design-system/edit/main/docs/",
+        baseUrl: "https://github.com/bhodgs/design-system/edit/main/docs/",
       },
       plugins: [docsTheme()],
       sidebar: [
