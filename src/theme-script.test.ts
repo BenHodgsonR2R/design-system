@@ -1,18 +1,14 @@
+import { runInThisContext } from "node:vm";
 import { GlobalRegistrator } from "@happy-dom/global-registrator";
 import { afterEach, beforeEach, describe, expect, test } from "vitest";
 import { setTheme, themeScript } from "./theme.ts";
 
 beforeEach(() => {
-  GlobalRegistrator.register({
-    settings: { enableJavaScriptEvaluation: true },
-  });
+  GlobalRegistrator.register();
 });
 
-function runThemeScript() {
-  const script = document.createElement("script");
-  script.textContent = themeScript;
-  document.head.append(script);
-}
+// A classic script against the registered globals, so Happy DOM needn't evaluate scripts.
+const runThemeScript = () => runInThisContext(themeScript);
 
 afterEach(async () => {
   await GlobalRegistrator.unregister();
