@@ -324,7 +324,7 @@ export function CommandBar({
               onKeyDown={onKeyDown}
               onScroll={followScroll}
               class={cn(
-                "relative min-w-0 flex-1 bg-transparent font-mono text-sm font-normal caret-accent outline-none placeholder:text-muted/60",
+                "relative min-w-0 flex-1 bg-transparent font-mono text-sm font-normal caret-accent outline-none placeholder:text-muted",
                 query === "" ? "text-ink" : "text-transparent",
               )}
             />

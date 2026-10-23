@@ -10,7 +10,7 @@ import { cn } from "./cn.ts";
 export const cardClass = cva("rounded-xl border shadow-window", {
   variants: {
     tone: {
-      neutral: "border-line bg-surface",
+      neutral: "border-edge bg-surface",
       accent: "border-accent bg-accent-soft",
     },
     interactive: {

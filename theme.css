@@ -42,6 +42,7 @@
   --color-muted: var(--muted);
   --color-line: var(--line);
   --color-line-strong: var(--line-strong);
+  --color-edge: var(--edge);
   --color-accent: var(--accent);
   --color-accent-edge: var(--accent-edge);
   --color-on-accent: var(--on-accent);
@@ -88,6 +89,8 @@
   /* Lines: `line` is decorative only; controls use `line-strong` (3:1). */
   --line: light-dark(oklch(0.9 0.015 255), oklch(0.32 0.05 262));
   --line-strong: light-dark(oklch(0.62 0.035 258), oklch(0.6 0.05 260));
+  /* The outline of a card or window sitting on the page: firmer than a divider, so it holds its own against the grid. */
+  --edge: color-mix(in oklch, var(--line-strong) 40%, var(--line));
 
   --accent: light-dark(oklch(0.49 0.22 264), oklch(0.74 0.134 258));
   --accent-edge: light-dark(oklch(0.34 0.16 266), oklch(0.58 0.15 262));
@@ -165,6 +168,12 @@
   [role="button"]:not(:disabled),
   select:not(:disabled) {
     cursor: pointer;
+  }
+
+  /* One focus ring for everything, rather than each browser's own; components with their own still win. */
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
   }
 }
 

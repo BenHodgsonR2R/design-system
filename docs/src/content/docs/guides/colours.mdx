@@ -9,16 +9,16 @@ import { ColourTable } from "../../../components/ColourTable.tsx";
 
 Every colour is a token that switches between light and dark mode, and is a Tailwind utility: `--surface` is `bg-surface`, `text-surface` and so on.
 
-| Tokens                                                    | For                                                         |
-| --------------------------------------------------------- | ----------------------------------------------------------- |
-| `canvas`, `surface`, `surface-sunken`                     | Page background, panels, and wells such as code blocks      |
-| `ink`, `muted`                                            | Body and secondary text                                     |
-| `line`, `line-strong`                                     | Decorative dividers, and borders that show a control's edge |
-| `accent`, `on-accent`, `accent-soft`, `link`              | The primary colour, text on it, a tint, and links           |
-| `secondary`, `secondary-soft`                             | A second accent, for contrast with the first                |
-| `focus`                                                   | Focus rings                                                 |
-| `info`, `success`, `warning`, `danger`, each with `-soft` | Status                                                      |
-| `data-1` to `data-6`, each with `-soft`                   | Categories                                                  |
+| Tokens                                                    | For                                                          |
+| --------------------------------------------------------- | ------------------------------------------------------------ |
+| `canvas`, `surface`, `surface-sunken`                     | Page background, panels, and wells such as code blocks       |
+| `ink`, `muted`                                            | Body and secondary text                                      |
+| `line`, `edge`, `line-strong`                             | Dividers, the edge of a card or window, and a control's edge |
+| `accent`, `on-accent`, `accent-soft`, `link`              | The primary colour, text on it, a tint, and links            |
+| `secondary`, `secondary-soft`                             | A second accent, for contrast with the first                 |
+| `focus`                                                   | Focus rings, which every focusable element gets by default   |
+| `info`, `success`, `warning`, `danger`, each with `-soft` | Status                                                       |
+| `data-1` to `data-6`, each with `-soft`                   | Categories                                                   |
 
 A test suite in the design system checks every pair below meets WCAG AA in both modes, and that the categorical colours stay apart with each kind of colour blindness. This table measures them again, in your browser, for the theme you're viewing.
 

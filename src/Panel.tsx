@@ -20,7 +20,7 @@ export type PanelProps = {
 export function Panel({ id, title, actions, children }: PanelProps) {
   return (
     <section
-      class="overflow-hidden rounded-xl border border-line-strong bg-surface shadow-window"
+      class="overflow-hidden rounded-xl border border-edge bg-surface shadow-window"
       aria-labelledby={id}
     >
       <header class="flex flex-wrap items-center justify-between gap-2 border-b border-line bg-canvas/60 px-4 py-2.5">
