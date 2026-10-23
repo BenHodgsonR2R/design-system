@@ -116,7 +116,7 @@ describe("CommandBar", () => {
     expect(root.querySelector(".text-danger")).not.toBeNull();
   });
 
-  test("goes where Enter points", async () => {
+  test("goes where Enter points, and clears the prompt", async () => {
     const assign = vi.fn<(url: string) => void>();
     Object.defineProperty(window, "location", {
       value: { assign },
@@ -126,6 +126,8 @@ describe("CommandBar", () => {
     await type("cd ..");
     await press("Enter");
     expect(assign).toHaveBeenCalledWith("/");
+    expect(input().value).toBe("");
+    expect(output()).toBeUndefined();
     await type("ls");
     await press("ArrowDown");
     await press("Enter");
