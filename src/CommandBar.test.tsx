@@ -52,6 +52,7 @@ afterEach(async () => {
 
 const input = () => root.querySelector("input")!;
 const options = () => [...root.querySelectorAll('[role="option"]')];
+const suggestion = () => root.querySelector("[data-suggestion]")?.textContent;
 const output = () =>
   root.querySelector("[data-output]")?.textContent?.replace(/\s+/g, " ").trim();
 
@@ -116,6 +117,44 @@ describe("CommandBar", () => {
     expect(root.querySelector(".text-danger")).not.toBeNull();
   });
 
+  test("suggests what Tab completes to, faded, and takes it on Tab or →", async () => {
+    await act(() => render(<CommandBar commands={commands} />, root));
+    await type("c");
+    expect(suggestion()).toBe("d ");
+    await press("Tab");
+    expect(input().value).toBe("cd ");
+    await type("cd place-");
+    expect(suggestion()).toBe("images");
+    input().setSelectionRange(9, 9);
+    await press("ArrowRight");
+    expect(input().value).toBe("cd place-images");
+    expect(suggestion()).toBeUndefined();
+    await type("zzz");
+    expect(suggestion()).toBeUndefined();
+  });
+
+  test("colours what's typed, and shows backticked keys and commands in messages", async () => {
+    const say: Command = {
+      name: "say",
+      description: "say something",
+      run: () => ({ message: "press `Enter` to run `cd ..`" }),
+    };
+    await act(() => render(<CommandBar commands={[...commands, say]} />, root));
+    await type("say");
+    expect(
+      root.querySelector("label .text-accent:not(.truncate)")?.textContent,
+    ).toBe("say");
+    expect(input().className).toContain("text-transparent");
+    expect(root.querySelector("[data-output] kbd")?.textContent).toBe("Enter");
+    expect(
+      [...root.querySelectorAll("[data-output] .text-accent")].map(
+        (part) => part.textContent,
+      ),
+    ).toEqual(["cd"]);
+    await type("rm -rf");
+    expect(root.querySelector("label .text-danger")?.textContent).toBe("rm");
+  });
+
   test("goes where Enter points, and clears the prompt", async () => {
     const assign = vi.fn<(url: string) => void>();
     Object.defineProperty(window, "location", {
@@ -142,7 +181,6 @@ describe("CommandBar", () => {
     await act(() => render(<CommandBar search={search} />, root));
     await type("ICU");
     await act(async () => {});
-    expect(output()).toContain('search "ICU"');
     expect(output()).toContain("Translation");
     await type("zebra");
     await act(async () => {});

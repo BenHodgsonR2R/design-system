@@ -20,6 +20,9 @@ const commands: Command[] = [
       const matches = pages.filter(({ label }) =>
         label.slice(2).startsWith(args),
       );
+      if (args === "..") {
+        return { message: "press `Enter` to go back to `ls`", go: "#" };
+      }
       if (matches.length === 0) {
         return { message: `cd: no such page: ${args}`, tone: "error" };
       }

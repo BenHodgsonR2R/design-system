@@ -50,9 +50,9 @@ const commands: Command[] = [
 />;
 ```
 
-A command's `run` gets everything after its name as the reader types, and returns what to print: `results` to choose from, a `message`, where Enter should `go`, and what Tab should `complete` to. `search` works like `Search`'s, and `unavailable` says why it failed; pass a function to tell failures apart.
+A command's `run` gets everything after its name as the reader types, and returns what to print: `results` to choose from, a `message`, where Enter should `go`, and what Tab should `complete` to. In a string `message`, text in backticks is shown as a command, or as a key when it names one, such as `` `Enter` ``. `search` works like `Search`'s, and `unavailable` says why it failed; pass a function to tell failures apart.
 
-`/` or ⌘K (Ctrl K) focuses the prompt from anywhere, the arrow keys move through results, Enter opens one and Escape clears.
+`/` or ⌘K (Ctrl K) focuses the prompt from anywhere, the arrow keys move through results, Enter opens one and Escape clears. What Tab would complete to shows faded after what's typed, as in fish, and Tab or → at the end takes it. Commands are coloured as a shell would colour them, and one that isn't found shows in red.
 
 ## Menu
 
