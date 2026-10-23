@@ -209,13 +209,14 @@
   }
 }
 
-/* Text styles. Colour is left to the caller. */
+/* Text styles. Colour is left to the caller. Titles and headings balance their lines, so none ends on a lone word. */
 @utility type-title {
   font-family: var(--font-mono);
   font-size: var(--text-2xl);
   font-weight: 700;
   line-height: 1.25;
   letter-spacing: -0.025em;
+  text-wrap: balance;
 
   @media (width >= 40rem) {
     font-size: var(--text-3xl);
@@ -228,6 +229,7 @@
   font-weight: 700;
   line-height: 1.4;
   letter-spacing: -0.015em;
+  text-wrap: balance;
 }
 
 @utility type-subheading {
@@ -264,6 +266,8 @@
   color: var(--ink);
   font-size: 1rem;
   line-height: 1.75;
+  /* Paragraphs avoid a last line of one word; headings balance theirs. */
+  text-wrap: pretty;
 
   & > :where(* + *:not(.not-prose *)) {
     margin-top: 1.25rem;
@@ -274,6 +278,7 @@
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.3;
+    text-wrap: balance;
   }
 
   & :where(h2):not(:where(.not-prose *)) {
@@ -329,6 +334,11 @@
     font-family: var(--font-mono);
     font-size: 0.8125rem;
     line-height: 1.6;
+  }
+
+  /* Shiki with a light and a dark theme and `defaultColor: false`: each token takes the colour for the page's theme. */
+  & :where(pre span[style*="--shiki-light"]):not(:where(.not-prose *)) {
+    color: light-dark(var(--shiki-light), var(--shiki-dark));
   }
 
   & :where(ul, ol):not(:where(.not-prose *)) {

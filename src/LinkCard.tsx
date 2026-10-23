@@ -2,18 +2,27 @@ import { cva } from "class-variance-authority";
 import type { ComponentChildren, JSX } from "preact";
 import { cn } from "./cn.ts";
 
-const card = cva(
-  "flex items-center justify-between gap-3 rounded-xl border px-4 py-3 font-semibold text-ink no-underline shadow-window transition hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus motion-reduce:hover:translate-y-0",
-  {
-    variants: {
-      tone: {
-        neutral: "border-line bg-surface hover:border-line-strong",
-        accent: "border-accent bg-accent-soft",
-      },
+/**
+ * The classes for a card: a rounded surface with a hairline border and a ledge of shadow. `interactive` is for a card
+ * that's a link: it lifts on hover and shows the focus ring. `accent` marks the one to pick first.
+ * @group Layout
+ */
+export const cardClass = cva("rounded-xl border shadow-window", {
+  variants: {
+    tone: {
+      neutral: "border-line bg-surface",
+      accent: "border-accent bg-accent-soft",
     },
-    defaultVariants: { tone: "neutral" },
+    interactive: {
+      true: "no-underline transition hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus motion-reduce:hover:translate-y-0",
+      false: "",
+    },
   },
-);
+  compoundVariants: [
+    { tone: "neutral", interactive: true, class: "hover:border-line-strong" },
+  ],
+  defaultVariants: { tone: "neutral", interactive: false },
+});
 
 /**
  * The props for {@link LinkCard}: every `<a>` attribute, plus these.
@@ -41,7 +50,14 @@ export function LinkCard({
   ...props
 }: LinkCardProps) {
   return (
-    <a class={cn(card({ tone }), extra)} {...props}>
+    <a
+      class={cn(
+        cardClass({ tone, interactive: true }),
+        "flex items-center justify-between gap-3 px-4 py-3 font-semibold text-ink",
+        extra,
+      )}
+      {...props}
+    >
       <span>{children}</span>
       <span aria-hidden="true" class="text-accent">
         {arrow}

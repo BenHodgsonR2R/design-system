@@ -36,8 +36,9 @@ export function Disclosure({
 }: DisclosureProps) {
   return (
     <details
+      // The accent bar is an inset shadow rather than a wider border, so opening it doesn't shift what's inside.
       class={cn(
-        "group overflow-hidden rounded-xl border border-line bg-surface shadow-window transition-[border-color,box-shadow] duration-300 [interpolate-size:allow-keywords] open:border-l-4 open:border-l-accent open:shadow-[0_8px_0_-4px_var(--line)]",
+        "group overflow-hidden rounded-xl border border-line bg-surface shadow-window transition-[border-color,box-shadow] duration-300 [interpolate-size:allow-keywords] open:border-l-accent open:shadow-[inset_3px_0_0_var(--accent),0_8px_0_-4px_var(--line)]",
         "[&::details-content]:h-0 [&::details-content]:overflow-hidden [&::details-content]:transition-[height,content-visibility] [&::details-content]:duration-300 [&::details-content]:[transition-behavior:allow-discrete] open:[&::details-content]:h-auto motion-reduce:[&::details-content]:transition-none",
         extra,
       )}

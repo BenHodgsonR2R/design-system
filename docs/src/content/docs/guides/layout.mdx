@@ -29,6 +29,18 @@ sidebar:
 
 See the [image-tagger playground](https://bhodgs.github.io/image-tagger/) for both in use.
 
+## Page header
+
+`Page` heads its content with a `PageHeader`: an eyebrow, the title, a description and actions, marked with an accent bar. Use one on its own for pages you lay out yourself; it leaves the width and spacing around it to you. Long titles balance their lines, and descriptions avoid a last line of one word.
+
+```tsx
+<PageHeader
+  eyebrow="private"
+  title="Contact"
+  description="Questions about a project, or about a role?"
+/>
+```
+
 ## Footer
 
 `Page` closes with a `Footer`. Use one on its own for pages you lay out yourself: your content on the left, and `links` on the right. `Copyright` reads "© 2026 Ben Hodgson · GitHub", for a personal site where "a Ben Hodgson project" would repeat itself.
