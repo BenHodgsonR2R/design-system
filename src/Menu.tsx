@@ -43,15 +43,14 @@ export function Menu({
   const first = () => requestAnimationFrame(() => inside()[0]?.focus());
 
   useEffect(() => {
-    if (!open) {
-      return;
-    }
     const outside = (event: PointerEvent) => {
       if (!root.current?.contains(event.target as Node)) {
         setOpen(false);
       }
     };
-    document.addEventListener("pointerdown", outside);
+    if (open) {
+      document.addEventListener("pointerdown", outside);
+    }
     return () => document.removeEventListener("pointerdown", outside);
   }, [open]);
 

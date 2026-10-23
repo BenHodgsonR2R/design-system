@@ -75,22 +75,22 @@ describe("Menu", () => {
     await click();
     await key(button(), "ArrowDown");
     expect(document.activeElement).toBe(links()[0]);
-    await key(links()[0]!, "ArrowDown");
+    await key(links()[0], "ArrowDown");
     expect(document.activeElement).toBe(links()[1]);
-    await key(links()[1]!, "End");
+    await key(links()[1], "End");
     expect(document.activeElement).toBe(links()[2]);
-    await key(links()[2]!, "ArrowDown");
+    await key(links()[2], "ArrowDown");
     expect(document.activeElement).toBe(links()[0]);
-    await key(links()[0]!, "ArrowUp");
+    await key(links()[0], "ArrowUp");
     expect(document.activeElement).toBe(links()[2]);
-    await key(links()[2]!, "Home");
+    await key(links()[2], "Home");
     expect(document.activeElement).toBe(links()[0]);
   });
 
   test("closes on Escape and hands focus back to its button", async () => {
     await click();
-    links()[1]!.focus();
-    await key(links()[1]!, "Escape");
+    links()[1].focus();
+    await key(links()[1], "Escape");
     expect(isOpen()).toBe(false);
     expect(document.activeElement).toBe(button());
   });
@@ -108,7 +108,7 @@ describe("Menu", () => {
   test("closes when a link is chosen", async () => {
     await click();
     await act(() => {
-      links()[2]!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      links()[2].dispatchEvent(new MouseEvent("click", { bubbles: true }));
     });
     expect(isOpen()).toBe(false);
   });
