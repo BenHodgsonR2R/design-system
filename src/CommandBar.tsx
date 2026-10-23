@@ -111,6 +111,9 @@ export function CommandBar({
   actions,
   class: extra,
 }: CommandBarProps) {
+  const folders = cwd?.split("/") ?? [];
+  const folder = folders.pop();
+  const parents = folders.join("/");
   const input = useRef<HTMLInputElement>(null);
   const root = useRef<HTMLDivElement>(null);
   const id = useId();
@@ -232,16 +235,27 @@ export function CommandBar({
           class="flex min-w-0 flex-1 items-center gap-2 font-mono text-sm font-bold"
           htmlFor={`${id}-input`}
         >
-          <span aria-hidden="true" class="shrink-0">
+          {/* On phones, only the last folder shows, trimmed to leave the input some room. */}
+          <span
+            aria-hidden="true"
+            class="flex min-w-0 items-center max-sm:max-w-[60%]"
+          >
             {cwd === undefined ? (
-              <span class="text-muted">{author.home}</span>
+              <span class="shrink-0 text-muted">{author.home}</span>
             ) : (
               <>
-                <span class="hidden text-muted sm:inline">{author.home}/</span>
-                <span class="text-accent">{cwd}</span>
+                <span class="hidden shrink-0 text-muted sm:inline">
+                  {author.home}/
+                </span>
+                {parents !== "" && (
+                  <span class="hidden shrink-0 text-accent sm:inline">
+                    {parents}/
+                  </span>
+                )}
+                <span class="truncate text-accent">{folder}</span>
               </>
             )}
-            <span class="text-muted"> $</span>
+            <span class="shrink-0 whitespace-pre text-muted"> $</span>
           </span>
           <span class="sr-only">{placeholder}</span>
           <input
