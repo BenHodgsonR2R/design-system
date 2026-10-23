@@ -14,6 +14,7 @@ import { Disclosure } from "./Disclosure.tsx";
 import { Field, Input, Select, TextArea } from "./fields.tsx";
 import { Copyright, Footer } from "./Footer.tsx";
 import { LinkCard } from "./LinkCard.tsx";
+import { Menu } from "./Menu.tsx";
 import { Message } from "./Message.tsx";
 import { Page } from "./Page.tsx";
 import { Panel } from "./Panel.tsx";
@@ -96,6 +97,17 @@ const components: [string, () => VNode][] = [
   ],
   ["Search", () => <Search search={async () => []} />],
   ["ThemeToggle", () => <ThemeToggle />],
+  [
+    "Menu",
+    () => (
+      <Menu>
+        <a href="/">projects</a>
+        <a href="/memos/" aria-current="page">
+          memos
+        </a>
+      </Menu>
+    ),
+  ],
   [
     "CommandBar",
     () => (
