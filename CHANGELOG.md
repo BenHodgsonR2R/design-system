@@ -1,5 +1,11 @@
 # @bhodgson/design-system
 
+## 0.3.2
+
+### Patch Changes
+
+- 470a3ee: On phones, the command bar's prompt shows only the last folder of its working directory, trimmed with an ellipsis when it's long, so a long path no longer runs under the bar's links.
+
 ## 0.3.1
 
 ### Patch Changes
