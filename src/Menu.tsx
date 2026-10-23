@@ -87,7 +87,8 @@ export function Menu({
   return (
     <div
       ref={root}
-      class={cn("relative", extra)}
+      // Its own height, so a stretching flex parent doesn't push the panel down to its bottom.
+      class={cn("relative h-fit", extra)}
       onKeyDown={onKeyDown}
       onFocusOut={(event) => {
         if (!root.current?.contains(event.relatedTarget as Node | null)) {
