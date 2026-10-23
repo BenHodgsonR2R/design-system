@@ -100,12 +100,12 @@ const components: [string, () => VNode][] = [
   [
     "Menu",
     () => (
-      <Menu
-        items={[
-          { label: "projects", href: "/" },
-          { label: "memos", href: "/memos/", current: true },
-        ]}
-      />
+      <Menu>
+        <a href="/">projects</a>
+        <a href="/memos/" aria-current="page">
+          memos
+        </a>
+      </Menu>
     ),
   ],
   [

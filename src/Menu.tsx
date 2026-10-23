@@ -3,52 +3,44 @@ import { useEffect, useId, useRef, useState } from "preact/hooks";
 import { cn } from "./cn.ts";
 
 /**
- * A link in a {@link Menu}.
- * @group Navigation
- */
-export type MenuItem = {
-  label: ComponentChildren;
-  href: string;
-  /** A short line under the label. */
-  description?: ComponentChildren;
-  /** The page being read: marked, and announced as the current page. */
-  current?: boolean;
-  /** Downloads the link instead of opening it, saved under this name if it's a string. */
-  download?: boolean | string;
-};
-
-/**
  * The props for {@link Menu}.
  * @group Navigation
  */
 export type MenuProps = {
-  items: MenuItem[];
   /** What the button is called for screen readers. Defaults to "Menu". */
   label?: string;
   /** Which edge of the button the menu lines up with. Defaults to `end`, for a menu at the right of a header. */
   align?: "start" | "end";
   class?: string;
+  /** What the menu holds: usually links, styled for you, with `aria-current="page"` marking the one for the page being read. */
+  children: ComponentChildren;
 };
 
+const focusable =
+  'a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])';
+
 /**
- * A hamburger menu of links, for when a header runs out of room. Its three lines fold into a cross as it opens, and its
- * links drop in one after another. It closes on Escape, a click anywhere else, tabbing out, or choosing a link; the
- * arrow keys, Home and End move through the links, and opening it from the keyboard moves straight to the first one.
+ * A hamburger menu, for when a header runs out of room. Its three lines fold into a cross as it opens, and what it
+ * holds drops in one after another. It closes on Escape, a click anywhere else, tabbing out, or choosing a link or
+ * button inside it; the arrow keys, Home and End move between what's inside, and opening it from the keyboard moves
+ * straight to the first. Links inside are styled for you, and whichever has `aria-current="page"` is marked.
  * @group Navigation
  */
 export function Menu({
-  items,
   label = "Menu",
   align = "end",
   class: extra,
+  children,
 }: MenuProps) {
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const button = useRef<HTMLButtonElement>(null);
+  const panel = useRef<HTMLDivElement>(null);
   const id = useId();
-  const links = () => [
-    ...(root.current?.querySelectorAll<HTMLAnchorElement>("a") ?? []),
+  const inside = () => [
+    ...(panel.current?.querySelectorAll<HTMLElement>(focusable) ?? []),
   ];
+  const first = () => requestAnimationFrame(() => inside()[0]?.focus());
 
   useEffect(() => {
     if (!open) {
@@ -63,29 +55,25 @@ export function Menu({
     return () => document.removeEventListener("pointerdown", outside);
   }, [open]);
 
-  function close() {
-    setOpen(false);
-    button.current?.focus();
-  }
-
   function onKeyDown(event: KeyboardEvent) {
     if (!open) {
       if (event.key === "ArrowDown" && event.target === button.current) {
         event.preventDefault();
         setOpen(true);
-        requestAnimationFrame(() => links()[0]?.focus());
+        first();
       }
       return;
     }
-    const all = links();
-    const at = all.indexOf(document.activeElement as HTMLAnchorElement);
+    const all = inside();
+    const at = all.indexOf(document.activeElement as HTMLElement);
     const go = (index: number) => {
       event.preventDefault();
       all.at(index % all.length)?.focus();
     };
     if (event.key === "Escape") {
       event.preventDefault();
-      close();
+      setOpen(false);
+      button.current?.focus();
     } else if (event.key === "ArrowDown") {
       go(at + 1);
     } else if (event.key === "ArrowUp") {
@@ -116,9 +104,9 @@ export function Menu({
         aria-controls={id}
         onClick={(event) => {
           setOpen(!open);
-          // A click from the keyboard has no pointer behind it: take the reader straight to the links.
+          // A click from the keyboard has no pointer behind it: take the reader straight inside.
           if (!open && event.detail === 0) {
-            requestAnimationFrame(() => links()[0]?.focus());
+            first();
           }
         }}
         class="group relative flex size-8 items-center justify-center rounded-md border border-line-strong bg-surface text-ink transition hover:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus aria-expanded:border-accent aria-expanded:bg-accent-soft"
@@ -130,58 +118,30 @@ export function Menu({
           <span class="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-current transition-transform duration-200 group-aria-expanded:-translate-y-[5px] group-aria-expanded:-rotate-45 motion-reduce:transition-none" />
         </span>
       </button>
-      <nav
+      <div
+        ref={panel}
         id={id}
-        aria-label={label}
         inert={!open}
+        data-open={open}
+        onClick={(event) => {
+          if ((event.target as Element).closest("a, button")) {
+            setOpen(false);
+          }
+        }}
         class={cn(
-          "absolute top-full z-40 mt-2 min-w-48 origin-top rounded-lg border border-line bg-surface p-1 font-mono text-sm shadow-window transition duration-200 motion-reduce:transition-none",
+          "group/menu absolute top-full z-40 mt-2 flex min-w-48 origin-top flex-col rounded-lg border border-line bg-surface p-1 font-mono text-sm shadow-window transition duration-200 motion-reduce:transition-none",
+          "invisible -translate-y-1 scale-95 opacity-0 data-[open=true]:visible data-[open=true]:translate-y-0 data-[open=true]:scale-100 data-[open=true]:opacity-100",
+          // What it holds drops in one after another.
+          "[&>*]:-translate-x-1 [&>*]:opacity-0 [&>*]:transition [&>*]:duration-200 motion-reduce:[&>*]:transition-none data-[open=true]:[&>*]:translate-x-0 data-[open=true]:[&>*]:opacity-100",
+          "data-[open=true]:[&>*:nth-child(1)]:delay-[40ms] data-[open=true]:[&>*:nth-child(2)]:delay-[75ms] data-[open=true]:[&>*:nth-child(3)]:delay-[110ms] data-[open=true]:[&>*:nth-child(4)]:delay-[145ms] data-[open=true]:[&>*:nth-child(5)]:delay-[180ms] data-[open=true]:[&>*:nth-child(n+6)]:delay-[215ms]",
+          // Links, with a prompt that marks the one under the pointer or the keyboard, and the current page.
+          "[&_a]:flex [&_a]:items-baseline [&_a]:gap-2 [&_a]:rounded-md [&_a]:px-3 [&_a]:py-2 [&_a]:font-semibold [&_a]:text-ink [&_a]:no-underline [&_a]:transition-colors [&_a:focus-visible]:bg-surface-sunken [&_a:focus-visible]:outline-none [&_a:hover]:bg-surface-sunken [&_a[aria-current=page]]:text-accent",
+          "[&_a]:before:w-2 [&_a]:before:text-accent [&_a]:before:opacity-0 [&_a]:before:transition-opacity [&_a]:before:content-['>'] [&_a:focus-visible]:before:opacity-100 [&_a:hover]:before:opacity-100 [&_a[aria-current=page]]:before:opacity-100",
           align === "end" ? "right-0" : "left-0",
-          open
-            ? "visible translate-y-0 scale-100 opacity-100"
-            : "invisible -translate-y-1 scale-95 opacity-0",
         )}
       >
-        <ul class="flex flex-col">
-          {items.map((item, index) => (
-            <li
-              key={item.href}
-              class={cn(
-                "transition duration-200 motion-reduce:transition-none",
-                open ? "translate-x-0 opacity-100" : "-translate-x-1 opacity-0",
-              )}
-              // Only while open, so the closed menu the server renders hydrates as it is.
-              style={
-                open ? { transitionDelay: `${40 + index * 35}ms` } : undefined
-              }
-            >
-              <a
-                href={item.href}
-                download={item.download}
-                aria-current={item.current ? "page" : undefined}
-                onClick={() => setOpen(false)}
-                class="group/item flex items-baseline gap-2 rounded-md px-3 py-2 text-ink transition-colors hover:bg-surface-sunken focus-visible:bg-surface-sunken focus-visible:outline-none aria-[current=page]:text-accent"
-              >
-                {/* A prompt marks the link under the pointer or the keyboard, and the current page. */}
-                <span
-                  aria-hidden="true"
-                  class="w-2 text-accent opacity-0 transition-opacity group-hover/item:opacity-100 group-focus-visible/item:opacity-100 group-aria-[current=page]/item:opacity-100"
-                >
-                  &gt;
-                </span>
-                <span class="flex flex-col">
-                  <span class="font-semibold">{item.label}</span>
-                  {item.description !== undefined && (
-                    <span class="font-sans text-xs text-muted">
-                      {item.description}
-                    </span>
-                  )}
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+        {children}
+      </div>
     </div>
   );
 }

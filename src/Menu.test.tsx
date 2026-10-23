@@ -2,13 +2,7 @@ import { GlobalRegistrator } from "@happy-dom/global-registrator";
 import { render } from "preact";
 import { act } from "preact/test-utils";
 import { afterEach, beforeEach, describe, expect, test } from "vitest";
-import { Menu, type MenuItem } from "./Menu.tsx";
-
-const items: MenuItem[] = [
-  { label: "projects", href: "/" },
-  { label: "memos", href: "/memos/", current: true },
-  { label: "contact", href: "/contact/" },
-];
+import { Menu } from "./Menu.tsx";
 
 let root: HTMLDivElement;
 
@@ -16,7 +10,18 @@ beforeEach(async () => {
   GlobalRegistrator.register({ url: "https://example.com/" });
   root = document.createElement("div");
   document.body.append(root);
-  await act(() => render(<Menu items={items} />, root));
+  await act(() =>
+    render(
+      <Menu>
+        <a href="/">projects</a>
+        <a href="/memos/" aria-current="page">
+          memos
+        </a>
+        <a href="/contact/">contact</a>
+      </Menu>,
+      root,
+    ),
+  );
 });
 
 afterEach(async () => {
@@ -24,7 +29,8 @@ afterEach(async () => {
 });
 
 const button = () => root.querySelector("button")!;
-const panel = () => root.querySelector("nav")!;
+const panel = () =>
+  document.getElementById(button().getAttribute("aria-controls")!)!;
 const links = () => [...root.querySelectorAll("a")];
 const isOpen = () => button().getAttribute("aria-expanded") === "true";
 
@@ -57,11 +63,11 @@ describe("Menu", () => {
     expect(isOpen()).toBe(false);
   });
 
-  test("marks the current page", () => {
-    expect(links().map((link) => link.getAttribute("aria-current"))).toEqual([
-      null,
-      "page",
-      null,
+  test("holds whatever it's given", () => {
+    expect(links().map((link) => link.textContent)).toEqual([
+      "projects",
+      "memos",
+      "contact",
     ]);
   });
 

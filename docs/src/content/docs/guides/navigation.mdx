@@ -56,8 +56,8 @@ A command's `run` gets everything after its name as the reader types, and return
 
 ## Menu
 
-`Menu` is a hamburger menu of links, for when a header runs out of room: put it in a `CommandBar`'s `actions` for small
-screens, beside or instead of the links that don't fit. Its three lines fold into a cross as it opens, and its links drop
+`Menu` is a hamburger menu, for when a header runs out of room: put it in a `CommandBar`'s `actions` for small screens,
+beside or instead of the links that don't fit. Its three lines fold into a cross as it opens, and what it holds drops
 in one after another.
 
 <div class="not-prose my-6">
@@ -67,22 +67,23 @@ in one after another.
 ```tsx
 <CommandBar
   actions={
-    <Menu
-      class="sm:hidden"
-      items={[
-        { label: "projects", href: "/" },
-        { label: "memos", href: "/memos/", current: true },
-        { label: "contact", href: "/contact/" },
-      ]}
-    />
+    <Menu class="sm:hidden">
+      <a href="/">projects</a>
+      <a href="/memos/" aria-current="page">
+        memos
+      </a>
+      <a href="/contact/">contact</a>
+    </Menu>
   }
 />
 ```
 
+It holds whatever you give it. Links are styled for you, and whichever has `aria-current="page"` is marked; which link
+that is is up to your app, which knows its own routes. Buttons and other controls work too.
+
 It behaves the same way every time. It closes on Escape (handing focus back to its button), a click anywhere else,
-tabbing out of it, or choosing a link. The arrow keys, Home and End move through the links, wrapping round; opening it
-from the keyboard, with Enter, Space or the down arrow, moves straight to the first one. `current` marks the page being
-read, a `description` adds a line under a label, and `download` downloads a link instead of opening it.
+tabbing out of it, or choosing a link or button inside. The arrow keys, Home and End move between what's inside,
+wrapping round; opening it from the keyboard, with Enter, Space or the down arrow, moves straight to the first.
 
 ## Breadcrumbs
 
