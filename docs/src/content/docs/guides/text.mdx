@@ -43,3 +43,21 @@ Tailwind utilities for the type scale. They set the font, size, weight and spaci
     <code class="type-code">type Code = string</code>
   </div>
 </Preview>
+
+## Long-form text
+
+`prose` styles rendered Markdown: headings, links, lists, quotes, tables and code. Wrap anything inside it that should keep its own styles in `not-prose`.
+
+Code blocks sit on the sunken surface. To highlight them with [Shiki](https://shiki.style) in both themes, give it a light and a dark theme and no default colour, and each token follows the page's theme:
+
+```js
+// astro.config.mjs
+export default defineConfig({
+  markdown: {
+    shikiConfig: {
+      themes: { light: "github-light", dark: "github-dark" },
+      defaultColor: false,
+    },
+  },
+});
+```

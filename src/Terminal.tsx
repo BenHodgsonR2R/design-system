@@ -31,7 +31,7 @@ export function Terminal({
   return (
     <section
       aria-labelledby={id}
-      class="overflow-hidden rounded-xl border border-line-strong bg-surface shadow-window"
+      class="overflow-hidden rounded-xl border border-edge bg-surface shadow-window"
     >
       <h2
         id={id}

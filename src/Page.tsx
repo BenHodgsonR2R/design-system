@@ -93,20 +93,13 @@ export function Page({
 
       {/* Page-level, so it sits on the canvas rather than in a window like the panels. */}
       <header class="px-3 pt-8 pb-2">
-        <div class="mx-auto max-w-6xl border-l-4 border-accent pl-4 sm:pl-5">
-          {eyebrow !== undefined && (
-            <p class="type-eyebrow text-accent">{eyebrow}</p>
-          )}
-          <h1 class="mt-1 type-title">{title}</h1>
-          {description !== undefined && (
-            <div class="mt-2 max-w-2xl leading-relaxed text-muted">
-              {description}
-            </div>
-          )}
-          {actions !== undefined && (
-            <div class="mt-4 flex flex-wrap gap-3">{actions}</div>
-          )}
-        </div>
+        <PageHeader
+          class="mx-auto max-w-6xl"
+          eyebrow={eyebrow}
+          title={title}
+          description={description}
+          actions={actions}
+        />
       </header>
 
       <main class="mx-auto w-full max-w-6xl flex-1 px-3 py-6">{children}</main>
@@ -115,6 +108,51 @@ export function Page({
         {footer}
         <Credit author={author} project={project} />
       </Footer>
+    </div>
+  );
+}
+
+/**
+ * The props for {@link PageHeader}.
+ * @group Layout
+ */
+export type PageHeaderProps = {
+  /** The page heading. Can include a {@link Highlight} for a few words. */
+  title: ComponentChildren;
+  /** A short label above the title. */
+  eyebrow?: ComponentChildren;
+  /** A sentence or two under the title. */
+  description?: ComponentChildren;
+  /** Buttons or links under the description. */
+  actions?: ComponentChildren;
+  class?: string;
+};
+
+/**
+ * A page's heading, marked with an accent bar: an eyebrow, the title, a description and actions. {@link Page} uses it; use it on its own for pages laid out some other way.
+ * @group Layout
+ */
+export function PageHeader({
+  title,
+  eyebrow,
+  description,
+  actions,
+  class: extra,
+}: PageHeaderProps) {
+  return (
+    <div class={cn("border-l-4 border-accent pl-4 sm:pl-5", extra)}>
+      {eyebrow !== undefined && (
+        <p class="type-eyebrow text-accent">{eyebrow}</p>
+      )}
+      <h1 class="mt-1 type-title">{title}</h1>
+      {description !== undefined && (
+        <div class="mt-2 max-w-2xl leading-relaxed text-pretty text-muted">
+          {description}
+        </div>
+      )}
+      {actions !== undefined && (
+        <div class="mt-4 flex flex-wrap gap-3">{actions}</div>
+      )}
     </div>
   );
 }

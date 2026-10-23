@@ -2,7 +2,7 @@ import type { ComponentChildren, JSX } from "preact";
 import { cn } from "./cn.ts";
 
 const field =
-  "min-w-0 rounded-md border border-line-strong bg-surface px-2.5 text-sm text-ink transition placeholder:text-muted/70 focus-visible:border-focus focus-visible:outline-2 focus-visible:outline-focus/40";
+  "min-w-0 rounded-md border border-line-strong bg-surface px-2.5 text-sm text-ink transition placeholder:text-muted focus-visible:border-focus focus-visible:outline-2 focus-visible:outline-focus/40";
 
 /**
  * The props for {@link Input}: every `<input>` attribute, plus these.

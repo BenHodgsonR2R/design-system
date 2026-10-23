@@ -118,3 +118,11 @@ For a short list of next steps. `accent` marks the one to pick first, and `arrow
     </LinkCard>
   </div>
 </Preview>
+
+For a card of your own, such as one with a picture and a summary, `cardClass` gives the same surface, border and shadow. Pass `interactive: true` when the card is a link, so it lifts on hover and shows the focus ring.
+
+```tsx
+<a href="/places/" class={cardClass({ interactive: true })}>
+  …
+</a>
+```
