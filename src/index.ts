@@ -29,6 +29,8 @@ export { Copyright, Footer } from "./Footer.tsx";
 export type { CopyrightProps, FooterProps } from "./Footer.tsx";
 export { LinkCard } from "./LinkCard.tsx";
 export type { LinkCardProps } from "./LinkCard.tsx";
+export { Menu } from "./Menu.tsx";
+export type { MenuItem, MenuProps } from "./Menu.tsx";
 export { Message } from "./Message.tsx";
 export type { MessageProps, MessageTone } from "./Message.tsx";
 export { Credit, defaultAuthor, GitHubMark, Identity } from "./author.tsx";

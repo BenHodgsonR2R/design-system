@@ -1,12 +1,13 @@
 ---
 title: Navigation
-description: A command bar, breadcrumbs and link cards.
+description: A command bar, a menu, breadcrumbs and link cards.
 sidebar:
   order: 10
 ---
 
 import { Breadcrumbs, LinkCard } from "@bhodgson/design-system";
 import { CommandBarDemo } from "../../../components/CommandBarDemo.tsx";
+import { MenuDemo } from "../../../components/MenuDemo.tsx";
 import Preview from "../../../components/Preview.astro";
 
 ## Command bar
@@ -52,6 +53,36 @@ const commands: Command[] = [
 A command's `run` gets everything after its name as the reader types, and returns what to print: `results` to choose from, a `message`, where Enter should `go`, and what Tab should `complete` to. `search` works like `Search`'s, and `unavailable` says why it failed; pass a function to tell failures apart.
 
 `/` or ⌘K (Ctrl K) focuses the prompt from anywhere, the arrow keys move through results, Enter opens one and Escape clears.
+
+## Menu
+
+`Menu` is a hamburger menu of links, for when a header runs out of room: put it in a `CommandBar`'s `actions` for small
+screens, beside or instead of the links that don't fit. Its three lines fold into a cross as it opens, and its links drop
+in one after another.
+
+<div class="not-prose my-6">
+  <MenuDemo client:load />
+</div>
+
+```tsx
+<CommandBar
+  actions={
+    <Menu
+      class="sm:hidden"
+      items={[
+        { label: "projects", href: "/" },
+        { label: "memos", href: "/memos/", current: true },
+        { label: "contact", href: "/contact/" },
+      ]}
+    />
+  }
+/>
+```
+
+It behaves the same way every time. It closes on Escape (handing focus back to its button), a click anywhere else,
+tabbing out of it, or choosing a link. The arrow keys, Home and End move through the links, wrapping round; opening it
+from the keyboard, with Enter, Space or the down arrow, moves straight to the first one. `current` marks the page being
+read, a `description` adds a line under a label, and `download` downloads a link instead of opening it.
 
 ## Breadcrumbs
 
