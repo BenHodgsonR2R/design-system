@@ -200,6 +200,8 @@ export function CommandBar({
     } else if (event.key === "Enter") {
       const target = output.go ?? results[active]?.url;
       if (target !== undefined) {
+        // Like a terminal, so a command that stays on the page, such as a #hash, leaves the prompt ready for the next.
+        replaceQuery("");
         window.location.assign(target);
       }
     }
