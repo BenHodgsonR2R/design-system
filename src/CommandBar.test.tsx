@@ -76,6 +76,13 @@ describe("CommandBar", () => {
     );
   });
 
+  test("keeps a nested working directory whole in the prompt's text", async () => {
+    await act(() => render(<CommandBar cwd="memos/a-long-memo" />, root));
+    expect(root.querySelector("label")?.textContent).toContain(
+      "~/ben/memos/a-long-memo $",
+    );
+  });
+
   test("lists the commands, help and search under help", async () => {
     await act(() =>
       render(<CommandBar commands={commands} search={async () => []} />, root),
