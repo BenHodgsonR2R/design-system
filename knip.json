@@ -8,14 +8,8 @@
       "project": ["**/*.{ts,tsx,mjs,astro,mdx}"]
     },
     "docs-kit": {
-      "entry": [
-        "src/index.ts",
-        "src/api.ts",
-        "src/pagefind.tsx",
-        "components/*.astro"
-      ],
-      "project": ["src/**/*.{ts,tsx}", "components/**/*.astro", "styles.css"],
-      "ignore": ["test/fixture/**"]
+      "entry": ["components/*.astro"],
+      "project": ["src/**/*.{ts,tsx,mdx,css}", "components/**/*.astro", "*.css"]
     }
   },
   "tags": ["-lintignore"]
